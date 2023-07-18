@@ -23,13 +23,28 @@ const AddEntityForm = () => {
     const handleFormSubmit = (values: InitialValues): void => {
         alert(JSON.stringify(values, undefined, 2));
         handleClose();
+        postJob(values)
+
     };
+
+    const postJob = async (requestBody: InitialValues) => {
+        const response = await fetch("https://tasknexus.azurewebsites.net/api/jobs", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        });
+        if (!response.ok) {
+          throw new Error("Failed to add job");
+        }
+      };
 
     const isNonMobile = useMediaQuery("(min-width:600px)");
 
 
     interface InitialValues {
-        firstName: string;
+        name: string;
         // lastName: string;
         // email: string;
         // contact: string;
@@ -38,7 +53,7 @@ const AddEntityForm = () => {
     }
 
     const initialValues: InitialValues = {
-        firstName: "",
+        name: "",
         // lastName: "",
         // email: "",
         // contact: "",
@@ -104,13 +119,13 @@ const AddEntityForm = () => {
                                             fullWidth
                                             variant="filled"
                                             type="text"
-                                            label="First Name"
+                                            label="Name"
                                             onBlur={handleBlur}
                                             onChange={handleChange}
-                                            value={values.firstName}
-                                            name="firstName"
-                                            error={!!touched.firstName && !!errors.firstName}
-                                            helperText={touched.firstName && errors.firstName}
+                                            value={values.name}
+                                            name="name"
+                                            error={!!touched.name && !!errors.name}
+                                            helperText={touched.name && errors.name}
                                             sx={{ gridColumn: "span 2" }}
                                         />
                                         {/* <TextField
