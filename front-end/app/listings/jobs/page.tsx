@@ -1,3 +1,5 @@
+import ListingsTable from "@/app/listings/ListingsTable";
+
 const getJobs = async () => {
     try {
       const response = await fetch(`https://tasknexus.azurewebsites.net/api/jobs`);
@@ -19,7 +21,8 @@ export default async function Jobs(){
       
         <div>
            <h1>Jobs</h1> 
-           {jobsResponse?.jobList.map((job: Job) => {return <p>{job.name}</p>})}
+           <ListingsTable jobs={jobsResponse?.jobList}/>
+           
         </div>
     )
 
