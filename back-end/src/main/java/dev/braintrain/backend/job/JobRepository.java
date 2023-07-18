@@ -20,6 +20,6 @@ public class JobRepository {
     }
 
     public Job save(Job job) {
-        return null;
+        return repo.save(job);
     }
 }

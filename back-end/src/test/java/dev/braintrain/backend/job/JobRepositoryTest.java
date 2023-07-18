@@ -28,6 +28,13 @@ class JobRepositoryTest {
         assertThat(createJob).isNotNull();
     }
 
-
+    @Test
+    void shouldCreateNewJob() {
+        Job job = new Job("Developer");
+        int jobCount = repository.findAll().size();
+        Job createJob = repository.save(job);
+        assertThat(createJob).isNotNull();
+        assertThat(repository.findAll().size()).isEqualTo(jobCount + 1);
+    }
 
 }
