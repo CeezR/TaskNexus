@@ -1,42 +1,47 @@
-import React from 'react'
+import * as React from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
-type ListingsTableProps = {
-  jobs : Job[] | undefined,
+function createData(
+  name: string
+) {
+  return { name};
 }
 
-const ListingsTable = ({jobs} : ListingsTableProps) => {
+type BasicTableProp = {
+  jobs : Job[] | undefined
+}
+
+const rows = [
+  createData('Frozen yoghurt')
+];
+
+export default function ListingsTable({jobs} : BasicTableProp) {
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
-        <thead className="ltr:text-left rtl:text-right">
-          <tr>
-            <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-              Name
-            </th>
-            <th className="px-4 py-2"></th>
-          </tr>
-        </thead>
-
-        <tbody className="divide-y divide-gray-200">
-          {jobs?.map((job) => {
-            return <tr key={job.id}>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      {job.name}
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2">
-                      <a
-                        href="#"
-                        className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
-                      >
-                        View
-                      </a>
-                    </td>
-                   </tr>
-          })}
-        </tbody>
-      </table>
-    </div>
-  )
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Name</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {jobs?.map((job) => (
+            <TableRow
+              key={job.name}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+              <TableCell component="th" scope="row">
+                {job.name}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 }
-
-export default ListingsTable

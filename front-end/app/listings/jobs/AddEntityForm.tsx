@@ -64,7 +64,7 @@ const AddEntityForm = () => {
                 variant="outlined"
                 sx={{ color: "white", background: "red" }}
             >
-                Add Employee
+                Add Job
             </Button>
             <Modal
                 open={open}
