@@ -45,10 +45,9 @@ const AddEntityForm = ({ jobs, setJobs }: AddEntityFormProps) => {
             throw new Error("Failed to add job");
         }
 
-        // const data = await response.json();
-        // const newJob: Job = await data.body;
-
-        // setJobs((prevJobs) => [...prevJobs, newJob])
+        const data = await response.json();
+        const newJob: Job = await data;
+        setJobs((prevJobs) => [...prevJobs, newJob])
     };
 
     const isNonMobile = useMediaQuery("(min-width:600px)");
