@@ -9,10 +9,13 @@ import {
     Modal,
 } from "@mui/material";
 import { Formik } from "formik";
+import { tokens } from "../../theme";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 
 const AddEntityForm = () => {
+    const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
