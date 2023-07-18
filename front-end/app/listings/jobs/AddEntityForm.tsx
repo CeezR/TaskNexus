@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import {
     Box,
     Typography,
@@ -11,11 +11,17 @@ import {
 import { Formik } from "formik";
 import { tokens } from "../../theme";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { type } from 'os';
 
+type AddEntityFormProps = {
+    jobs: Job[]
+    setJobs: Dispatch<SetStateAction<Job[]>>
+}
 
-const AddEntityForm = () => {
+const AddEntityForm = ({ jobs, setJobs }: AddEntityFormProps) => {
+
     const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+    const colors = tokens(theme.palette.mode);
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -29,16 +35,21 @@ const AddEntityForm = () => {
 
     const postJob = async (requestBody: InitialValues) => {
         const response = await fetch("https://tasknexus.azurewebsites.net/api/jobs", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestBody),
         });
         if (!response.ok) {
-          throw new Error("Failed to add job");
+            throw new Error("Failed to add job");
         }
-      };
+
+        // const data = await response.json();
+        // const newJob: Job = await data.body;
+
+        // setJobs((prevJobs) => [...prevJobs, newJob])
+    };
 
     const isNonMobile = useMediaQuery("(min-width:600px)");
 

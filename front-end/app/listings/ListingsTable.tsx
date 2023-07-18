@@ -31,9 +31,9 @@ export default function ListingsTable({jobs} : BasicTableProp) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {jobs?.map((job) => (
+          {jobs?.map((job, index) => (
             <TableRow
-              key={job.name}
+              key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell component="th" scope="row">
                 {job.name}

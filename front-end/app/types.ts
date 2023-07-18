@@ -3,6 +3,6 @@ type ApiJobResponse ={
 }
 
 type Job = {
-    id: string,
+    id: number,
     name: string
 }
