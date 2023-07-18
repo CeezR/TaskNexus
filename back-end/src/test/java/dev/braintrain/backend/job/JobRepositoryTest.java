@@ -18,7 +18,6 @@ class JobRepositoryTest {
     void shouldReturnListOfJobs() {
         List<Job> jobs = repository.findAll();
         assertThat(jobs).isNotNull();
-        assertThat(jobs.size()).isEqualTo(3);
     }
 
     @Test

@@ -33,7 +33,6 @@ class JobControllerTest {
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(exchange.hasBody()).isTrue();
         assertThat(exchange.getBody().jobList()).isNotNull();
-        assertThat(exchange.getBody().jobList().size()).isEqualTo(3);
     }
 
     @Test

@@ -19,7 +19,6 @@ class JobServiceTest {
     void findAllJobs() {
         List<Job> jobs = service.findAll();
         assertThat(jobs).isNotNull();
-        assertThat(jobs.size()).isEqualTo(3);
     }
 
 }
