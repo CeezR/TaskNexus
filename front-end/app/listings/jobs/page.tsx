@@ -1,4 +1,5 @@
 import ListingsTable from "@/app/listings/ListingsTable";
+import AddEntityForm from "./AddEntityForm";
 
 const getJobs = async () => {
     try {
@@ -21,6 +22,7 @@ export default async function Jobs(){
       
         <div>
            <h1>Jobs</h1> 
+           <AddEntityForm />
            <ListingsTable jobs={jobsResponse?.jobList}/>
         </div>
     )
