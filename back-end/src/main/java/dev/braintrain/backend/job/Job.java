@@ -12,6 +12,14 @@ public class Job {
     @Column(name = "job_name", nullable = false)
     private String name;
 
+    public Job(String name) {
+        this.name = name;
+    }
+
+    public Job() {
+
+    }
+
     public String getName() {
         return name;
     }

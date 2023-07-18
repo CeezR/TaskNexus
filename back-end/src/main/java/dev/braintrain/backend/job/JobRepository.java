@@ -18,4 +18,8 @@ public class JobRepository {
     public List<Job> findAll() {
         return Streamable.of(repo.findAll()).toList();
     }
+
+    public Job save(Job job) {
+        return null;
+    }
 }

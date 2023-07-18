@@ -21,4 +21,13 @@ class JobRepositoryTest {
         assertThat(jobs.size()).isEqualTo(3);
     }
 
+    @Test
+    void shouldReturnNewlyCreateJob() {
+        Job job = new Job("Developer");
+        Job createJob = repository.save(job);
+        assertThat(createJob).isNotNull();
+    }
+
+
+
 }
