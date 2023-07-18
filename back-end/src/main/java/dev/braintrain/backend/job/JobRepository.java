@@ -1,6 +1,7 @@
 package dev.braintrain.backend.job;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,6 +16,6 @@ public class JobRepository {
     }
 
     public List<Job> findAll() {
-        return null;
+        return Streamable.of(repo.findAll()).toList();
     }
 }
