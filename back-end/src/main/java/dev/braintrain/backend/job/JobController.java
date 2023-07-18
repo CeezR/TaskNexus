@@ -2,10 +2,9 @@ package dev.braintrain.backend.job;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/api/jobs")
@@ -22,6 +21,13 @@ public class JobController {
     @GetMapping
     public ResponseEntity<JobResponseDTO> getAll() {
         return ResponseEntity.ok(new JobResponseDTO(service.findAll()));
+    }
+
+    @PostMapping
+    public ResponseEntity<Job> createJob(@RequestBody RequestJobDTO jobRequest) {
+        Job saveJob = service.save(jobRequest);
+        URI location  = URI.create("/api/jobs/" + saveJob.getId());
+        return ResponseEntity.created(location).body(saveJob);
     }
 
 }

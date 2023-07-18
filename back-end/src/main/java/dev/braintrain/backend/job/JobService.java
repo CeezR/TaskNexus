@@ -19,7 +19,7 @@ public class JobService {
         return repo.findAll();
     }
 
-    public Job save(Job job) {
-        return repo.save(job);
+    public Job save(RequestJobDTO jobRequest) {
+        return repo.save(new Job(jobRequest.name()));
     }
 }
