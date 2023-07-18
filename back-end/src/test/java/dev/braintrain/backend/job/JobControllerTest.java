@@ -36,6 +36,17 @@ class JobControllerTest {
         assertThat(exchange.getBody().jobList().size()).isEqualTo(3);
     }
 
+    @Test
+    void shouldCreateJobForPostRequest() {
+        String uri = "http://localhost:%s/api/jobs".formatted(port);
+        Job job = new Job("TestName");
+        ResponseEntity<Job> exchange = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(job), Job.class);
+        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(exchange.hasBody()).isTrue();
+        assertThat(exchange.getHeaders().getLocation()).isNotNull();
+        assertThat(exchange.getBody()).isNotNull();
+    }
+
 
 
 }
