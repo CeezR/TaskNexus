@@ -16,6 +16,6 @@ public class JobService {
     }
 
     public List<Job> findAll() {
-        return null;
+        return repo.findAll();
     }
 }
