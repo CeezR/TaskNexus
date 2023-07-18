@@ -19,7 +19,7 @@ export default async function Jobs(){
       
         <div>
            <h1>Jobs</h1> 
-           {jobsResponse?.jobList.map((job: Job) => {return <p>{job.name}</p>})}
+           {jobsResponse?.jobList.map((job: Job) => {return <p key={job.id}>{job.name}</p>})}
         </div>
     )
 
