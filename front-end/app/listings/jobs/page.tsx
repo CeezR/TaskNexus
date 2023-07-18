@@ -22,7 +22,6 @@ export default async function Jobs(){
         <div>
            <h1>Jobs</h1> 
            <ListingsTable jobs={jobsResponse?.jobList}/>
-           
         </div>
     )
 
