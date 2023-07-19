@@ -80,5 +80,4 @@ class JobControllerTest {
         ResponseEntity<Void> exchange = restTemplate.exchange(uri, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
     }
-
 }

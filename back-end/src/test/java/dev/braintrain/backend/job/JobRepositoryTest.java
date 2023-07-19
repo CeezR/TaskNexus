@@ -50,7 +50,7 @@ class JobRepositoryTest {
     void shouldDeleteJob() {
         Job job = new Job("Developer");
         Job createdJob = repository.save(job);
-        repository.delete(createdJob);
+        repository.deleteById(createdJob.getId());
         Job findJob = repository.findById(createdJob.getId());
         assertThat(findJob).isNull();
 

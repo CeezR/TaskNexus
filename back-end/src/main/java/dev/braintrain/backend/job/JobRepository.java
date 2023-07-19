@@ -27,7 +27,12 @@ public class JobRepository {
         return repo.findById(jobId).orElse(null);
     }
 
-    public void delete(Job job) {
-        repo.delete(job);
+    public void deleteById(Long jobId) {
+        try {
+            repo.deleteById(jobId);
+        } catch (Exception ignored) {}
+
     }
+
+
 }
