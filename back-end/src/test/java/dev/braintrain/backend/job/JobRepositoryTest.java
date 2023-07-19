@@ -15,6 +15,12 @@ class JobRepositoryTest {
     JobRepository repository;
 
     @Test
+    void shouldReturnJobById() {
+        Job job = new Job("Developer");
+        Job createJob = repository.save(job);
+        assertThat(repository.findById(createJob.getId())).isNotNull();
+    }
+    @Test
     void shouldReturnListOfJobs() {
         List<Job> jobs = repository.findAll();
         assertThat(jobs).isNotNull();
