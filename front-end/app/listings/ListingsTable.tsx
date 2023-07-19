@@ -38,7 +38,7 @@ export default function ListingsTable({jobs} : BasicTableProp) {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell component="th" scope="row" >
               <Link href={`/listings/jobs/${job.id}`}>
-                <p>{job.name}</p>
+                <p className='table-paragraph'>{job.name}</p>
                 </Link>
               </TableCell>
             </TableRow>
