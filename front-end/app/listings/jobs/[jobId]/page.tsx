@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Stack from "@mui/material/Stack";
+import { useRouter } from "next/navigation";
 
 type Props = {
   params: {
@@ -13,6 +14,7 @@ type Props = {
 
 const page = (props: Props) => {
   const [job, setJob] = useState<Job>();
+  const router = useRouter();
 
   useEffect(() => {
     getJob();
@@ -47,6 +49,8 @@ const page = (props: Props) => {
 
   const handleDelete = () => {
     deleteJob();
+    router.push('/listings/jobs');
+
   }
 
   const handleEdit = () => {
