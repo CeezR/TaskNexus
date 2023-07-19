@@ -36,6 +36,19 @@ class JobControllerTest {
     }
 
     @Test
+    void getJobByIdMappingShouldReturnOneJob() {
+        String uriPost = "http://localhost:%s/api/jobs".formatted(port);
+        RequestJobDTO job = new RequestJobDTO("TestName");
+        ResponseEntity<Job> postExchange = restTemplate.exchange(uriPost, HttpMethod.POST, new HttpEntity<>(job), Job.class);
+
+        String uri = "http://localhost:%s/api/jobs/%s".formatted(port,postExchange.getBody().getId());
+        ResponseEntity<Job> exchange = restTemplate.exchange(uri, HttpMethod.GET, HttpEntity.EMPTY, Job.class);
+        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(exchange.hasBody()).isTrue();
+        assertThat(exchange.getBody()).isNotNull();
+    }
+
+    @Test
     void shouldCreateJobForPostRequest() {
         String uri = "http://localhost:%s/api/jobs".formatted(port);
         RequestJobDTO job = new RequestJobDTO("TestName");
