@@ -6,6 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Link from 'next/link';
 
 function createData(
   name: string
@@ -35,8 +36,10 @@ export default function ListingsTable({jobs} : BasicTableProp) {
             <TableRow
               key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              <TableCell component="th" scope="row">
-                {job.name}
+              <TableCell component="th" scope="row" >
+              <Link href={`/listings/jobs/${job.id}`}>
+                <p>{job.name}</p>
+                </Link>
               </TableCell>
             </TableRow>
           ))}
