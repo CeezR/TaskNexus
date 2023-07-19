@@ -51,15 +51,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Jobs() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [filteredJobs, setFilteredJobs] = useState<Job[]>(jobs);
+  const [search, setsearch] = useState("")
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const searchText = event.currentTarget.value.toLowerCase();
+    setsearch(searchText);
     setFilteredJobs(jobs.filter((job) => job.name.toLowerCase().startsWith(searchText)));
   };
 
   useEffect(() => {
     getJobs();
   }, []);
+
+  useEffect(() => {
+    setFilteredJobs(jobs.filter((job) => job.name.toLowerCase().startsWith(search)));
+  }, [jobs])
 
   const getJobs = async () => {
     try {
@@ -89,6 +95,7 @@ export default function Jobs() {
         <StyledInputBase
           placeholder="Search…"
           inputProps={{ "aria-label": "search" }}
+          value={search}
           onChange={(event) => handleSearchChange(event)}
         />
       </Search>
