@@ -2,7 +2,7 @@
 
 import ListingsTable from "@/app/listings/ListingsTable";
 import AddEntityForm from "./AddEntityForm";
-import { useEffect, useState } from "react";
+import { ChangeEvent, ChangeEventHandler, FormEvent, useEffect, useState } from "react";
 import { InputBase, TextField, alpha, styled } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -50,6 +50,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Jobs() {
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [filteredJobs, setFilteredJobs] = useState<Job[]>(jobs);
+
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFilteredJobs(jobs.filter((job) => job.name.toLowerCase().startsWith(event.currentTarget.value.toLowerCase())))
+  };
 
   useEffect(() => {
     getJobs();
@@ -65,6 +70,7 @@ export default function Jobs() {
       }
       const data: ApiJobResponse = await response.json();
       setJobs(data.jobList);
+      setFilteredJobs(jobs);
       return data;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -82,10 +88,11 @@ export default function Jobs() {
         <StyledInputBase
           placeholder="Search…"
           inputProps={{ "aria-label": "search" }}
+          onChange={(event) => handleSearchChange(event)}
         />
       </Search>
       <AddEntityForm jobs={jobs} setJobs={setJobs} />
-      <ListingsTable jobs={jobs} />
+      <ListingsTable jobs={filteredJobs} />
     </div>
   );
 }
