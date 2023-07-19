@@ -23,6 +23,11 @@ public class JobController {
         return ResponseEntity.ok(new JobResponseDTO(service.findAll()));
     }
 
+    @GetMapping("/{jobId}")
+    public ResponseEntity<Job> getAll(@PathVariable Long jobId) {
+        return ResponseEntity.of(service.findById(jobId));
+    }
+
     @PostMapping
     public ResponseEntity<Job> createJob(@RequestBody RequestJobDTO jobRequest) {
         Job saveJob = service.save(jobRequest);
@@ -32,7 +37,7 @@ public class JobController {
 
     @PutMapping("/{jobId}")
     public ResponseEntity<Job> updateJob(@PathVariable Long jobId, @RequestBody RequestJobDTO jobUpdateRequest) {
-        Job job = service.findById(jobId);
+        Job job = service.findById(jobId).orElse(null);
         if(job == null) {
             return ResponseEntity.notFound().build();
         }

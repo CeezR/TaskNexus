@@ -5,6 +5,7 @@ import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class JobRepository {
@@ -23,8 +24,8 @@ public class JobRepository {
         return repo.save(job);
     }
 
-    public Job findById(Long jobId) {
-        return repo.findById(jobId).orElse(null);
+    public Optional<Job> findById(Long jobId) {
+        return repo.findById(jobId);
     }
 
     public void deleteById(Long jobId) {
