@@ -46,5 +46,15 @@ class JobRepositoryTest {
         assertThat(updatedJob.getName()).isEqualTo("Not Developer");
     }
 
+    @Test
+    void shouldDeleteJob() {
+        Job job = new Job("Developer");
+        Job createdJob = repository.save(job);
+        repository.delete(createdJob);
+        Job findJob = repository.findById(createdJob.getId());
+        assertThat(findJob).isNull();
+
+    }
+
 
 }
