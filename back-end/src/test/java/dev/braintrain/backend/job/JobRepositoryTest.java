@@ -36,4 +36,15 @@ class JobRepositoryTest {
         assertThat(repository.findAll().size()).isEqualTo(jobCount + 1);
     }
 
+    @Test
+    void shouldUpdateJob() {
+        Job job = new Job("Developer");
+        Job createdJob = repository.save(job);
+        createdJob.setName("Not Developer");
+        Job updatedJob = repository.save(job);
+        assertThat(updatedJob).isNotNull();
+        assertThat(updatedJob.getName()).isEqualTo("Not Developer");
+    }
+
+
 }
