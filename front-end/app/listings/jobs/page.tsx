@@ -53,7 +53,8 @@ export default function Jobs() {
   const [filteredJobs, setFilteredJobs] = useState<Job[]>(jobs);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFilteredJobs(jobs.filter((job) => job.name.toLowerCase().startsWith(event.currentTarget.value.toLowerCase())))
+    const searchText = event.currentTarget.value.toLowerCase();
+    setFilteredJobs(jobs.filter((job) => job.name.toLowerCase().startsWith(searchText)));
   };
 
   useEffect(() => {
@@ -70,7 +71,7 @@ export default function Jobs() {
       }
       const data: ApiJobResponse = await response.json();
       setJobs(data.jobList);
-      setFilteredJobs(jobs);
+      setFilteredJobs(data.jobList);
       return data;
     } catch (error) {
       console.error("Error fetching data:", error);
