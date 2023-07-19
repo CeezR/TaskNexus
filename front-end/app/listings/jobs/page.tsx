@@ -70,7 +70,7 @@ export default function Jobs() {
   const getJobs = async () => {
     try {
       const response = await fetch(
-        `https://tasknexus.azurewebsites.net/api/jobs`
+        `http://localhost:8080/api/jobs`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");

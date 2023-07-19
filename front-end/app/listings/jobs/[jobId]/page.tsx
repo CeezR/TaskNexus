@@ -36,10 +36,11 @@ const page = (props: Props) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleFormSubmit = (values: InitialValues): void => {
+  const handleFormSubmit = async (values: InitialValues) => {
       alert(JSON.stringify(values, undefined, 2));
       handleClose();
-      editJob(values);
+      const res = await editJob(values);
+      setJob(res);
   };
 
   useEffect(() => {
@@ -68,7 +69,7 @@ const page = (props: Props) => {
   const getJob = async () => {
     try {
       const response = await fetch(
-        `https://tasknexus.azurewebsites.net/api/jobs/${props.params.jobId}`
+        `http://localhost:8080/api/jobs/${props.params.jobId}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -110,6 +111,7 @@ const page = (props: Props) => {
     if (!response.ok) {
         throw new Error("Failed to add job");
     }
+    return await response.json();
   };
 
   const handleDelete = async () => {
