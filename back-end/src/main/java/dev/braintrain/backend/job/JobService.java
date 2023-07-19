@@ -24,6 +24,11 @@ public class JobService {
         return repo.save(new Job(jobRequest.name()));
     }
 
+
+    public Job save(Job job) {
+        return repo.save(job);
+    }
+
     public Optional<Job> findById(Long jobId) {
         return repo.findById(jobId);
     }

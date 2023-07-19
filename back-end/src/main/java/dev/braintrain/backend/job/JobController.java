@@ -40,12 +40,12 @@ public class JobController {
     }
 
     @PutMapping("/{jobId}")
-    public ResponseEntity<Job> updateJob(@PathVariable Long jobId, @RequestBody RequestJobDTO jobUpdateRequest) {
+    public ResponseEntity<Job> updateJob(@PathVariable Long jobId, @RequestBody Job jobUpdate) {
         Job job = service.findById(jobId).orElse(null);
         if(job == null) {
             return ResponseEntity.notFound().build();
         }
-        Job updatedJob = service.save(jobUpdateRequest);
+        Job updatedJob = service.save(jobUpdate);
         return ResponseEntity.ok().body(updatedJob);
 
     }
