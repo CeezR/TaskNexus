@@ -30,4 +30,15 @@ public class JobController {
         return ResponseEntity.created(location).body(saveJob);
     }
 
+    @PutMapping("/{jobId}")
+    public ResponseEntity<Job> updateJob(@PathVariable Long jobId, @RequestBody RequestJobDTO jobUpdateRequest) {
+        Job job = service.findById(jobId);
+        if(job == null) {
+            return ResponseEntity.notFound().build();
+        }
+        Job updatedJob = service.save(jobUpdateRequest);
+        return ResponseEntity.ok().body(updatedJob);
+
+    }
+
 }

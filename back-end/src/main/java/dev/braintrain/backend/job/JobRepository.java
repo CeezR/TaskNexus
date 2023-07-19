@@ -22,4 +22,8 @@ public class JobRepository {
     public Job save(Job job) {
         return repo.save(job);
     }
+
+    public Job findById(Long jobId) {
+        return repo.findById(jobId).orElse(null);
+    }
 }
