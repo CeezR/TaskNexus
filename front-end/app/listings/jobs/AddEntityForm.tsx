@@ -136,7 +136,7 @@ const AddEntityForm = ({ jobs, setJobs }: AddEntityFormProps) => {
                                             name="name"
                                             error={!!touched.name && !!errors.name}
                                             helperText={touched.name && errors.name}
-                                            sx={{ gridColumn: "span 2" }}
+                                            sx={{ gridColumn: "span 4" }}
                                         />
                                         {/* <TextField
                                             fullWidth
