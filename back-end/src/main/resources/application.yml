@@ -1,14 +1,14 @@
 #spring.config.import=optional:secrets.properties
 spring:
   datasource:
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://task-nexus-server.database.windows.net:1433;database=TaskNexus;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://tasknexus.mysql.database.azure.com:3306/TaskNexus?serverTimezone=UTC
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.SQLServer2012Dialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
     generate-ddl: true
