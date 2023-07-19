@@ -25,7 +25,11 @@ public class JobController {
 
     @GetMapping("/{jobId}")
     public ResponseEntity<Job> getJob(@PathVariable String jobId) {
-        return ResponseEntity.of(service.findById(Long.valueOf(jobId)));
+        Job job = service.findById(Long.valueOf(jobId)).orElse(null);
+        if(job == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(job);
     }
 
     @PostMapping
