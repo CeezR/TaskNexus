@@ -47,8 +47,8 @@ const page = (props: Props) => {
     }
   };
 
-  const handleDelete = () => {
-    deleteJob();
+  const handleDelete = async () => {
+    await deleteJob();
     router.push('/listings/jobs');
 
   }
