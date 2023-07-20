@@ -27,4 +27,12 @@ public class CrewRepository {
     public Optional<Crew> findById(Long crewId) {
         return repo.findById(crewId);
     }
+
+    public void deleteById(Long crewId) {
+        try {
+            repo.deleteById(crewId);
+        } catch (Exception ignored) {}
+
+    }
+
 }
