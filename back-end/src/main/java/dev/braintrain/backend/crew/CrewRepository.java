@@ -1,5 +1,6 @@
 package dev.braintrain.backend.crew;
 
+import dev.braintrain.backend.job.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Repository;
@@ -18,4 +19,9 @@ public class CrewRepository {
     public List<Crew> findAll() {
         return Streamable.of(repo.findAll()).toList();
     }
+
+    public Crew save(Crew crew) {
+        return repo.save(crew);
+    }
+
 }
