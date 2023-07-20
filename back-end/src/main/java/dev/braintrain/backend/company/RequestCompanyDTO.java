@@ -1,2 +1,4 @@
-package dev.braintrain.backend.company;public class RequestCompanyDTO {
+package dev.braintrain.backend.company;
+
+public record RequestCompanyDTO(String name) {
 }
