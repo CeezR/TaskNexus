@@ -49,4 +49,12 @@ public class Employee {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(Long phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }

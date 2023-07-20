@@ -1,4 +1,4 @@
 package dev.braintrain.backend.employee;
 
-public record EmployeeRequestDTO(String employeeName, String employeeEmail, Long employeeNumber) {
+public record EmployeeRequestDTO(String name, String email, Long phoneNumber) {
 }

@@ -27,7 +27,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{employeeId}")
-    public ResponseEntity<Employee> getJob(@PathVariable String employeeId) {
+    public ResponseEntity<Employee> getEmployee(@PathVariable String employeeId) {
         Employee employee = service.findEmployeeById(Long.valueOf(employeeId)).orElse(null);
         if(employee == null) {
             return ResponseEntity.notFound().build();
@@ -36,7 +36,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<Employee> createJob(@RequestBody EmployeeRequestDTO employeeRequest) {
+    public ResponseEntity<Employee> createEmployee(@RequestBody EmployeeRequestDTO employeeRequest) {
         Employee saveEmployee = service.saveEmployee(employeeRequest);
         URI location  = URI.create("/api/employees/" + saveEmployee.getId());
         return ResponseEntity.created(location).body(saveEmployee);
@@ -48,5 +48,14 @@ public class EmployeeController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/{employeeId}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long employeeId, @RequestBody Employee employeeUpdate) {
+        Employee employee = service.findEmployeeById(employeeId).orElse(null);
+        if(employee == null) {
+            return ResponseEntity.notFound().build();
+        }
+        Employee updatedEmployee = service.saveEmployee(employeeUpdate);
+        return ResponseEntity.ok().body(updatedEmployee);
 
+    }
 }

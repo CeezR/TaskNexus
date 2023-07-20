@@ -27,7 +27,11 @@ public class EmployeeService {
     }
 
     public Employee saveEmployee(EmployeeRequestDTO employee) {
-        return repository.saveEmployee(new Employee(employee.employeeName(), employee.employeeEmail(), employee.employeeNumber()));
+        return repository.saveEmployee(new Employee(employee.name(), employee.email(), employee.phoneNumber()));
+    }
+
+    public Employee saveEmployee(Employee employee) {
+        return repository.saveEmployee(employee);
     }
 
     public void deleteEmployee(Long jobId) {
