@@ -26,10 +26,21 @@ public class EmployeeController {
         return ResponseEntity.ok().body(new EmployeeResponseDTO(service.findAllEmployees()));
     }
 
+    @GetMapping("/{employeeId}")
+    public ResponseEntity<Employee> getJob(@PathVariable String employeeId) {
+        Employee employee = service.findEmployeeById(Long.valueOf(employeeId)).orElse(null);
+        if(employee == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(employee);
+    }
+
     @PostMapping
     public ResponseEntity<Employee> createJob(@RequestBody EmployeeRequestDTO employeeRequest) {
         Employee saveEmployee = service.saveEmployee(employeeRequest);
         URI location  = URI.create("/api/employees/" + saveEmployee.getId());
         return ResponseEntity.created(location).body(saveEmployee);
     }
+
+
 }

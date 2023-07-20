@@ -26,7 +26,7 @@ class EmployeeRepositoryTest {
     void shouldReturnJobById() {
         Employee employee = new Employee("John", "John@hotmail.com", 98765432L);
         Employee createEmployee = repository.saveEmployee(employee);
-        assertThat(repository.findById(createEmployee.getId())).isNotNull();
+        assertThat(repository.findEmployeeById(createEmployee.getId())).isNotNull();
     }
 
     @Test
