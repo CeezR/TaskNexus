@@ -21,4 +21,13 @@ class EmployeeRepositoryTest {
         List<Employee> employees = repository.findAll();
         assertThat(employees).isNotNull();
     }
+
+    @Test
+    void shouldCreateNewEmployee() {
+        Employee employee = new Employee("John", "John@hotmail.com");
+        int employeeCount = repository.findAll().size();
+        Employee createEmployee = repository.save(employee);
+        assertThat(createEmployee).isNotNull();
+        assertThat(repository.findAll().size()).isEqualTo(employeeCount + 1);
+    }
 }
