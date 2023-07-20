@@ -1,4 +1,4 @@
 package dev.braintrain.backend.crew;
 
-public record CrewRequestDTO() {
+public record CrewRequestDTO(String name) {
 }
