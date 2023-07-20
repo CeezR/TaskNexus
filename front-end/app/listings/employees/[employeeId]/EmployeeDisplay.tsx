@@ -1,5 +1,13 @@
 "use client";
-import { Box, Button, Modal, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Link,
+  Modal,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -7,6 +15,7 @@ import Stack from "@mui/material/Stack";
 import { useRouter } from "next/navigation";
 import { Formik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import ArrowBack from "@mui/icons-material/ArrowBack";
 
 type EmployeeDisplayProps = {
   employeeId: string;
@@ -39,7 +48,6 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
   const handleClose = () => setOpen(false);
 
   const handleFormSubmit = async (values: InitialValues) => {
-    alert(JSON.stringify(values, undefined, 2));
     handleClose();
     const res = await editEmployee(values);
     setEmployee(res);
@@ -130,7 +138,17 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
       justifyContent="center"
       textAlign="left"
     >
-      <h1>Employee</h1>
+      <Box display="flex" alignItems="center" position="relative" mb={2}>
+        <IconButton
+          onClick={() => router.push("/listings/employees")}
+          sx={{ position: "absolute", left: -80 }}
+        >
+          <ArrowBack fontSize="large" />
+        </IconButton>
+        <Typography variant="h4" component="h1">
+          Employee
+        </Typography>
+      </Box>
       <h2>{employee?.name}</h2>
       <Stack direction="row" spacing={2}>
         <Button
