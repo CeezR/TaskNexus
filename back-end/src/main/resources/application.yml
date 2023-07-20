@@ -1,7 +1,7 @@
 #spring.config.import=optional:secrets.properties
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://tasknexus.mysql.database.azure.com:3306/TaskNexus?serverTimezone=UTC
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
