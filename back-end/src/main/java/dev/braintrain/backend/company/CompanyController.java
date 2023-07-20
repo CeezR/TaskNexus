@@ -1,11 +1,12 @@
 package dev.braintrain.backend.company;
 
+import dev.braintrain.backend.job.Job;
+import dev.braintrain.backend.job.RequestJobDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/api/companies")
@@ -21,6 +22,13 @@ public class CompanyController {
     @GetMapping
     public ResponseEntity<CompanyResponseDTO> getAll() {
         return ResponseEntity.ok(new CompanyResponseDTO(service.findAll()));
+    }
+
+    @PostMapping
+    public ResponseEntity<Company> createJob(@RequestBody RequestCompanyDTO companyRequest) {
+        Company saveCompany = service.save(companyRequest);
+        URI location  = URI.create("/api/companies/" + saveCompany.getId());
+        return ResponseEntity.created(location).body(saveCompany);
     }
 
 
