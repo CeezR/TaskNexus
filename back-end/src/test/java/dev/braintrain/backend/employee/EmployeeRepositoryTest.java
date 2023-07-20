@@ -23,6 +23,13 @@ class EmployeeRepositoryTest {
     }
 
     @Test
+    void shouldReturnJobById() {
+        Employee employee = new Employee("John", "John@hotmail.com", 98765432L);
+        Employee createEmployee = repository.saveEmployee(employee);
+        assertThat(repository.findById(createEmployee.getId())).isNotNull();
+    }
+
+    @Test
     void shouldCreateNewEmployee() {
         Employee employee = new Employee("John", "John@hotmail.com", 98765432L);
         int employeeCount = repository.findAllEmployees().size();
