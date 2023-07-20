@@ -1,4 +1,6 @@
 package dev.braintrain.backend.crew;
 
-public class CrewJPARepository {
+import org.springframework.data.repository.CrudRepository;
+
+public interface CrewJPARepository extends CrudRepository {
 }
