@@ -123,7 +123,13 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   return (
-    <>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      textAlign="left"
+    >
       <h1>Employee</h1>
       <h2>{employee?.name}</h2>
       <Stack direction="row" spacing={2}>
@@ -226,10 +232,17 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
           </Box>
         </Box>
       </Modal>
-      <img height={"100px"} src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png"></img>
-      <p>Phone: {employee?.phoneNumber}</p>
-      <p>Email: {employee?.email}</p>
-    </>
+      <Box mt={4} mb={2}>
+        <img
+          height={"100px"}
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png"
+        />
+      </Box>
+      <Box textAlign="left" mt={2}>
+        <p>Phone: {employee?.phoneNumber}</p>
+        <p>Email: {employee?.email}</p>
+      </Box>
+    </Box>
   );
 };
 
