@@ -78,4 +78,18 @@ class EmployeeControllerTest {
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
     }
 
+    @Test
+    void shouldUpdateEmployeeForPutRequest() {
+        String uriPost = "http://localhost:%s/api/employees".formatted(port);
+        EmployeeRequestDTO employee = new EmployeeRequestDTO("John", "John@hotmail.com", 98765432L);
+        ResponseEntity<Employee> postExchange = restTemplate.exchange(uriPost, HttpMethod.POST, new HttpEntity<>(employee), Employee.class);
+
+        String uri = "http://localhost:%s/api/employees/%s".formatted(port, postExchange.getBody().getId());
+        EmployeeRequestDTO updatedEmployee = new EmployeeRequestDTO("Not Developer", "John@hotmail.com", 98765432L);
+        ResponseEntity<Employee> exchange = restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(updatedEmployee), Employee.class);
+        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(exchange.hasBody()).isTrue();
+        assertThat(exchange.getBody().getName()).isEqualTo("Bill");
+    }
+
 }
