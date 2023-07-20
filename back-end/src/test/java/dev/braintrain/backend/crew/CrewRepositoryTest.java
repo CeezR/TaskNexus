@@ -18,9 +18,9 @@ class CrewRepositoryTest {
     CrewRepository repository;
 
     @Test
-    void shouldReturnListOfJobs() {
-        List<Job> jobs = repository.findAll();
-        assertThat(jobs).isNotNull();
+    void shouldReturnListOfCrews() {
+        List<Crew> crews = repository.findAll();
+        assertThat(crews).isNotNull();
     }
 
 }

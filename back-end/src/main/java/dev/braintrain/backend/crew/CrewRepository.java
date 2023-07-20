@@ -6,7 +6,6 @@ import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class CrewRepository {
@@ -17,7 +16,7 @@ public class CrewRepository {
         this.repo = repo;
     }
 
-    public List<Job> findAll() {
+    public List<Crew> findAll() {
         return Streamable.of(repo.findAll()).toList();
     }
 }
