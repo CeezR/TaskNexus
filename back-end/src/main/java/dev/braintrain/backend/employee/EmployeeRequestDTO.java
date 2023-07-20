@@ -1,2 +1,4 @@
-package dev.braintrain.backend.employee;public class EmployeeRequestDTO {
+package dev.braintrain.backend.employee;
+
+public record EmployeeRequestDTO(String employeeName, String employeeEmail) {
 }
