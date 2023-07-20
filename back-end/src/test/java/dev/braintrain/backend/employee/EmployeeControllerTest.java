@@ -60,4 +60,22 @@ class EmployeeControllerTest {
         assertThat(exchange.getBody()).isNotNull();
     }
 
+    @Test
+    void shouldReturnNoContentWhenDeletingJob() {
+        String uriPost = "http://localhost:%s/api/employees".formatted(port);
+        EmployeeRequestDTO employee = new EmployeeRequestDTO("John", "John@hotmail.com", 98765432L);
+        ResponseEntity<Employee> postExchange = restTemplate.exchange(uriPost, HttpMethod.POST, new HttpEntity<>(employee), Employee.class);
+
+        String uri = "http://localhost:%s/api/employees/%s".formatted(port, postExchange.getBody().getId());
+        ResponseEntity<Void> exchange = restTemplate.exchange(uri, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
+        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    }
+
+    @Test
+    void shouldReturnNoContentWhenDeletingNonExistingJob() {
+        String uri = "http://localhost:%s/api/jobs/%s".formatted(port, -1);
+        ResponseEntity<Void> exchange = restTemplate.exchange(uri, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
+        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    }
+
 }
