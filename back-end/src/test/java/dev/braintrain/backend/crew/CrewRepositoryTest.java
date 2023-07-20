@@ -38,5 +38,14 @@ class CrewRepositoryTest {
         assertThat(createCrew).isNotNull();
         assertThat(repository.findAll().size()).isEqualTo(crewCount + 1);
     }
+    @Test
+    void shouldUpdateCrew() {
+        Crew crew = new Crew("brain-train");
+        Crew createdCrew = repository.save(crew);
+        createdCrew.setName("fantastic-four");
+        Crew updatedCrew = repository.save(crew);
+        assertThat(updatedCrew).isNotNull();
+        assertThat(updatedCrew.getName()).isEqualTo("fantastic-four");
+    }
 
 }
