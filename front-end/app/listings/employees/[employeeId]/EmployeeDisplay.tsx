@@ -94,9 +94,9 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
   const editEmployee = async (requestBody: InitialValues) => {
     const editedEmployee: Employee = {
       id: employee?.id,
-      name: employee?.name,
-      email: employee?.email,
-      phoneNumber: employee?.phoneNumber,
+      name: requestBody.name,
+      email: requestBody.email,
+      phoneNumber: requestBody.phoneNumber,
     };
 
     const response = await fetch(
