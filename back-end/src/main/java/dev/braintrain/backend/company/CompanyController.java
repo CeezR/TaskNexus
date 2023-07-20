@@ -1,6 +1,5 @@
 package dev.braintrain.backend.company;
 
-import dev.braintrain.backend.job.JobResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +16,11 @@ public class CompanyController {
     @Autowired
     public CompanyController(CompanyService service) {
         this.service = service;
+    }
+
+    @GetMapping
+    public ResponseEntity<CompanyResponseDTO> getAll() {
+        return ResponseEntity.ok(new CompanyResponseDTO(service.findAll()));
     }
 
 
