@@ -27,14 +27,14 @@ public class CrewController {
         return ResponseEntity.ok(new CrewResponseDTO(service.findAll()));
     }
 
-//    @GetMapping("/{crewId}")
-//    public ResponseEntity<Crew> getCrew(@PathVariable String crewId) {
-//        Crew crew = service.findById(Long.valueOf(crewId)).orElse(null);
-//        if(crew == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.ok(crew);
-//    }
+    @GetMapping("/{crewId}")
+    public ResponseEntity<Crew> getCrew(@PathVariable String crewId) {
+        Crew crew = service.findById(Long.valueOf(crewId)).orElse(null);
+        if(crew == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(crew);
+    }
 
     @PostMapping
     public ResponseEntity<Crew> createCrew(@RequestBody CrewRequestDTO crewRequest) {
