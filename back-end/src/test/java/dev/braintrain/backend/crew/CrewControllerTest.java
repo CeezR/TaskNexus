@@ -59,4 +59,18 @@ class CrewControllerTest {
         assertThat(exchange.hasBody()).isTrue();
         assertThat(exchange.getBody()).isNotNull();
     }
+
+    @Test
+    void shouldUpdateCrewForPutRequest() {
+        String postUri = "http://localhost:%s/api/crews".formatted(port);
+        CrewRequestDTO crew = new CrewRequestDTO("TestName");
+        ResponseEntity<Crew> postExchange = restTemplate.exchange(postUri, HttpMethod.POST, new HttpEntity<>(crew), Crew.class);
+
+        String uri = "http://localhost:%s/api/crews/%s".formatted(port, postExchange.getBody().getId());
+        CrewRequestDTO updatedCrew = new CrewRequestDTO("Fantastic-four");
+        ResponseEntity<Crew> exchange = restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(updatedCrew), Crew.class);
+        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(exchange.hasBody()).isTrue();
+        assertThat(exchange.getBody().getName()).isEqualTo("Fantastic-four");
+    }
 }
