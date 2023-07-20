@@ -72,4 +72,24 @@ class CompanyControllerTest {
         assertThat(exchange.hasBody()).isTrue();
         assertThat(exchange.getBody().getName()).isEqualTo("Not Developer");
     }
+
+    @Test
+    void shouldReturnNoContentWhenDeletingJob() {
+        String postUri = "http://localhost:%s/api/companies".formatted(port);
+        RequestCompanyDTO company = new RequestCompanyDTO("TestName");
+        ResponseEntity<Company> postExchange = restTemplate.exchange(postUri, HttpMethod.POST, new HttpEntity<>(company), Company.class);
+
+        String uri = "http://localhost:%s/api/companies/%s".formatted(port, postExchange.getBody().getId());
+        ResponseEntity<Void> exchange = restTemplate.exchange(uri, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
+        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    }
+
+    @Test
+    void shouldReturnNoContentWhenDeletingNonExistingJob() {
+        String postUri = "http://localhost:%s/api/companies".formatted(port);
+
+        String uri = "http://localhost:%s/api/companies/%s".formatted(port, -1);
+        ResponseEntity<Void> exchange = restTemplate.exchange(uri, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
+        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    }
 }
