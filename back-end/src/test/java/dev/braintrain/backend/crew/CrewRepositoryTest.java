@@ -30,4 +30,13 @@ class CrewRepositoryTest {
         assertThat(createCrew).isNotNull();
     }
 
+    @Test
+    void shouldCreateNewCrew() {
+        Crew crew = new Crew("brain-train");
+        int crewCount = repository.findAll().size();
+        Crew createCrew = repository.save(crew);
+        assertThat(createCrew).isNotNull();
+        assertThat(repository.findAll().size()).isEqualTo(crewCount + 1);
+    }
+
 }
