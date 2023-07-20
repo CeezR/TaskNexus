@@ -48,4 +48,13 @@ class CrewRepositoryTest {
         assertThat(updatedCrew.getName()).isEqualTo("fantastic-four");
     }
 
+    @Test
+    void shouldDeleteCrew() {
+        Crew crew = new Crew("brain-train");
+        Crew createdCrew = repository.save(crew);
+        repository.deleteById(createdCrew.getId());
+        Crew findCrew = repository.findById(createdCrew.getId()).orElse(null);
+        assertThat(findCrew).isNull();
+
+    }
 }
