@@ -45,7 +45,7 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
 
 
   interface InitialValues {
-    name: string;
+    name: string | undefined;
     // lastName: string;
     // email: string;
     // contact: string;
@@ -94,7 +94,6 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
       id: job?.id,
       name: requestBody.name
     }
-    console.log(job.id);
   
     const response = await fetch(`http://localhost:8080/api/jobs/${jobId}`, {
         method: "PUT",

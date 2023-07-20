@@ -56,7 +56,11 @@ export default function Jobs() {
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const searchText = event.currentTarget.value.toLowerCase();
     setsearch(searchText);
-    setFilteredJobs(jobs.filter((job) => job.name.toLowerCase().startsWith(searchText)));
+    setFilteredJobs(jobs.filter((job) => {
+      if(job.name !== undefined) {
+        return job.name.toLowerCase().startsWith(searchText)
+      }
+    }));
   };
 
   useEffect(() => {
@@ -64,7 +68,11 @@ export default function Jobs() {
   }, []);
 
   useEffect(() => {
-    setFilteredJobs(jobs.filter((job) => job.name.toLowerCase().startsWith(search)));
+    setFilteredJobs(jobs.filter((job) => {
+      if(job.name) {
+        return job.name.toLowerCase().startsWith(search)
+      }
+    }));
   }, [jobs])
 
   const getJobs = async () => {
