@@ -33,4 +33,8 @@ public class CrewService {
     public Optional<Crew> findById(Long crewId) {
         return repo.findById(crewId);
     }
+
+    public void delete(Long crewId) {
+        repo.deleteById(crewId);
+    }
 }

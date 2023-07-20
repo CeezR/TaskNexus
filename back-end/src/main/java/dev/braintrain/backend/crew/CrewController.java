@@ -51,6 +51,11 @@ public class CrewController {
         }
         Crew updatedCrew = service.save(crewUpdate);
         return ResponseEntity.ok().body(updatedCrew);
+    }
 
+    @DeleteMapping("/{crewId}")
+    public ResponseEntity<Void> deleteCrew(@PathVariable Long crewId) {
+        service.delete(crewId);
+        return ResponseEntity.noContent().build();
     }
 }
