@@ -7,14 +7,10 @@ import Stack from "@mui/material/Stack";
 import { useRouter } from "next/navigation";
 import { Formik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Crews from "../page";
+import CrewMember from "./CrewMember";
 
 type CrewDisplayProps = {
   crewId : string
-}
-
-type ApiCrewResponse ={
-    crewList: Crew[]
 }
 
 type Crew = {
@@ -135,8 +131,9 @@ const CrewDisplay = ({crewId} : CrewDisplayProps) => {
         </Button>
         <Button onClick={handleOpen} variant="outlined" color="warning" startIcon={<EditIcon />}>
           Edit
-        </Button>
+        </Button>      
       </Stack>
+      <CrewMember crewId={crewId} />
       <Modal
         open={open}
         onClose={handleClose}

@@ -14,10 +14,6 @@ type BasicTableProp = {
   crews : Crew[] | undefined
 }
 
-type ApiCrewResponse ={
-  crewList: Crew[]
-}
-
 type Crew = {
     id: number | undefined,
     name: string | undefined

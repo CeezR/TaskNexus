@@ -18,9 +18,6 @@ type AddCrewFormProps = {
     setCrews: Dispatch<SetStateAction<Crew[]>>
 }
 
-type ApiCrewResponse ={
-    crewList: Crew[]
-}
 
 type Crew = {
     id: number | undefined,
