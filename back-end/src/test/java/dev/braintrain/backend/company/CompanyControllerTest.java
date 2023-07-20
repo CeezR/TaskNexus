@@ -58,4 +58,18 @@ class CompanyControllerTest {
         assertThat(exchange.getHeaders().getLocation()).isNotNull();
         assertThat(exchange.getBody()).isNotNull();
     }
+
+    @Test
+    void shouldUpdateCompanyForPutRequest() {
+        String postUri = "http://localhost:%s/api/companies".formatted(port);
+        RequestCompanyDTO company = new RequestCompanyDTO("TestName");
+        ResponseEntity<Company> postExchange = restTemplate.exchange(postUri, HttpMethod.POST, new HttpEntity<>(company), Company.class);
+
+        String uri = "http://localhost:%s/api/companies/%s".formatted(port, postExchange.getBody().getId());
+        RequestCompanyDTO updatedCompany = new RequestCompanyDTO("Not Developer");
+        ResponseEntity<Company> exchange = restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(updatedCompany), Company.class);
+        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(exchange.hasBody()).isTrue();
+        assertThat(exchange.getBody().getName()).isEqualTo("Not Developer");
+    }
 }
