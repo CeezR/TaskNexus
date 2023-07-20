@@ -16,9 +16,10 @@ public class Employee {
     @Column(name = "employee_phone_number")
     private Long phoneNumber;
 
-    public Employee(String name, String email) {
+    public Employee(String name, String email, Long phoneNumber) {
         this.name = name;
         this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 
     public Employee() {

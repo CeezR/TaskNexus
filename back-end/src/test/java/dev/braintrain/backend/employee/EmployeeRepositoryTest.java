@@ -24,7 +24,7 @@ class EmployeeRepositoryTest {
 
     @Test
     void shouldCreateNewEmployee() {
-        Employee employee = new Employee("John", "John@hotmail.com");
+        Employee employee = new Employee("John", "John@hotmail.com", 98765432L);
         int employeeCount = repository.findAllEmployees().size();
         Employee createEmployee = repository.saveEmployee(employee);
         assertThat(createEmployee).isNotNull();

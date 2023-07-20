@@ -17,7 +17,6 @@ public class EmployeeRepository {
         this.repository = repository;
     }
 
-
     public List<Employee> findAllEmployees() {
         return Streamable.of(repository.findAll()).toList();
     }

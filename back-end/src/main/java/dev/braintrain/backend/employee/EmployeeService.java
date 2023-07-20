@@ -1,6 +1,7 @@
 package dev.braintrain.backend.employee;
 
 
+import dev.braintrain.backend.job.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class EmployeeService {
         return repository.findAllEmployees();
     }
 
-    public Employee saveEmployee(Employee employee) {
-        return repository.saveEmployee(employee);
+    public Employee saveEmployee(EmployeeRequestDTO employee) {
+        return repository.saveEmployee(new Employee(employee.employeeName(), employee.employeeEmail(), employee.employeeNumber()));
     }
 }

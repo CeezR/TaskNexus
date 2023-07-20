@@ -1,12 +1,12 @@
 package dev.braintrain.backend.employee;
 
+import dev.braintrain.backend.job.Job;
+import dev.braintrain.backend.job.RequestJobDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -24,5 +24,12 @@ public class EmployeeController {
     @GetMapping
     public ResponseEntity<EmployeeResponseDTO> getAllEmployees() {
         return ResponseEntity.ok().body(new EmployeeResponseDTO(service.findAllEmployees()));
+    }
+
+    @PostMapping
+    public ResponseEntity<Employee> createJob(@RequestBody EmployeeRequestDTO employeeRequest) {
+        Employee saveEmployee = service.saveEmployee(employeeRequest);
+        URI location  = URI.create("/api/employees/" + saveEmployee.getId());
+        return ResponseEntity.created(location).body(saveEmployee);
     }
 }

@@ -1,6 +1,8 @@
 package dev.braintrain.backend.employee;
 
+import dev.braintrain.backend.job.Job;
 import dev.braintrain.backend.job.JobResponseDTO;
+import dev.braintrain.backend.job.RequestJobDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +34,17 @@ class EmployeeControllerTest {
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(exchange.hasBody()).isTrue();
         assertThat(exchange.getBody().employeeList()).isNotNull();
+    }
+
+    @Test
+    void shouldCreateJobForPostRequest() {
+        String uri = "http://localhost:%s/api/employees".formatted(port);
+        EmployeeRequestDTO employee = new EmployeeRequestDTO("John", "John@hotmail.com", 98765432L);
+        ResponseEntity<Employee> exchange = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(employee), Employee.class);
+        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(exchange.hasBody()).isTrue();
+        assertThat(exchange.getHeaders().getLocation()).isNotNull();
+        assertThat(exchange.getBody()).isNotNull();
     }
 
 }
