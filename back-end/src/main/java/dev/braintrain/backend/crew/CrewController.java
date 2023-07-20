@@ -1,13 +1,8 @@
 package dev.braintrain.backend.crew;
 
-import dev.braintrain.backend.job.Job;
-import dev.braintrain.backend.job.JobResponseDTO;
-import dev.braintrain.backend.job.JobService;
-import dev.braintrain.backend.job.RequestJobDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 
 @RestController
