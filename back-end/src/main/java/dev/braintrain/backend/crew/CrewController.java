@@ -42,4 +42,15 @@ public class CrewController {
         URI location  = URI.create("/api/crews/" + saveCrew.getId());
         return ResponseEntity.created(location).body(saveCrew);
     }
+
+    @PutMapping("/{crewId}")
+    public ResponseEntity<Crew> updateCrew(@PathVariable Long crewId, @RequestBody Crew crewUpdate) {
+        Crew crew = service.findById(crewId).orElse(null);
+        if(crew == null) {
+            return ResponseEntity.notFound().build();
+        }
+        Crew updatedCrew = service.save(crewUpdate);
+        return ResponseEntity.ok().body(updatedCrew);
+
+    }
 }

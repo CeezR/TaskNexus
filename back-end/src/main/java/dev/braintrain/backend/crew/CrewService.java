@@ -26,6 +26,10 @@ public class CrewService {
         return repo.save(new Crew(crewRequest.name()));
     }
 
+    public Crew save(Crew crew) {
+        return repo.save(crew);
+    }
+
     public Optional<Crew> findById(Long crewId) {
         return repo.findById(crewId);
     }
