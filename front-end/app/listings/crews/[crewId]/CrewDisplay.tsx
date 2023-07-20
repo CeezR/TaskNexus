@@ -145,7 +145,7 @@ const CrewDisplay = ({crewId} : CrewDisplayProps) => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Add Employee Details
+            Edit Crew Details
           </Typography>
           <Box>
             <Formik

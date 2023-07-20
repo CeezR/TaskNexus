@@ -107,7 +107,7 @@ const AddCrewForm = ({ crews, setCrews }: AddCrewFormProps) => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Add Employee Details
+                        Add Crew Details
                     </Typography>
                     <Box>
                         <Formik
@@ -214,7 +214,7 @@ const AddCrewForm = ({ crews, setCrews }: AddCrewFormProps) => {
                                     </Box>
                                     <Box display="flex" justifyContent="end" mt="20px">
                                         <Button type="submit" color="secondary" variant="contained">
-                                            Create New User
+                                            Create Crew
                                         </Button>
                                     </Box>
                                 </form>
