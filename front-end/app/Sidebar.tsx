@@ -60,21 +60,10 @@ const Sidebar: React.FC = () => {
         colorMode.toggleColorMode();
     };
 
-    const handleJobLink = async () => {
-        router.push('http://localhost:3000/listings/jobs');
+    const handleLink = async (path: string) =>{
+        router.push(path);
     }
 
-    const handleEmployeeLink = async () => {
-        router.push('http://localhost:3000/listings/employees');
-    }
-
-    const handleCrewLink = async () => {
-        router.push('http://localhost:3000/listings/crews');
-    }
-
-    const handleCompanyLink = async () => {
-        router.push('http://localhost:3000/listings/companies');
-    }
 
     const handleSidebarToggle = () => {
         setIsCollapsed(!isCollapsed);
@@ -140,13 +129,7 @@ const Sidebar: React.FC = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />
-                        <Typography
-                            variant="h6"
-                            color={colors.grey[300]}
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >
-                            Data
-                        </Typography>
+                        
                         <Item
                             title="Home"
                             icon={<HomeOutlinedIcon />}
@@ -164,28 +147,28 @@ const Sidebar: React.FC = () => {
                             icon={<WorkOutlineOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                            onClick={handleJobLink}
+                            onClick={() => handleLink("/listings/jobs")}
                         />
                         <Item
                             title="Company"
                             icon={<CorporateFareOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                            onClick={handleCompanyLink}
+                            onClick={() => handleLink("/listings/companies")}
                         />
                         <Item
                             title="Employees"
                             icon={<Person2OutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                            onClick={handleEmployeeLink}
+                            onClick={() => handleLink("/listings/employees")}
                         />
                         <Item
                             title="Crew"
                             icon={<GroupsOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                            onClick={handleCrewLink}
+                            onClick={() => handleLink("/listings/crews")}
 
                         />
 
