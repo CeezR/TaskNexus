@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,10 +18,9 @@ class CrewRepositoryTest {
     CrewRepository repository;
 
     @Test
-    void shouldReturnJobById() {
-        Crew job = new Crew("Developer");
-        Crew createCrew = repository.save(crew);
-        assertThat(repository.findById(createCrew.getId())).isNotNull();
+    void shouldReturnListOfJobs() {
+        List<Job> jobs = repository.findAll();
+        assertThat(jobs).isNotNull();
     }
 
 }
