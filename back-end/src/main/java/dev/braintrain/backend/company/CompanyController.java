@@ -40,5 +40,16 @@ public class CompanyController {
         return ResponseEntity.created(location).body(saveCompany);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Company> updateJob(@PathVariable Long id, @RequestBody Company requestCompany) {
+        Company company = service.findById(id).orElse(null);
+        if(company == null) {
+            return ResponseEntity.notFound().build();
+        }
+        Company updatedCompany = service.save(requestCompany);
+        return ResponseEntity.ok().body(updatedCompany);
+
+    }
+
 
 }
