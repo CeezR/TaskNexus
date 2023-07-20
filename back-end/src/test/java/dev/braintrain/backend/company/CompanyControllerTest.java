@@ -36,6 +36,19 @@ class CompanyControllerTest {
     }
 
     @Test
+    void getCompanyByIdMappingShouldReturnOneCompany() {
+        String uriPost = "http://localhost:%s/api/companies".formatted(port);
+        RequestCompanyDTO company = new RequestCompanyDTO("TestName");
+        ResponseEntity<Company> postExchange = restTemplate.exchange(uriPost, HttpMethod.POST, new HttpEntity<>(company), Company.class);
+
+        String uri = "http://localhost:%s/api/companies/%s".formatted(port,postExchange.getBody().getId());
+        ResponseEntity<Company> exchange = restTemplate.exchange(uri, HttpMethod.GET, HttpEntity.EMPTY, Company.class);
+        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(exchange.hasBody()).isTrue();
+        assertThat(exchange.getBody()).isNotNull();
+    }
+
+    @Test
     void shouldCreateJobForPostRequest() {
         String uri = "http://localhost:%s/api/companies".formatted(port);
         RequestCompanyDTO company = new RequestCompanyDTO("TestName");
