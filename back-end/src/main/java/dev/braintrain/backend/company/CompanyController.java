@@ -34,14 +34,14 @@ public class CompanyController {
     }
 
     @PostMapping
-    public ResponseEntity<Company> createJob(@RequestBody RequestCompanyDTO companyRequest) {
+    public ResponseEntity<Company> createCompany(@RequestBody RequestCompanyDTO companyRequest) {
         Company saveCompany = service.save(companyRequest);
         URI location  = URI.create("/api/companies/" + saveCompany.getId());
         return ResponseEntity.created(location).body(saveCompany);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Company> updateJob(@PathVariable Long id, @RequestBody Company requestCompany) {
+    public ResponseEntity<Company> updateCompany(@PathVariable Long id, @RequestBody Company requestCompany) {
         Company company = service.findById(id).orElse(null);
         if(company == null) {
             return ResponseEntity.notFound().build();
@@ -49,6 +49,12 @@ public class CompanyController {
         Company updatedCompany = service.save(requestCompany);
         return ResponseEntity.ok().body(updatedCompany);
 
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCompany(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 
