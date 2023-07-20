@@ -1,22 +1,27 @@
 "use client";
 
-import { ChangeEvent, ChangeEventHandler, FormEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  FormEvent,
+  useEffect,
+  useState,
+} from "react";
 import { InputBase, TextField, alpha, styled } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import EmployeeListingTable from "./EmployeeListingTable";
 import AddEmployeeForm from "./AddEmployeeForm";
 
-type EmployeeApiResponse ={
-    employeeList: Employee[]
-}
+type EmployeeApiResponse = {
+  employeeList: Employee[];
+};
 
 type Employee = {
-    id: number | undefined,
-    name: string | undefined,
-    email: string | undefined
-    phoneNumber: string | undefined,
-}
-
+  id: number | undefined;
+  name: string | undefined;
+  email: string | undefined;
+  phoneNumber: string | undefined;
+};
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -44,16 +49,16 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
+  color: "inherit",
+  "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
       },
     },
   },
@@ -61,17 +66,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Employees() {
   const [employees, setEmployees] = useState<Employee[]>([]);
-  const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>(employees);
-  const [search, setsearch] = useState("")
+  const [filteredEmployees, setFilteredEmployees] =
+    useState<Employee[]>(employees);
+  const [search, setsearch] = useState("");
 
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleSearchChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const searchText = event.currentTarget.value.toLowerCase();
     setsearch(searchText);
-    setFilteredEmployees(employees.filter((employee) => {
-      if(employee.name !== undefined) {
-        return employee.name.toLowerCase().startsWith(searchText)
-      }
-    }));
+    setFilteredEmployees(
+      employees.filter((employee) => {
+        if (employee.name !== undefined) {
+          return employee.name.toLowerCase().startsWith(searchText);
+        }
+      })
+    );
   };
 
   useEffect(() => {
@@ -79,18 +89,18 @@ export default function Employees() {
   }, []);
 
   useEffect(() => {
-    setFilteredEmployees(employees.filter((employee) => {
-        if(employee.name !== undefined) {
-          return employee.name.toLowerCase().startsWith(search)
+    setFilteredEmployees(
+      employees.filter((employee) => {
+        if (employee.name !== undefined) {
+          return employee.name.toLowerCase().startsWith(search);
         }
-      }));
-  }, [employees])
+      })
+    );
+  }, [employees]);
 
   const getEmployees = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/employees`
-      );
+      const response = await fetch(`http://localhost:8080/api/employees`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
