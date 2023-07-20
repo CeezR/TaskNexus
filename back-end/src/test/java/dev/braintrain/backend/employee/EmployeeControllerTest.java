@@ -37,6 +37,19 @@ class EmployeeControllerTest {
     }
 
     @Test
+    void getEmployeeByIdMappingShouldReturnOneEmployee() {
+        String uriPost = "http://localhost:%s/api/employees".formatted(port);
+        EmployeeRequestDTO employee = new EmployeeRequestDTO("John", "John@hotmail.com", 98765432L);
+        ResponseEntity<Employee> postExchange = restTemplate.exchange(uriPost, HttpMethod.POST, new HttpEntity<>(employee), Employee.class);
+
+        String uri = "http://localhost:%s/api/employees/%s".formatted(port,postExchange.getBody().getId());
+        ResponseEntity<Employee> exchange = restTemplate.exchange(uri, HttpMethod.GET, HttpEntity.EMPTY, Employee.class);
+        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(exchange.hasBody()).isTrue();
+        assertThat(exchange.getBody()).isNotNull();
+    }
+
+    @Test
     void shouldCreateJobForPostRequest() {
         String uri = "http://localhost:%s/api/employees".formatted(port);
         EmployeeRequestDTO employee = new EmployeeRequestDTO("John", "John@hotmail.com", 98765432L);
