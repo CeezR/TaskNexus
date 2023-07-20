@@ -24,6 +24,15 @@ public class CompanyController {
         return ResponseEntity.ok(new CompanyResponseDTO(service.findAll()));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Company> getAll(@PathVariable Long id) {
+        Company company = service.findById(id).orElse(null);
+        if(company == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(company);
+    }
+
     @PostMapping
     public ResponseEntity<Company> createJob(@RequestBody RequestCompanyDTO companyRequest) {
         Company saveCompany = service.save(companyRequest);
