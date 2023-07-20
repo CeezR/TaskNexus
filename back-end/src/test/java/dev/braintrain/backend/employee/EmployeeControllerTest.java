@@ -39,7 +39,7 @@ class EmployeeControllerTest {
     @Test
     void getEmployeeByIdMappingShouldReturnOneEmployee() {
         String uriPost = "http://localhost:%s/api/employees".formatted(port);
-        EmployeeRequestDTO employee = new EmployeeRequestDTO("John", "John@hotmail.com", 98765432L);
+        EmployeeRequestDTO employee = new EmployeeRequestDTO("John", "John@hotmail.com", "98765432");
         ResponseEntity<Employee> postExchange = restTemplate.exchange(uriPost, HttpMethod.POST, new HttpEntity<>(employee), Employee.class);
 
         String uri = "http://localhost:%s/api/employees/%s".formatted(port,postExchange.getBody().getId());
@@ -52,7 +52,7 @@ class EmployeeControllerTest {
     @Test
     void shouldCreateJobForPostRequest() {
         String uri = "http://localhost:%s/api/employees".formatted(port);
-        EmployeeRequestDTO employee = new EmployeeRequestDTO("John", "John@hotmail.com", 98765432L);
+        EmployeeRequestDTO employee = new EmployeeRequestDTO("John", "John@hotmail.com", "98765432");
         ResponseEntity<Employee> exchange = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(employee), Employee.class);
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(exchange.hasBody()).isTrue();
@@ -63,7 +63,7 @@ class EmployeeControllerTest {
     @Test
     void shouldReturnNoContentWhenDeletingJob() {
         String uriPost = "http://localhost:%s/api/employees".formatted(port);
-        EmployeeRequestDTO employee = new EmployeeRequestDTO("John", "John@hotmail.com", 98765432L);
+        EmployeeRequestDTO employee = new EmployeeRequestDTO("John", "John@hotmail.com", "98765432");
         ResponseEntity<Employee> postExchange = restTemplate.exchange(uriPost, HttpMethod.POST, new HttpEntity<>(employee), Employee.class);
 
         String uri = "http://localhost:%s/api/employees/%s".formatted(port, postExchange.getBody().getId());
@@ -81,11 +81,11 @@ class EmployeeControllerTest {
     @Test
     void shouldUpdateEmployeeForPutRequest() {
         String uriPost = "http://localhost:%s/api/employees".formatted(port);
-        EmployeeRequestDTO employee = new EmployeeRequestDTO("John", "John@hotmail.com", 98765432L);
+        EmployeeRequestDTO employee = new EmployeeRequestDTO("John", "John@hotmail.com", "98765432");
         ResponseEntity<Employee> postExchange = restTemplate.exchange(uriPost, HttpMethod.POST, new HttpEntity<>(employee), Employee.class);
 
         String uri = "http://localhost:%s/api/employees/%s".formatted(port, postExchange.getBody().getId());
-        EmployeeRequestDTO updatedEmployee = new EmployeeRequestDTO("Bill", "John@hotmail.com", 98765432L);
+        EmployeeRequestDTO updatedEmployee = new EmployeeRequestDTO("Bill", "John@hotmail.com", "98765432");
         ResponseEntity<Employee> exchange = restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(updatedEmployee), Employee.class);
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(exchange.hasBody()).isTrue();

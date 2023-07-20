@@ -55,6 +55,4 @@ public class JobController {
         service.delete(jobId);
         return ResponseEntity.noContent().build();
     }
-
-
 }

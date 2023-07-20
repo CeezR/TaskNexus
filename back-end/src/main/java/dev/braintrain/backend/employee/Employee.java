@@ -14,9 +14,9 @@ public class Employee {
     @Column(name = "employee_email")
     private String email;
     @Column(name = "employee_phone_number")
-    private Long phoneNumber;
+    private String phoneNumber;
 
-    public Employee(String name, String email, Long phoneNumber) {
+    public Employee(String name, String email, String phoneNumber) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -50,11 +50,11 @@ public class Employee {
         this.email = email;
     }
 
-    public Long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }

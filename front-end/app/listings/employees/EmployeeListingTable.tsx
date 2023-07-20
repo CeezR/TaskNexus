@@ -12,6 +12,7 @@ type Employee = {
   id: number | undefined;
   name: string | undefined;
   email: string | undefined;
+  phoneNumber: string | undefined;
 };
 
 type EmployeeTableProp = {
@@ -26,6 +27,7 @@ export default function EmployeeListingTable({ employees }: EmployeeTableProp) {
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell>Email</TableCell>
+            <TableCell>Phone Number</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -40,8 +42,13 @@ export default function EmployeeListingTable({ employees }: EmployeeTableProp) {
                 </Link>
               </TableCell>
               <TableCell>
-              <Link href={`/listings/employees/${employee.id}`}>
+                <Link href={`/listings/employees/${employee.id}`}>
                   <p className="table-paragraph">{employee.email}</p>
+                </Link>
+              </TableCell>
+              <TableCell>
+                <Link href={`/listings/employees/${employee.id}`}>
+                  <p className="table-paragraph">{employee.phoneNumber}</p>
                 </Link>
               </TableCell>
             </TableRow>

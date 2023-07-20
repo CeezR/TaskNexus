@@ -4,6 +4,7 @@ import { ChangeEvent, ChangeEventHandler, FormEvent, useEffect, useState } from 
 import { InputBase, TextField, alpha, styled } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import EmployeeListingTable from "./EmployeeListingTable";
+import AddEmployeeForm from "./AddEmployeeForm";
 
 type EmployeeApiResponse ={
     employeeList: Employee[]
@@ -13,6 +14,7 @@ type Employee = {
     id: number | undefined,
     name: string | undefined,
     email: string | undefined
+    phoneNumber: string | undefined,
 }
 
 
@@ -116,7 +118,7 @@ export default function Employees() {
           onChange={(event) => handleSearchChange(event)}
         />
       </Search>
-      {/* <AddEntityForm jobs={jobs} setJobs={setJobs} /> */}
+      <AddEmployeeForm setEmployees={setEmployees} />
       <EmployeeListingTable employees={filteredEmployees} />
     </div>
   );
