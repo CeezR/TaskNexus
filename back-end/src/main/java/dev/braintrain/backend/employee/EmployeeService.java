@@ -16,7 +16,11 @@ public class EmployeeService {
         this.repository = repository;
     }
 
-    public List<Employee> findAll() {
-        return repository.findAll();
+    public List<Employee> findAllEmployees() {
+        return repository.findAllEmployees();
+    }
+
+    public Employee saveEmployee(Employee employee) {
+        return repository.saveEmployee(employee);
     }
 }

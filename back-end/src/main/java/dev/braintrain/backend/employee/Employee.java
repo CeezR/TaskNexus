@@ -13,9 +13,10 @@ public class Employee {
     private String name;
     @Column(name = "employee_email")
     private String email;
+    @Column(name = "employee_phone_number")
+    private Long phoneNumber;
 
-    public Employee(Long id, String name, String email) {
-        this.id = id;
+    public Employee(String name, String email) {
         this.name = name;
         this.email = email;
     }

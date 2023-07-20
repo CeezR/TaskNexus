@@ -18,7 +18,11 @@ public class EmployeeRepository {
     }
 
 
-    public List<Employee> findAll() {
+    public List<Employee> findAllEmployees() {
         return Streamable.of(repository.findAll()).toList();
+    }
+
+    public Employee saveEmployee(Employee employee) {
+        return repository.save(employee);
     }
 }

@@ -23,6 +23,6 @@ public class EmployeeController {
 
     @GetMapping
     public ResponseEntity<EmployeeResponseDTO> getAllEmployees() {
-        return ResponseEntity.ok().body(new EmployeeResponseDTO(service.findAll()));
+        return ResponseEntity.ok().body(new EmployeeResponseDTO(service.findAllEmployees()));
     }
 }

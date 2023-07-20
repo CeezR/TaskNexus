@@ -18,16 +18,16 @@ class EmployeeRepositoryTest {
 
     @Test
     void shouldReturnListOfEmployees() {
-        List<Employee> employees = repository.findAll();
+        List<Employee> employees = repository.findAllEmployees();
         assertThat(employees).isNotNull();
     }
 
     @Test
     void shouldCreateNewEmployee() {
         Employee employee = new Employee("John", "John@hotmail.com");
-        int employeeCount = repository.findAll().size();
-        Employee createEmployee = repository.save(employee);
+        int employeeCount = repository.findAllEmployees().size();
+        Employee createEmployee = repository.saveEmployee(employee);
         assertThat(createEmployee).isNotNull();
-        assertThat(repository.findAll().size()).isEqualTo(employeeCount + 1);
+        assertThat(repository.findAllEmployees().size()).isEqualTo(employeeCount + 1);
     }
 }
