@@ -1,6 +1,6 @@
 "use client";
 
-import ListingsTable from "@/app/listings/ListingsTable";
+import ListingsTable from "@/app/listings/jobs/ListingsTable";
 import AddEntityForm from "./AddEntityForm";
 import { ChangeEvent, ChangeEventHandler, FormEvent, useEffect, useState } from "react";
 import { InputBase, TextField, alpha, styled } from "@mui/material";
