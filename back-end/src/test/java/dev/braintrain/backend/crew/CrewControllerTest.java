@@ -47,4 +47,16 @@ class CrewControllerTest {
         assertThat(exchange.getBody()).isNotNull();
     }
 
+    @Test
+    void getCrewByIdMappingShouldReturnOneCrew() {
+        String uriPost = "http://localhost:%s/api/crews".formatted(port);
+        CrewRequestDTO crew = new CrewRequestDTO("TestName");
+        ResponseEntity<Crew> postExchange = restTemplate.exchange(uriPost, HttpMethod.POST, new HttpEntity<>(crew), Crew.class);
+
+        String uri = "http://localhost:%s/api/crews/%s".formatted(port,postExchange.getBody().getId());
+        ResponseEntity<Crew> exchange = restTemplate.exchange(uri, HttpMethod.GET, HttpEntity.EMPTY, Crew.class);
+        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(exchange.hasBody()).isTrue();
+        assertThat(exchange.getBody()).isNotNull();
+    }
 }
