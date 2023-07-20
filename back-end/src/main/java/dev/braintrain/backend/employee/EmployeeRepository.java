@@ -29,4 +29,10 @@ public class EmployeeRepository {
     public Optional<Employee> findEmployeeById(Long employeeId) {
         return repository.findById(employeeId);
     }
+
+    public void deleteEmployeeById(Long jobId) {
+        try {
+            repository.deleteById(jobId);
+        } catch (Exception ignored) {}
+    }
 }
