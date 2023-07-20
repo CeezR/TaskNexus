@@ -226,6 +226,9 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
           </Box>
         </Box>
       </Modal>
+      <img height={"100px"} src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png"></img>
+      <p>Phone: {employee?.phoneNumber}</p>
+      <p>Email: {employee?.email}</p>
     </>
   );
 };
