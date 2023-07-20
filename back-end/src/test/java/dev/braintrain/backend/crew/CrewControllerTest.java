@@ -73,4 +73,25 @@ class CrewControllerTest {
         assertThat(exchange.hasBody()).isTrue();
         assertThat(exchange.getBody().getName()).isEqualTo("Fantastic-four");
     }
+
+    @Test
+    void shouldReturnNoContentWhenDeletingCrew() {
+        String postUri = "http://localhost:%s/api/crews".formatted(port);
+        CrewRequestDTO crew = new CrewRequestDTO("TestName");
+        ResponseEntity<Crew> postExchange = restTemplate.exchange(postUri, HttpMethod.POST, new HttpEntity<>(crew), Crew.class);
+
+        String uri = "http://localhost:%s/api/crews/%s".formatted(port, postExchange.getBody().getId());
+        ResponseEntity<Void> exchange = restTemplate.exchange(uri, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
+        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    }
+
+    @Test
+    void shouldReturnNoContentWhenDeletingNonExistingCrew() {
+        String postUri = "http://localhost:%s/api/crews".formatted(port);
+
+        String uri = "http://localhost:%s/api/crews/%s".formatted(port, -1);
+        ResponseEntity<Void> exchange = restTemplate.exchange(uri, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
+        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    }
+
 }
