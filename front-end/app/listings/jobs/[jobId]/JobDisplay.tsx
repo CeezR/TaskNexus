@@ -37,6 +37,7 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
       handleClose();
       const res = await editJob(values);
       setJob(res);
+      
   };
 
   useEffect(() => {
