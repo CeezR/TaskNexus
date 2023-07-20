@@ -23,4 +23,11 @@ class CrewRepositoryTest {
         assertThat(crews).isNotNull();
     }
 
+    @Test
+    void shouldReturnNewlyCreateCrew() {
+        Crew crew = new Crew("Brain-Train");
+        Crew createCrew = repository.save(crew);
+        assertThat(createCrew).isNotNull();
+    }
+
 }
