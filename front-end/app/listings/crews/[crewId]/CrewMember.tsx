@@ -28,7 +28,7 @@ const CrewMember = ({ crewId }: { crewId: string }) => {
 
     const getEmployees = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/employees/free`);
+            const response = await fetch(`http://localhost:8080/api/employees`);
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
