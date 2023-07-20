@@ -6,6 +6,7 @@ import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class CrewRepository {
@@ -23,5 +24,7 @@ public class CrewRepository {
     public Crew save(Crew crew) {
         return repo.save(crew);
     }
-
+    public Optional<Crew> findById(Long crewId) {
+        return repo.findById(crewId);
+    }
 }

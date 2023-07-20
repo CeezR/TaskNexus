@@ -1,9 +1,12 @@
 package dev.braintrain.backend.crew;
 
+import dev.braintrain.backend.job.Job;
+import dev.braintrain.backend.job.RequestJobDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CrewService {
@@ -17,5 +20,13 @@ public class CrewService {
 
     public List<Crew> findAll() {
         return repo.findAll();
+    }
+
+    public Crew save(CrewRequestDTO crewRequest) {
+        return repo.save(new Crew(crewRequest.name()));
+    }
+
+    public Optional<Crew> findById(Long crewId) {
+        return repo.findById(crewId);
     }
 }
