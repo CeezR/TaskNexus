@@ -1,6 +1,8 @@
 package dev.braintrain.backend.crew;
 
+import dev.braintrain.backend.job.Job;
 import dev.braintrain.backend.job.JobResponseDTO;
+import dev.braintrain.backend.job.RequestJobDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +34,17 @@ class CrewControllerTest {
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(exchange.hasBody()).isTrue();
         assertThat(exchange.getBody().crewList()).isNotNull();
+    }
+
+    @Test
+    void shouldCreateCrewForPostRequest() {
+        String uri = "http://localhost:%s/api/crews".formatted(port);
+        CrewRequestDTO crew = new CrewRequestDTO("TestName");
+        ResponseEntity<Crew> exchange = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(crew), Crew.class);
+        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(exchange.hasBody()).isTrue();
+        assertThat(exchange.getHeaders().getLocation()).isNotNull();
+        assertThat(exchange.getBody()).isNotNull();
     }
 
 }
