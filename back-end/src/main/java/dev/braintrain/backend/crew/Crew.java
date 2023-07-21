@@ -11,7 +11,7 @@ import java.util.List;
 public class Crew {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "crew_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "crew_name", nullable = false)
