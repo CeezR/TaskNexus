@@ -87,7 +87,7 @@ export default function Crews() {
   };
 
   return (
-    <div>
+    <section className="EntityListing">
       <h1>Crews</h1>
       <Search>
         <SearchIconWrapper>
@@ -102,7 +102,7 @@ export default function Crews() {
       </Search>
       <AddEntityForm crews={crews} setCrews={setCrews} />
       <ListingsTable crews={filteredCrews} />
-    </div>
+    </section>
   );
 
 }

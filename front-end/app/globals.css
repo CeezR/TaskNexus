@@ -1,5 +1,9 @@
-.css-1v07b12-MuiTableCell-root {
+.css-1v07b12-MuiTableCell-root, .css-1dbhpuz-MuiTableCell-root{
     padding: 0;
+}
+
+.EntityListing {
+  width: 100%;
 }
 
 .table-paragraph {
