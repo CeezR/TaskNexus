@@ -1,6 +1,11 @@
 package dev.braintrain.backend.crew;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import dev.braintrain.backend.employee.Employee;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Crew {
@@ -12,8 +17,31 @@ public class Crew {
     @Column(name = "crew_name", nullable = false)
     private String name;
 
-    public Crew(String name) {
+    public Crew( String name) {
         this.name = name;
+    }
+
+    @OneToMany(mappedBy = "crew", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Employee> employees = new ArrayList<>();
+
+    // Getter and setter for employees
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public void addEmployee(Employee employee) {
+        employees.add(employee);
+        employee.setCrew(this);
+    }
+
+    public void removeEmployee(Employee employee) {
+        employees.remove(employee);
+        employee.setCrew(null);
     }
 
     public Crew() {

@@ -1,5 +1,7 @@
 package dev.braintrain.backend.employee;
 
+import dev.braintrain.backend.crew.Crew;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,18 @@ public class Employee {
     private String email;
     @Column(name = "employee_phone_number")
     private String phoneNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "crew_id")
+    private Crew crew;
+
+    public Crew getCrew() {
+        return crew;
+    }
+
+    public void setCrew(Crew crew) {
+        this.crew = crew;
+    }
 
     public Employee(String name, String email, String phoneNumber) {
         this.name = name;
