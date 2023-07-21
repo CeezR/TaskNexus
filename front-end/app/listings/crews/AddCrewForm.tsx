@@ -19,11 +19,6 @@ type AddCrewFormProps = {
 }
 
 
-type Crew = {
-    id: number | undefined,
-    name: string | undefined
-}
-
 const AddCrewForm = ({ crews, setCrews }: AddCrewFormProps) => {
 
     const theme = useTheme();
@@ -33,7 +28,6 @@ const AddCrewForm = ({ crews, setCrews }: AddCrewFormProps) => {
     const handleClose = () => setOpen(false);
 
     const handleFormSubmit = (values: InitialValues): void => {
-        alert(JSON.stringify(values, undefined, 2));
         handleClose();
         postCrew(values)
     };

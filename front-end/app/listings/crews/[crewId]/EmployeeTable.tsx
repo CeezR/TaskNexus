@@ -1,20 +1,12 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from "@mui/material";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
-type Employee = {
-    id: number | undefined;
-    name: string | undefined;
-    email: string | undefined;
-    phoneNumber: string | undefined;
-  };
+
 
 type EmployeeTableProps = {
   employees: Employee[];
   onDeleteEmployee: (employeeId: number) => void;
 };
-
-
-
 
 const theme = createTheme({
   palette: {
@@ -55,7 +47,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, onDeleteEmployee }) => {
   return (
     <ThemeProvider theme={theme}>
-      <StyledTableContainer component={Paper}>
+      <StyledTableContainer>
         <Table aria-label="employee table">
           <TableHead>
             <StyledTableRow>

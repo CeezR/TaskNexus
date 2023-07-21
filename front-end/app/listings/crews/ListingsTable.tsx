@@ -9,27 +9,9 @@ import Paper from '@mui/material/Paper';
 import Link from 'next/link';
 
 
-
 type BasicTableProp = {
   crews : Crew[] | undefined
 }
-
-type Crew = {
-  id: number | undefined,
-  name: string | undefined,
-  employees?: EmployeeApiResponse | undefined
-}
-
-type EmployeeApiResponse = {
-employeeList: Employee[];
-};
-
-type Employee = {
-id: number | undefined;
-name: string | undefined;
-email: string | undefined;
-phoneNumber: string | undefined;
-};
 
 export default function ListingsTable({ crews }: BasicTableProp) {
   return (

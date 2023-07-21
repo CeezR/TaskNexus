@@ -171,8 +171,6 @@ const Sidebar: React.FC = () => {
                             onClick={() => handleLink("/listings/crews")}
 
                         />
-
-                        {/* Theme Toggle */}
                         <Item
                             title="Theme"
                             icon={

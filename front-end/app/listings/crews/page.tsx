@@ -2,30 +2,9 @@
 
 import ListingsTable from "@/app/listings/crews/ListingsTable";
 import AddEntityForm from "./AddCrewForm";
-import { ChangeEvent, ChangeEventHandler, FormEvent, useEffect, useState } from "react";
-import { InputBase, TextField, alpha, styled } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
+import { ChangeEvent, useEffect, useState } from "react";
+import { InputBase, alpha, styled } from "@mui/material";
 
-type ApiCrewResponse ={
-    crewList: Crew[]
-}
-
-type Crew = {
-    id: number | undefined,
-    name: string | undefined,
-    employees?: EmployeeApiResponse | undefined
-}
-
-type EmployeeApiResponse = {
-  employeeList: Employee[];
-};
-
-type Employee = {
-  id: number | undefined;
-  name: string | undefined;
-  email: string | undefined;
-  phoneNumber: string | undefined;
-};
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",

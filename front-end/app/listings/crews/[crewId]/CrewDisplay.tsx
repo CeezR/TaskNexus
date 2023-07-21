@@ -14,23 +14,6 @@ type CrewDisplayProps = {
   crewId : string
 }
 
-type EmployeeApiResponse = {
-  employeeList: Employee[];
-};
-
-type Employee = {
-  id: number | undefined;
-  name: string | undefined;
-  email: string | undefined;
-  phoneNumber: string | undefined;
-};
-
-type Crew = {
-    id: number | undefined,
-    name: string | undefined,
-    employees?: Employee[] | undefined
-}
-
 const style = {
   position: "absolute" as const,
   top: "50%",
@@ -51,7 +34,6 @@ const CrewDisplay = ({crewId} : CrewDisplayProps) => {
   const handleClose = () => setOpen(false);
 
   const handleFormSubmit = async (values: InitialValues) => {
-      alert(JSON.stringify(values, undefined, 2));
       handleClose();
       const res = await editCrew(values);
       setCrew(res);
@@ -64,20 +46,10 @@ const CrewDisplay = ({crewId} : CrewDisplayProps) => {
 
   interface InitialValues {
     name: string | undefined;
-    // lastName: string;
-    // email: string;
-    // contact: string;
-    // address1: string;
-    // address2: string;
   }
 
   const initialValues: InitialValues = {
     name: crew?.name,
-    // lastName: "",
-    // email: "",
-    // contact: "",
-    // address1: "",
-    // address2: "",
   };
 
   const getCrew = async () => {
@@ -136,8 +108,8 @@ const CrewDisplay = ({crewId} : CrewDisplayProps) => {
   const handleDeleteEmployee = async (employeeId: number) => {
     try {
       const requestBody = {
-        id: crewId, // Assuming crewId is available in the scope
-        employeeIds: [employeeId], // List of employee IDs to be removed
+        id: crewId, 
+        employeeIds: [employeeId], 
       };
       const response = await fetch(
         `http://localhost:8080/api/crews/removeEmployees`,
@@ -173,16 +145,16 @@ const CrewDisplay = ({crewId} : CrewDisplayProps) => {
           Edit
         </Button>
       </Stack>
+      <CrewMember crewId={crewId} />
       {crew?.employees && crew.employees.length > 0 && (
         <div>
-          <h2>Employees</h2>
+          <h3>Crew Members</h3>
           <EmployeeTable 
           employees={crew.employees} 
           onDeleteEmployee={handleDeleteEmployee}
         />
         </div>
       )}
-      <CrewMember crewId={crewId} />
       <Modal
         open={open}
         onClose={handleClose}
