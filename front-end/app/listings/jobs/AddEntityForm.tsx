@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import {
   Box,
   Typography,
@@ -21,19 +21,28 @@ import { type } from "os";
 type AddEntityFormProps = {
   jobs: Job[];
   setJobs: Dispatch<SetStateAction<Job[]>>;
+  crews: Crew[];
 };
 
-const AddEntityForm = ({ jobs, setJobs }: AddEntityFormProps) => {
+const AddEntityForm = ({ jobs, setJobs, crews }: AddEntityFormProps) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+
   const handleFormSubmit = (values: InitialValues): void => {
     alert(JSON.stringify(values, undefined, 2));
     handleClose();
     postJob(values);
+  };
+
+  const handleChangeOfCrew = (event) => {
+    const selectedCrewName = event.target.value;
+   alert("selected Crew = "+ selectedCrewName);
+    // You can perform any additional actions based on the selected crew
+    console.log('Selected crew:', selectedCrewName);
   };
 
   const postJob = async (requestBody: InitialValues) => {
@@ -55,10 +64,12 @@ const AddEntityForm = ({ jobs, setJobs }: AddEntityFormProps) => {
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
+
   interface InitialValues {
     name: string;
     description: string;
     status: string;
+    crewId: number;
     // contact: string;
     // address1: string;
     // address2: string;
@@ -157,6 +168,18 @@ const AddEntityForm = ({ jobs, setJobs }: AddEntityFormProps) => {
                       </MenuItem>
                       <MenuItem value="In progress">In progress</MenuItem>
                       <MenuItem value="Completed">Completed</MenuItem>
+                    </Select>
+
+                    <Select name="crews" defaultValue={"Select Crew"} onChange={handleChangeOfCrew} sx={{ gridColumn: "span 4" }}>
+                      {/* Add the default option */}
+                      <MenuItem value="Select Crew">Select Crew</MenuItem>
+
+                      {/* Populate the select box with crew names */}
+                      {crews.map((crew) => (
+                          <MenuItem key={crew.id} value={crew.id}>
+                            {crew.name}
+                          </MenuItem>
+                      ))}
                     </Select>
                     {/* <TextField
                                             fullWidth

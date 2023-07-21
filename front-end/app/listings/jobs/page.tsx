@@ -52,6 +52,7 @@ export default function Jobs() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [filteredJobs, setFilteredJobs] = useState<Job[]>(jobs);
   const [search, setsearch] = useState("")
+  const [managedCrew, setManagedCrew] = useState<Crew[]>([]);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const searchText = event.currentTarget.value.toLowerCase();
@@ -66,6 +67,10 @@ export default function Jobs() {
   useEffect(() => {
     getJobs();
   }, []);
+  useEffect(() => {
+    getCrew();
+  }, []);
+
 
   useEffect(() => {
     setFilteredJobs(jobs.filter((job) => {
@@ -74,6 +79,16 @@ export default function Jobs() {
       }
     }));
   }, [jobs])
+
+  const getCrew = async () => {
+    const response = await fetch("http://localhost:8080/api/crews");
+    if (!response.ok) {
+      throw new Error("Failed to add job");
+    }
+    const data = await response.json();
+    console.log(JSON.stringify(data, undefined, 2))
+    setManagedCrew(data);
+  }
 
   const getJobs = async () => {
     try {
@@ -107,7 +122,7 @@ export default function Jobs() {
           onChange={(event) => handleSearchChange(event)}
         />
       </Search>
-      <AddEntityForm jobs={jobs} setJobs={setJobs} />
+      <AddEntityForm jobs={jobs} setJobs={setJobs} crews={managedCrew}/>
       <ListingsTable jobs={filteredJobs} />
     </div>
   );
