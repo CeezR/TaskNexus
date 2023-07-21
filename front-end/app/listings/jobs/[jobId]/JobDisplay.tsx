@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { Formik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Jobs from "../page";
+import { describe } from "node:test";
+import { Description } from "@mui/icons-material";
 
 type JobDisplayProps = {
   jobId : string
@@ -46,8 +48,8 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
 
   interface InitialValues {
     name: string | undefined;
-    // lastName: string;
-    // email: string;
+    description: string | undefined,
+    status: string | undefined
     // contact: string;
     // address1: string;
     // address2: string;
@@ -55,8 +57,8 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
 
   const initialValues: InitialValues = {
     name: job?.name,
-    // lastName: "",
-    // email: "",
+    description: job?.description,
+    status: job?.status
     // contact: "",
     // address1: "",
     // address2: "",
@@ -92,7 +94,10 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
   const editJob = async (requestBody: InitialValues) => {
     const editedJob: Job = {
       id: job?.id,
-      name: requestBody.name
+      name: requestBody.name,
+      description: requestBody.description,
+      status: requestBody.status
+
     }
   
     const response = await fetch(`http://localhost:8080/api/jobs/${jobId}`, {
@@ -119,7 +124,9 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
   return (
     <>
     <h1>Job</h1>
-      <h2>{job?.name}</h2>
+      <h2>Name: {job?.name}</h2>
+      <h2>Description: {job?.description}</h2>
+      <h2>Status: {job?.status}</h2>
       <Stack direction="row" spacing={2}>
         <Button onClick={handleDelete} variant="outlined" color="error" startIcon={<DeleteIcon />}>
           Delete
