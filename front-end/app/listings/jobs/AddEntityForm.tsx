@@ -38,13 +38,6 @@ const AddEntityForm = ({ jobs, setJobs, crews }: AddEntityFormProps) => {
     postJob(values);
   };
 
-  const handleChangeOfCrew = (event) => {
-    const selectedCrewName = event.target.value;
-   alert("selected Crew = "+ selectedCrewName);
-    // You can perform any additional actions based on the selected crew
-    console.log('Selected crew:', selectedCrewName);
-  };
-
   const postJob = async (requestBody: InitialValues) => {
     const response = await fetch("http://localhost:8080/api/jobs", {
       method: "POST",
@@ -79,6 +72,7 @@ const AddEntityForm = ({ jobs, setJobs, crews }: AddEntityFormProps) => {
     name: "",
     description: "",
     status: "To be completed",
+    crewId: 123
     // contact: "",
     // address1: "",
     // address2: "",
@@ -170,7 +164,7 @@ const AddEntityForm = ({ jobs, setJobs, crews }: AddEntityFormProps) => {
                       <MenuItem value="Completed">Completed</MenuItem>
                     </Select>
 
-                    <Select name="crews" defaultValue={"Select Crew"} onChange={handleChangeOfCrew} sx={{ gridColumn: "span 4" }}>
+                    <Select name="crews" defaultValue={"Select Crew"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
                       {/* Add the default option */}
                       <MenuItem value="Select Crew">Select Crew</MenuItem>
 
