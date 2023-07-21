@@ -3,6 +3,16 @@
   padding: 0;
 }
 
+.tableListing__row {
+  display: flex;
+  justify-content: space-between;
+  padding: .75rem 1rem;
+}
+
+.tableListing__row:hover {
+  cursor: pointer;
+}
+
 .EntityListing {
   width: 100%;
   margin-top: 10px;
@@ -19,7 +29,7 @@ h1 {
 
 .table-paragraph {
   margin: 0;
-  padding: 1rem;
+  font-size: small
 }
 
 

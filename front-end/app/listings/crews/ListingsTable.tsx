@@ -7,6 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Link from 'next/link';
+import { ArrowForward } from '@mui/icons-material';
+import { useRouter } from 'next/navigation';
 
 
 type BasicTableProp = {
@@ -14,6 +16,8 @@ type BasicTableProp = {
 }
 
 export default function ListingsTable({ crews }: BasicTableProp) {
+  const router = useRouter();
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -30,9 +34,10 @@ export default function ListingsTable({ crews }: BasicTableProp) {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  <Link href={`/listings/crews/${crew.id}`}>
+                  <div className='tableListing__row' onClick={() => router.push(`/listings/crews/${crew.id}`)}>
                     <p className='table-paragraph'>{crew.name}</p>
-                  </Link>
+                    <ArrowForward />
+                  </div>
                 </TableCell>
               </TableRow>
             ))

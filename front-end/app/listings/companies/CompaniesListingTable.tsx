@@ -7,22 +7,26 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Link from 'next/link';
+import { ArrowForward } from '@mui/icons-material';
+import { useRouter } from 'next/navigation';
 
 function createData(
   name: string
 ) {
-  return { name};
+  return { name };
 }
 
 type BasicTableProp = {
-  companies : Company[] | undefined
+  companies: Company[] | undefined
 }
 
 const rows = [
   createData('Frozen yoghurt')
 ];
 
-export default function CompaniesListingTable({companies} : BasicTableProp) {
+export default function CompaniesListingTable({ companies }: BasicTableProp) {
+  const router = useRouter();
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -37,9 +41,10 @@ export default function CompaniesListingTable({companies} : BasicTableProp) {
               key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell component="th" scope="row" >
-              <Link href={`/listings/companies/${company.id}`}>
-                <p className='table-paragraph'>{company.name}</p>
-                </Link>
+                <div className='tableListing__row' onClick={() => router.push(`/listings/companies/${company.id}`)}>
+                  <p className='table-paragraph'>{company.name}</p>
+                  <ArrowForward />
+                </div>
               </TableCell>
             </TableRow>
           ))}

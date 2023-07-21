@@ -7,6 +7,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Link from "next/link";
+import { ArrowForward } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
 
 type Employee = {
   id: number | undefined;
@@ -20,6 +22,8 @@ type EmployeeTableProp = {
 };
 
 export default function EmployeeListingTable({ employees }: EmployeeTableProp) {
+  const router = useRouter();
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -35,9 +39,10 @@ export default function EmployeeListingTable({ employees }: EmployeeTableProp) {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                <Link href={`/listings/employees/${employee.id}`}>
-                  <p className="table-paragraph">{employee.name}</p>
-                </Link>
+                <div className='tableListing__row' onClick={() => router.push(`/listings/employees/${employee.id}`)}>
+                    <p className='table-paragraph'>{employee.name}</p>
+                    <ArrowForward />
+                  </div>
               </TableCell>
             </TableRow>
           ))}
