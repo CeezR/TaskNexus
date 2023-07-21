@@ -14,7 +14,7 @@ public class Job {
 
     @Column(name = "job_description", nullable = false)
     private String description;
-    
+
     @Column(name = "job_status", nullable = false)
     private String status;
 
