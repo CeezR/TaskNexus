@@ -35,7 +35,7 @@ public class CrewService {
     }
 
     public Crew save(CrewRequestDTO crewRequest) {
-        return repo.save(new Crew(crewRequest.name()));
+        return repo.save(new Crew(crewRequest.name(), null));
     }
 
     public Crew save(Crew crew) {

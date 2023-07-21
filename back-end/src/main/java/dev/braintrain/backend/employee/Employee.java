@@ -19,7 +19,7 @@ public class Employee {
     private String phoneNumber;
 
     @ManyToOne
-    @JoinColumn(name = "crew_id")
+    @JoinColumn(name = "crew_id", nullable = true, columnDefinition = "BIGINT DEFAULT NULL")
     private Crew crew;
 
     public Crew getCrew() {

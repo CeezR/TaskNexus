@@ -38,9 +38,10 @@ public class CrewController {
 
     @PostMapping
     public ResponseEntity<Crew> createCrew(@RequestBody CrewRequestDTO crewRequest) {
-        Crew saveCrew = service.save(crewRequest);
-        URI location  = URI.create("/api/crews/" + saveCrew.getId());
-        return ResponseEntity.created(location).body(saveCrew);
+        Crew newCrew = new Crew(crewRequest.name());
+        Crew savedCrew = service.save(newCrew);
+        URI location = URI.create("/api/crews/" + savedCrew.getId());
+        return ResponseEntity.created(location).body(savedCrew);
     }
 
     @PutMapping("/{crewId}")

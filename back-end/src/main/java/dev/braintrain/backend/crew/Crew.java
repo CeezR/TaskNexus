@@ -64,5 +64,10 @@ public class Crew {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Crew(String name, List<Employee> employees) {
+        this.name = name;
+        this.employees = employees;
+    }
 }
 

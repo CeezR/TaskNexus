@@ -67,6 +67,7 @@ export default function Jobs() {
   useEffect(() => {
     getJobs();
   }, []);
+  
   useEffect(() => {
     getCrew();
   }, []);
