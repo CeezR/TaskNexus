@@ -29,11 +29,11 @@ const CompaniesAddEntityForm = ({ companies, setCompanies }: AddEntityFormProps)
     const handleFormSubmit = (values: InitialValues): void => {
         alert(JSON.stringify(values, undefined, 2));
         handleClose();
-        postJob(values)
+        postCompany(values)
 
     };
 
-    const postJob = async (requestBody: InitialValues) => {
+    const postCompany = async (requestBody: InitialValues) => {
         const response = await fetch("http://localhost:8080/api/companies", {
             method: "POST",
             headers: {
@@ -42,12 +42,12 @@ const CompaniesAddEntityForm = ({ companies, setCompanies }: AddEntityFormProps)
             body: JSON.stringify(requestBody),
         });
         if (!response.ok) {
-            throw new Error("Failed to add job");
+            throw new Error("Failed to add company");
         }
 
         const data = await response.json();
-        const newJob: Job = await data;
-        setCompanies((prevCompanies) => [...prevCompanies, newJob])
+        const newCompany: Company = await data;
+        setCompanies((prevCompanies) => [...prevCompanies, newCompany])
     };
 
     const isNonMobile = useMediaQuery("(min-width:600px)");

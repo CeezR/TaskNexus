@@ -48,7 +48,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Jobs() {
+export default function Companies() {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [filteredCompanies, setFilteredCompanies] = useState<Company[]>(companies);
   const [search, setsearch] = useState("")
@@ -64,7 +64,7 @@ export default function Jobs() {
   };
 
   useEffect(() => {
-    getJobs();
+    getCompanies();
   }, []);
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export default function Jobs() {
     }));
   }, [companies])
 
-  const getJobs = async () => {
+  const getCompanies = async () => {
     try {
       const response = await fetch(
         `http://localhost:8080/api/companies`

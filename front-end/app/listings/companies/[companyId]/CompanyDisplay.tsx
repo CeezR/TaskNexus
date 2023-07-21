@@ -7,7 +7,6 @@ import Stack from "@mui/material/Stack";
 import { useRouter } from "next/navigation";
 import { Formik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Jobs from "../page";
 
 type CompanyDisplayProps = {
   companyId : string
@@ -35,12 +34,12 @@ const CompanyDisplay = ({companyId} : CompanyDisplayProps) => {
   const handleFormSubmit = async (values: InitialValues) => {
       alert(JSON.stringify(values, undefined, 2));
       handleClose();
-      const res = await editJob(values);
+      const res = await editCompany(values);
       setCompany(res);
   };
 
   useEffect(() => {
-    getJob();
+    getCompany();
   }, []);
 
 
@@ -62,7 +61,7 @@ const CompanyDisplay = ({companyId} : CompanyDisplayProps) => {
     // address2: "",
   };
 
-  const getJob = async () => {
+  const getCompany = async () => {
     try {
       const response = await fetch(
         `http://localhost:8080/api/companies/${companyId}`
@@ -79,7 +78,7 @@ const CompanyDisplay = ({companyId} : CompanyDisplayProps) => {
     }
   };
 
-  const deleteJob = async () => {
+  const deleteCompany = async () => {
     try {
       const response = await fetch(`http://localhost:8080/api/companies/${companyId}`, {
         method: "DELETE",
@@ -89,8 +88,8 @@ const CompanyDisplay = ({companyId} : CompanyDisplayProps) => {
     }
   };
 
-  const editJob = async (requestBody: InitialValues) => {
-    const editedJob: Job = {
+  const editCompany = async (requestBody: InitialValues) => {
+    const editedCompany: Company = {
       id: company?.id,
       name: requestBody.name
     }
@@ -101,17 +100,17 @@ const CompanyDisplay = ({companyId} : CompanyDisplayProps) => {
             "Content-Type": "application/json",
         },
         
-        body: JSON.stringify(editedJob),
+        body: JSON.stringify(editedCompany),
     });
     if (!response.ok) {
-        throw new Error("Failed to add job");
+        throw new Error("Failed to add company");
     }
     return await response.json();
   };
 
   const handleDelete = async () => {
-    await deleteJob();
-    router.push('/listings/jobs');
+    await deleteCompany();
+    router.push('/listings/companies');
 
   }
   const isNonMobile = useMediaQuery("(min-width:600px)");
