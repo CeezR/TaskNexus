@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, Modal, TextField, Typography } from "@mui/material";
+import { Box, Button, MenuItem, Modal, Select, TextField, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -182,6 +182,27 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
                       helperText={touched.name && errors.name}
                       sx={{ gridColumn: "span 4" }}
                     />
+                    <TextField
+                      fullWidth
+                      variant="filled"
+                      type="text"
+                      label="Descritpion"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.description}
+                      name="description"
+                      error={!!touched.description && !!errors.description}
+                      helperText={touched.description && errors.description}
+                      sx={{ gridColumn: "span 4" }}
+                    />
+                    <Select name="status" defaultValue={"To be completed"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
+                      {/* Add the default option */}
+                      <MenuItem value="To be completed">
+                        To be completed
+                      </MenuItem>
+                      <MenuItem value="In progress">In progress</MenuItem>
+                      <MenuItem value="Completed">Completed</MenuItem>
+                    </Select>
 
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
