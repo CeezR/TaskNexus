@@ -11,19 +11,17 @@ import java.util.List;
 public class Crew {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "crew_id", nullable = false)
     private Long id;
 
     @Column(name = "crew_name", nullable = false)
     private String name;
 
-    public Crew( String name) {
-        this.name = name;
-    }
 
     @OneToMany(mappedBy = "crew", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Employee> employees = new ArrayList<>();
+
 
     // Getter and setter for employees
     public List<Employee> getEmployees() {
@@ -45,6 +43,9 @@ public class Crew {
     }
 
     public Crew() {
+    }
+    public Crew( String name) {
+        this.name = name;
     }
 
     public String getName() {

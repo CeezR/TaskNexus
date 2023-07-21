@@ -1,5 +1,7 @@
 package dev.braintrain.backend.job;
 
+import dev.braintrain.backend.crew.Crew;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +20,17 @@ public class Job {
     @Column(name = "job_status", nullable = false)
     private String status;
 
+    @ManyToOne
+    @JoinColumn(name = "crew_id")
+    private Crew crew;
+
+    public Job(String name, String description, String status, Crew crew) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.crew = crew;
+    }
+
     public Job(String name, String description, String status) {
         this.name = name;
         this.description = description;
@@ -35,7 +48,6 @@ public class Job {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public Long getId() {
         return id;
@@ -59,5 +71,13 @@ public class Job {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Crew getCrew() {
+        return crew;
+    }
+
+    public void setCrew(Crew crew) {
+        this.crew = crew;
     }
 }

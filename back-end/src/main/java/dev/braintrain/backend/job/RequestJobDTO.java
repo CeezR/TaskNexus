@@ -1,4 +1,6 @@
 package dev.braintrain.backend.job;
 
-public record RequestJobDTO(String name, String description, String status) {
+import dev.braintrain.backend.crew.Crew;
+
+public record RequestJobDTO(String name, String description, String status, Crew crew) {
 }
