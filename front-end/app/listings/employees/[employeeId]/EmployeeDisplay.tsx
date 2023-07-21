@@ -141,7 +141,6 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
       <Box display="flex" alignItems="center" position="relative" mb={2}>
         <IconButton
           onClick={() => router.push("/listings/employees")}
-          sx={{ position: "absolute", left: -80 }}
         >
           <ArrowBack fontSize="large" />
         </IconButton>
