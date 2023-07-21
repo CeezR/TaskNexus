@@ -4,6 +4,7 @@ import ListingsTable from "@/app/listings/crews/ListingsTable";
 import AddEntityForm from "./AddCrewForm";
 import { ChangeEvent, useEffect, useState } from "react";
 import { InputBase, alpha, styled } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 
 
 const Search = styled("div")(({ theme }) => ({
@@ -77,7 +78,7 @@ export default function Crews() {
       }
       const data: Crew[] = await response.json();
       setCrews(data);
-      setFilteredCrews(data); // Initially, set filteredCrews to the full list
+      setFilteredCrews(data); 
       return data;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -89,7 +90,15 @@ export default function Crews() {
     <div>
       <h1>Crews</h1>
       <Search>
-        {/* Rest of your code */}
+        <SearchIconWrapper>
+          <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="Search…"
+            inputProps={{ "aria-label": "search" }}
+            value={search}
+            onChange={(event) => handleSearchChange(event)}
+          />
       </Search>
       <AddEntityForm crews={crews} setCrews={setCrews} />
       <ListingsTable crews={filteredCrews} />
