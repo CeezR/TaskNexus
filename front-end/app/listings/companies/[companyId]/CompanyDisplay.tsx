@@ -135,7 +135,7 @@ const CompanyDisplay = ({companyId} : CompanyDisplayProps) => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Add Company Details
+            Edit Company Details
           </Typography>
           <Box>
             <Formik
@@ -178,7 +178,7 @@ const CompanyDisplay = ({companyId} : CompanyDisplayProps) => {
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
                     <Button type="submit" color="secondary" variant="contained">
-                      Edit 
+                      Edit
                     </Button>
                   </Box>
                 </form>

@@ -106,7 +106,7 @@ const AddEntityForm = ({ jobs, setJobs, crews }: AddEntityFormProps) => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Add Employee Details
+            Add Job Details
           </Typography>
           <Box>
             <Formik onSubmit={handleFormSubmit} initialValues={initialValues}>
@@ -217,7 +217,7 @@ const AddEntityForm = ({ jobs, setJobs, crews }: AddEntityFormProps) => {
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
                     <Button type="submit" color="secondary" variant="contained">
-                      Create New User
+                      Submit
                     </Button>
                   </Box>
                 </form>

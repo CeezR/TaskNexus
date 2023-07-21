@@ -143,7 +143,7 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Add Employee Details
+            Edit Job Details
           </Typography>
           <Box>
             <Formik

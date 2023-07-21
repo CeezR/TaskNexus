@@ -99,7 +99,7 @@ const CompaniesAddEntityForm = ({ companies, setCompanies }: AddEntityFormProps)
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Add Employee Details
+                        Add Company Details
                     </Typography>
                     <Box>
                         <Formik
@@ -206,7 +206,7 @@ const CompaniesAddEntityForm = ({ companies, setCompanies }: AddEntityFormProps)
                                     </Box>
                                     <Box display="flex" justifyContent="end" mt="20px">
                                         <Button type="submit" color="secondary" variant="contained">
-                                            Create New User
+                                            Submit
                                         </Button>
                                     </Box>
                                 </form>

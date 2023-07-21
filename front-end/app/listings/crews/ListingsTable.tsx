@@ -43,7 +43,7 @@ export default function ListingsTable({ crews }: BasicTableProp) {
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={1}>No crews found</TableCell>
+             
             </TableRow>
           )}
         </TableBody>
