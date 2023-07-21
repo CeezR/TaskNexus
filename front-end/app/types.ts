@@ -4,7 +4,10 @@ type ApiJobResponse = {
 
 type Job = {
     id: number | undefined,
-    name: string | undefined
+    name: string | undefined,
+    description: string | undefined,
+    status: string | undefined
+
 }
 
 type ApiCompanyResponse = {
