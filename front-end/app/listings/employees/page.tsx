@@ -115,7 +115,7 @@ export default function Employees() {
   };
 
   return (
-    <div>
+    <section className="EntityListing">
       <h1>Employees</h1>
       <Search>
         <SearchIconWrapper>
@@ -130,6 +130,6 @@ export default function Employees() {
       </Search>
       <AddEmployeeForm setEmployees={setEmployees} />
       <EmployeeListingTable employees={filteredEmployees} />
-    </div>
+    </section>
   );
 }

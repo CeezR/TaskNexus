@@ -94,7 +94,7 @@ export default function Companies() {
   };
 
   return (
-    <div>
+    <section className="EntityListing">
       <h1>Companies</h1>
       <Search>
         <SearchIconWrapper>
@@ -109,6 +109,6 @@ export default function Companies() {
       </Search>
       <CompaniesAddEntityForm companies={companies} setCompanies={setCompanies} />
       <CompaniesListingTable companies={filteredCompanies} />
-    </div>
+    </section>
   );
 }

@@ -109,7 +109,7 @@ export default function Jobs() {
   };
 
   return (
-    <div>
+    <section className="EntityListing">
       <h1>Jobs</h1>
       <Search>
         <SearchIconWrapper>
@@ -124,6 +124,6 @@ export default function Jobs() {
       </Search>
       <AddEntityForm jobs={jobs} setJobs={setJobs} crews={managedCrew}/>
       <ListingsTable jobs={filteredJobs} />
-    </div>
+    </section>
   );
 }

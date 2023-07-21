@@ -26,8 +26,6 @@ export default function EmployeeListingTable({ employees }: EmployeeTableProp) {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>Phone Number</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -39,16 +37,6 @@ export default function EmployeeListingTable({ employees }: EmployeeTableProp) {
               <TableCell component="th" scope="row">
                 <Link href={`/listings/employees/${employee.id}`}>
                   <p className="table-paragraph">{employee.name}</p>
-                </Link>
-              </TableCell>
-              <TableCell>
-                <Link href={`/listings/employees/${employee.id}`}>
-                  <p className="table-paragraph">{employee.email}</p>
-                </Link>
-              </TableCell>
-              <TableCell>
-                <Link href={`/listings/employees/${employee.id}`}>
-                  <p className="table-paragraph">{employee.phoneNumber}</p>
                 </Link>
               </TableCell>
             </TableRow>
