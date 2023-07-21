@@ -21,7 +21,7 @@ public class JobService {
     }
 
     public Job save(RequestJobDTO jobRequest) {
-        return repo.save(new Job(jobRequest.name()));
+        return repo.save(new Job(jobRequest.name(), jobRequest.description(), jobRequest.status()));
     }
 
 
