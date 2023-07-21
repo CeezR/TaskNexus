@@ -12,8 +12,16 @@ public class Job {
     @Column(name = "job_name", nullable = false)
     private String name;
 
-    public Job(String name) {
+    @Column(name = "job_description", nullable = false)
+    private String description;
+    
+    @Column(name = "job_status", nullable = false)
+    private String status;
+
+    public Job(String name, String description, String status) {
         this.name = name;
+        this.description = description;
+        this.status = status;
     }
 
     public Job() {
@@ -35,5 +43,21 @@ public class Job {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
