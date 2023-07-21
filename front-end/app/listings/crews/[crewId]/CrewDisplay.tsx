@@ -8,14 +8,27 @@ import { useRouter } from "next/navigation";
 import { Formik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CrewMember from "./CrewMember";
+import EmployeeTable from "./EmployeeTable";
 
 type CrewDisplayProps = {
   crewId : string
 }
 
+type EmployeeApiResponse = {
+  employeeList: Employee[];
+};
+
+type Employee = {
+  id: number | undefined;
+  name: string | undefined;
+  email: string | undefined;
+  phoneNumber: string | undefined;
+};
+
 type Crew = {
     id: number | undefined,
-    name: string | undefined
+    name: string | undefined,
+    employees?: Employee[] | undefined
 }
 
 const style = {
@@ -119,8 +132,35 @@ const CrewDisplay = ({crewId} : CrewDisplayProps) => {
     router.push('/listings/crews');
 
   }
-  const isNonMobile = useMediaQuery("(min-width:600px)");
 
+  const handleDeleteEmployee = async (employeeId: number) => {
+    try {
+      const requestBody = {
+        id: crewId, // Assuming crewId is available in the scope
+        employeeIds: [employeeId], // List of employee IDs to be removed
+      };
+      const response = await fetch(
+        `http://localhost:8080/api/crews/removeEmployees`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to delete employee");
+      }
+      // Refresh the crew data after successful deletion
+      getCrew();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const isNonMobile = useMediaQuery("(min-width:600px)");
+  console.log("==ju=="+JSON.stringify(crew, undefined,2))
   return (
     <>
     <h1>Crew</h1>
@@ -131,8 +171,17 @@ const CrewDisplay = ({crewId} : CrewDisplayProps) => {
         </Button>
         <Button onClick={handleOpen} variant="outlined" color="warning" startIcon={<EditIcon />}>
           Edit
-        </Button>      
+        </Button>
       </Stack>
+      {crew?.employees && crew.employees.length > 0 && (
+        <div>
+          <h2>Employees</h2>
+          <EmployeeTable 
+          employees={crew.employees} 
+          onDeleteEmployee={handleDeleteEmployee}
+        />
+        </div>
+      )}
       <CrewMember crewId={crewId} />
       <Modal
         open={open}

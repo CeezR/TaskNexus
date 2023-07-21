@@ -12,8 +12,20 @@ type ApiCrewResponse ={
 
 type Crew = {
     id: number | undefined,
-    name: string | undefined
+    name: string | undefined,
+    employees?: EmployeeApiResponse | undefined
 }
+
+type EmployeeApiResponse = {
+  employeeList: Employee[];
+};
+
+type Employee = {
+  id: number | undefined;
+  name: string | undefined;
+  email: string | undefined;
+  phoneNumber: string | undefined;
+};
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,30 +70,23 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Crews() {
   const [crews, setCrews] = useState<Crew[]>([]);
-  const [filteredCrews, setFilteredCrews] = useState<Crew[]>(crews);
-  const [search, setsearch] = useState("")
+  const [filteredCrews, setFilteredCrews] = useState<Crew[]>([]);
+  const [search, setSearch] = useState("");
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const searchText = event.currentTarget.value.toLowerCase();
-    setsearch(searchText);
+    setSearch(searchText);
     setFilteredCrews(crews.filter((crew) => {
-      if(crew.name !== undefined) {
-        return crew.name.toLowerCase().startsWith(searchText)
+      if (crew.name !== undefined) {
+        return crew.name.toLowerCase().startsWith(searchText);
       }
+      return false;
     }));
   };
 
   useEffect(() => {
     getCrews();
   }, []);
-
-  useEffect(() => {
-    setFilteredCrews(crews.filter((crew) => {
-      if(crew.name) {
-        return crew.name.toLowerCase().startsWith(search)
-      }
-    }));
-  }, [crews])
 
   const getCrews = async () => {
     try {
@@ -91,9 +96,9 @@ export default function Crews() {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      const data: ApiCrewResponse = await response.json();
-      setCrews(data.crewList);
-      setFilteredCrews(data.crewList);
+      const data: Crew[] = await response.json();
+      setCrews(data);
+      setFilteredCrews(data); // Initially, set filteredCrews to the full list
       return data;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -105,18 +110,11 @@ export default function Crews() {
     <div>
       <h1>Crews</h1>
       <Search>
-        <SearchIconWrapper>
-          <SearchIcon />
-        </SearchIconWrapper>
-        <StyledInputBase
-          placeholder="Search…"
-          inputProps={{ "aria-label": "search" }}
-          value={search}
-          onChange={(event) => handleSearchChange(event)}
-        />
+        {/* Rest of your code */}
       </Search>
       <AddEntityForm crews={crews} setCrews={setCrews} />
       <ListingsTable crews={filteredCrews} />
     </div>
   );
+
 }

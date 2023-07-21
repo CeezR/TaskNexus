@@ -15,11 +15,23 @@ type BasicTableProp = {
 }
 
 type Crew = {
-    id: number | undefined,
-    name: string | undefined
+  id: number | undefined,
+  name: string | undefined,
+  employees?: EmployeeApiResponse | undefined
 }
 
-export default function ListingsTable({crews} : BasicTableProp) {
+type EmployeeApiResponse = {
+employeeList: Employee[];
+};
+
+type Employee = {
+id: number | undefined;
+name: string | undefined;
+email: string | undefined;
+phoneNumber: string | undefined;
+};
+
+export default function ListingsTable({ crews }: BasicTableProp) {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -29,17 +41,24 @@ export default function ListingsTable({crews} : BasicTableProp) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {crews?.map((crew, index) => (
-            <TableRow
-              key={index}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              <TableCell component="th" scope="row" >
-              <Link href={`/listings/crews/${crew.id}`}>
-                <p className='table-paragraph'>{crew.name}</p>
-                </Link>
-              </TableCell>
+          {crews?.length ? ( // Check if crews is not null and has elements
+            crews.map((crew, index) => (
+              <TableRow
+                key={index}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  <Link href={`/listings/crews/${crew.id}`}>
+                    <p className='table-paragraph'>{crew.name}</p>
+                  </Link>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={1}>No crews found</TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </TableContainer>

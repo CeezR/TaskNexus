@@ -69,7 +69,7 @@ const CrewMember = ({ crewId }: { crewId: string }) => {
         }
         alert(JSON.stringify(selectedEmployees, undefined, 2))
         try {
-          const response = await fetch(`http://localhost:8080/api/crews/add/member`, {
+          const response = await fetch(`http://localhost:8080/api/crews/addEmployees`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
