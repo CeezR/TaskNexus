@@ -50,18 +50,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Crews() {
   const [crews, setCrews] = useState<Crew[]>([]);
-  const [filteredCrews, setFilteredCrews] = useState<Crew[]>([]);
   const [search, setSearch] = useState("");
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const searchText = event.currentTarget.value.toLowerCase();
     setSearch(searchText);
-    setFilteredCrews(crews.filter((crew) => {
-      if (crew.name !== undefined) {
-        return crew.name.toLowerCase().startsWith(searchText);
-      }
-      return false;
-    }));
   };
 
   useEffect(() => {
@@ -78,7 +71,6 @@ export default function Crews() {
       }
       const data: Crew[] = await response.json();
       setCrews(data);
-      setFilteredCrews(data); 
       return data;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -101,7 +93,7 @@ export default function Crews() {
           />
       </Search>
       <AddEntityForm crews={crews} setCrews={setCrews} />
-      <ListingsTable crews={filteredCrews} />
+      <ListingsTable crews={crews} />
     </section>
   );
 

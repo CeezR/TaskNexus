@@ -36,17 +36,19 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+  const colors = tokens(theme.palette.mode);
 
   const handleFormSubmit = async (values: InitialValues) => {
-    handleClose();
+    
     const res = await editCrew(values);
     setCrew(res);
+    handleClose();
+    getCrew();
   };
 
   useEffect(() => {
     getCrew();
-  }, []);
+  }, [crewId]);
 
 
   interface InitialValues {
@@ -146,7 +148,6 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
   
-  console.log("==ju==" + JSON.stringify(crew, undefined, 2))
   return (
     <Box padding="20px">
       <Box display="flex" alignItems="center" position="relative" mb={2}>
