@@ -6,9 +6,7 @@ import {
   Box,
   useTheme,
   IconButton,
-  Button,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { tokens } from "@/app/theme";
 
 
@@ -20,6 +18,7 @@ export default function ListingsTable({ crews }: BasicTableProp) {
   const router = useRouter();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   const columns: GridColDef[] = [
     {
       field: "name",
@@ -40,8 +39,8 @@ export default function ListingsTable({ crews }: BasicTableProp) {
     },
   ];
   const handleRowClick = (params: GridRowParams) => {
-    const employeeId = params.id;
-    router.push(`/listings/crews/${employeeId}`);
+    const crewId = params.id;
+    router.push(`/listings/crews/${crewId}`);
   };
   return (
     <Box
@@ -74,7 +73,6 @@ export default function ListingsTable({ crews }: BasicTableProp) {
       }}
     >
       <DataGrid
-        checkboxSelection
         rows={crews as readonly any[]} 
         columns={columns}
       />

@@ -1,21 +1,10 @@
 import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Link from "next/link";
 import { ArrowForward } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
+import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
+import { Box, IconButton, useTheme } from "@mui/material";
+import { tokens } from "@/app/theme";
 
-type Employee = {
-  id: number | undefined;
-  name: string | undefined;
-  email: string | undefined;
-  phoneNumber: string | undefined;
-};
 
 type EmployeeTableProp = {
   employees: Employee[] | undefined;
@@ -23,31 +12,66 @@ type EmployeeTableProp = {
 
 export default function EmployeeListingTable({ employees }: EmployeeTableProp) {
   const router = useRouter();
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
+  const columns: GridColDef[] = [
+    {
+      field: "name",
+      headerName: "Name",
+      flex: 1,
+      cellClassName: "name-column--cell",
+    },
+    {
+      field: "view",
+      headerName: "View",
+      sortable: false,
+      renderCell: ({ row }) => (
+        <IconButton onClick={() => handleRowClick(row)} style={{ color: "white" }}>
+          <ArrowForward />
+        </IconButton>
+      ),
+    },
+  ];
+  const handleRowClick = (params: GridRowParams) => {
+    const employeeId = params.id;
+    router.push(`/listings/employees/${employeeId}`);
+  };
 
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {employees?.map((employee, index) => (
-            <TableRow
-              key={index}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                <div className='tableListing__row' onClick={() => router.push(`/listings/employees/${employee.id}`)}>
-                    <p className='table-paragraph'>{employee.name}</p>
-                    <ArrowForward />
-                  </div>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+     <Box
+     m="40px 0 0 0"
+     height="75vh"
+     sx={{
+       "& .MuiDataGrid-root": {
+         border: "none",
+       },
+       "& .MuiDataGrid-cell": {
+         borderBottom: "none",
+       },
+       "& .name-column--cell": {
+         color: colors.greenAccent[300],
+       },
+       "& .MuiDataGrid-columnHeaders": {
+         backgroundColor: colors.blueAccent[700],
+         borderBottom: "none",
+       },
+       "& .MuiDataGrid-virtualScroller": {
+         backgroundColor: colors.primary[400],
+       },
+       "& .MuiDataGrid-footerContainer": {
+         borderTop: "none",
+         backgroundColor: colors.blueAccent[700],
+       },
+       "& .MuiCheckbox-root": {
+         color: `${colors.greenAccent[200]} !important`,
+       },
+     }}
+   >
+     <DataGrid
+       rows={employees as readonly any[]} 
+       columns={columns}
+     />
+   </Box>
   );
 }
