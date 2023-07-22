@@ -10,11 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles("test")
@@ -86,8 +83,6 @@ class JobControllerTest {
 
     @Test
     void shouldReturnNoContentWhenDeletingNonExistingJob() {
-        String postUri = "http://localhost:%s/api/jobs".formatted(port);
-
         String uri = "http://localhost:%s/api/jobs/%s".formatted(port, -1);
         ResponseEntity<Void> exchange = restTemplate.exchange(uri, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);

@@ -1,7 +1,5 @@
 package dev.braintrain.backend.employee;
 
-
-import dev.braintrain.backend.job.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

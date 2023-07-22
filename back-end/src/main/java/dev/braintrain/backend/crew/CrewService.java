@@ -1,7 +1,6 @@
 package dev.braintrain.backend.crew;
 
 import dev.braintrain.backend.employee.Employee;
-import dev.braintrain.backend.employee.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -12,12 +11,11 @@ import java.util.stream.Collectors;
 public class CrewService {
 
     private final CrewRepository repo;
-    private final EmployeeService employeeService;
+    
 
     @Autowired
-    public CrewService(CrewRepository repo, EmployeeService employeeService) {
+    public CrewService(CrewRepository repo) {
         this.repo = repo;
-        this.employeeService = employeeService;
     }
 
     public List<CrewResponseDTO> findAll() {

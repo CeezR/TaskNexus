@@ -1,7 +1,5 @@
 package dev.braintrain.backend.company;
 
-import dev.braintrain.backend.job.Job;
-import dev.braintrain.backend.job.RequestJobDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

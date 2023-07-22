@@ -88,8 +88,6 @@ class CrewControllerTest {
 
     @Test
     void shouldReturnNoContentWhenDeletingNonExistingCrew() {
-        String postUri = "http://localhost:%s/api/crews".formatted(port);
-
         String uri = "http://localhost:%s/api/crews/%s".formatted(port, -1);
         ResponseEntity<Void> exchange = restTemplate.exchange(uri, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);

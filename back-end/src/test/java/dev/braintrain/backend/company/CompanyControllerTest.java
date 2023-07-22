@@ -1,8 +1,5 @@
 package dev.braintrain.backend.company;
 
-import dev.braintrain.backend.job.Job;
-import dev.braintrain.backend.job.JobResponseDTO;
-import dev.braintrain.backend.job.RequestJobDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles("test")
@@ -86,8 +83,6 @@ class CompanyControllerTest {
 
     @Test
     void shouldReturnNoContentWhenDeletingNonExistingJob() {
-        String postUri = "http://localhost:%s/api/companies".formatted(port);
-
         String uri = "http://localhost:%s/api/companies/%s".formatted(port, -1);
         ResponseEntity<Void> exchange = restTemplate.exchange(uri, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
