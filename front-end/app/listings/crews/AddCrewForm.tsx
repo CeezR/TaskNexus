@@ -85,8 +85,9 @@ const AddCrewForm = ({ crews, setCrews }: AddCrewFormProps) => {
         <Box>
             <Button
                 onClick={handleOpen}
-                variant="outlined"
-                sx={{ color: "white", background: "red" }}
+                variant="contained"
+                color='secondary'
+                sx={{ color: "white", background: colors.greenAccent[700] }}
             >
                 Add Crew
             </Button>
@@ -204,7 +205,12 @@ const AddCrewForm = ({ crews, setCrews }: AddCrewFormProps) => {
                                         /> */}
                                     </Box>
                                     <Box display="flex" justifyContent="end" mt="20px">
-                                        <Button type="submit" color="secondary" variant="contained">
+                                        <Button 
+                                            type="submit" 
+                                            color="secondary" 
+                                            variant="contained"
+                                            sx={{ color: "white", background: colors.greenAccent[700] }}
+                                        >
                                             Submit
                                         </Button>
                                     </Box>
