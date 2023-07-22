@@ -85,9 +85,10 @@ const CompaniesAddEntityForm = ({ companies, setCompanies }: AddEntityFormProps)
     return (
         <Box>
             <Button
-                onClick={handleOpen}
-                variant="outlined"
-                sx={{ color: "white", background: "red" }}
+                  onClick={handleOpen}
+                  variant="contained"
+                  color='secondary'
+                  sx={{ color: "white", background: colors.greenAccent[700] }}
             >
                 Add Company
             </Button>
@@ -205,7 +206,12 @@ const CompaniesAddEntityForm = ({ companies, setCompanies }: AddEntityFormProps)
                                         /> */}
                                     </Box>
                                     <Box display="flex" justifyContent="end" mt="20px">
-                                        <Button type="submit" color="secondary" variant="contained">
+                                        <Button 
+                                            type="submit" 
+                                            color="secondary" 
+                                            variant="contained"
+                                            sx={{ color: "white", background: colors.greenAccent[700] }}
+                                        >
                                             Submit
                                         </Button>
                                     </Box>

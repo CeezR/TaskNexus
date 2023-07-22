@@ -82,7 +82,7 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, onDeleteEmploy
           },
         }}
       >
-        <DataGrid checkboxSelection rows={employees} columns={columns} />
+        <DataGrid rows={employees} columns={columns} />
       </Box>
     </ThemeProvider>
   );

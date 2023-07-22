@@ -11,7 +11,6 @@ import {
 import { Formik } from "formik";
 import { tokens } from "../../theme";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { type } from "os";
 
 type Employee = {
   id: number | undefined;
@@ -29,6 +28,7 @@ const AddEmployeeForm = ({ setEmployees }: AddEntityFormProps) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const colors = tokens(theme.palette.mode);
 
   const handleFormSubmit = (values: InitialValues): void => {
     alert(JSON.stringify(values, undefined, 2));
@@ -82,8 +82,9 @@ const AddEmployeeForm = ({ setEmployees }: AddEntityFormProps) => {
     <Box>
       <Button
         onClick={handleOpen}
-        variant="outlined"
-        sx={{ color: "white", background: "red" }}
+        variant="contained"
+        color='secondary'
+        sx={{ color: "white", background: colors.greenAccent[700] }}
       >
         Add Employee
       </Button>
@@ -159,7 +160,12 @@ const AddEmployeeForm = ({ setEmployees }: AddEntityFormProps) => {
                     />
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
-                    <Button type="submit" color="secondary" variant="contained">
+                    <Button
+                      type="submit"
+                      color="secondary"
+                      variant="contained"
+                      sx={{ color: "white", background: colors.greenAccent[700] }}
+                    >
                       Submit
                     </Button>
                   </Box>

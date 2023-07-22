@@ -7,6 +7,7 @@ import {
   Modal,
   TextField,
   Typography,
+  useTheme
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -16,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { Formik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import ArrowBack from "@mui/icons-material/ArrowBack";
+import { tokens } from "@/app/theme";
 
 type EmployeeDisplayProps = {
   employeeId: string;
@@ -46,6 +48,8 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
   const handleFormSubmit = async (values: InitialValues) => {
     handleClose();
@@ -150,19 +154,20 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
       </Box>
       <h2>{employee?.name}</h2>
       <Stack direction="row" spacing={2}>
-        <Button
-          onClick={handleDelete}
-          variant="outlined"
+      <Button 
+          onClick={handleDelete} 
+          variant="contained" 
           color="error"
-          startIcon={<DeleteIcon />}
-        >
+          sx={{ color: "white", background: colors.redAccent[700] }}
+          startIcon={<DeleteIcon />}>
           Delete
         </Button>
-        <Button
-          onClick={handleOpen}
-          variant="outlined"
-          color="warning"
+        <Button 
+          onClick={handleOpen} 
+          variant="contained" 
+          color="warning" 
           startIcon={<EditIcon />}
+          sx={{ color: "white", background: colors.grey[700] }}
         >
           Edit
         </Button>

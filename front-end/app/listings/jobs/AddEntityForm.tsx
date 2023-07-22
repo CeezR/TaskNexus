@@ -93,8 +93,9 @@ const AddEntityForm = ({ jobs, setJobs, crews }: AddEntityFormProps) => {
     <Box>
       <Button
         onClick={handleOpen}
-        variant="outlined"
-        sx={{ color: "white", background: "red" }}
+        variant="contained"
+        color='secondary'
+        sx={{ color: "white", background: colors.greenAccent[700] }}
       >
         Add Job
       </Button>
@@ -170,9 +171,9 @@ const AddEntityForm = ({ jobs, setJobs, crews }: AddEntityFormProps) => {
 
                       {/* Populate the select box with crew names */}
                       {crews.map((crew) => (
-                          <MenuItem key={crew.id} value={crew.id}>
-                            {crew.name}
-                          </MenuItem>
+                        <MenuItem key={crew.id} value={crew.id}>
+                          {crew.name}
+                        </MenuItem>
                       ))}
                     </Select>
                     {/* <TextField
@@ -216,7 +217,12 @@ const AddEntityForm = ({ jobs, setJobs, crews }: AddEntityFormProps) => {
                                         /> */}
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
-                    <Button type="submit" color="secondary" variant="contained">
+                    <Button
+                      type="submit"
+                      color="secondary"
+                      variant="contained"
+                      sx={{ color: "white", background: colors.greenAccent[700] }}
+                    >
                       Submit
                     </Button>
                   </Box>
