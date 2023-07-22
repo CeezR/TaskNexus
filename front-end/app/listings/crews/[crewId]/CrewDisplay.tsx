@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, Modal, TextField, Typography } from "@mui/material";
+import { Box, Button, IconButton, Modal, TextField, Typography, useTheme} from "@mui/material";
 import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -9,9 +9,12 @@ import { Formik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CrewMember from "./CrewMember";
 import EmployeeTable from "./EmployeeTable";
+import { ArrowBack } from "@mui/icons-material";
+import { tokens } from "@/app/theme";
+
 
 type CrewDisplayProps = {
-  crewId : string
+  crewId: string
 }
 
 const style = {
@@ -26,17 +29,19 @@ const style = {
   p: 4,
 };
 
-const CrewDisplay = ({crewId} : CrewDisplayProps) => {
+const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
   const [crew, setCrew] = useState<Crew>();
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
 
   const handleFormSubmit = async (values: InitialValues) => {
-      handleClose();
-      const res = await editCrew(values);
-      setCrew(res);
+    handleClose();
+    const res = await editCrew(values);
+    setCrew(res);
   };
 
   useEffect(() => {
@@ -84,17 +89,17 @@ const CrewDisplay = ({crewId} : CrewDisplayProps) => {
       id: crew?.id,
       name: requestBody.name
     }
-  
+
     const response = await fetch(`http://localhost:8080/api/crews/${crewId}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        
-        body: JSON.stringify(editedCrew),
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify(editedCrew),
     });
     if (!response.ok) {
-        throw new Error("Failed to add crew");
+      throw new Error("Failed to add crew");
     }
     return await response.json();
   };
@@ -108,8 +113,8 @@ const CrewDisplay = ({crewId} : CrewDisplayProps) => {
   const handleDeleteEmployee = async (employeeId: number) => {
     try {
       const requestBody = {
-        id: crewId, 
-        employeeIds: [employeeId], 
+        id: crewId,
+        employeeIds: [employeeId],
       };
       const response = await fetch(
         `http://localhost:8080/api/crews/removeEmployees`,
@@ -124,36 +129,60 @@ const CrewDisplay = ({crewId} : CrewDisplayProps) => {
       if (!response.ok) {
         throw new Error("Failed to delete employee");
       }
-      // Refresh the crew data after successful deletion
+      
       getCrew();
     } catch (error) {
       console.error(error);
     }
   };
 
+  const handleUpdateCrew = async () => {
+   
+    const updatedCrew = await getCrew();
+    if (updatedCrew) {
+      setCrew(updatedCrew);
+    }
+  };
+
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  console.log("==ju=="+JSON.stringify(crew, undefined,2))
+  
+  console.log("==ju==" + JSON.stringify(crew, undefined, 2))
   return (
-    <>
-    <h1>Crew</h1>
-      <h2>{crew?.name}</h2>
+    <Box padding="20px">
+      <Box display="flex" alignItems="center" position="relative" mb={2}>
+        <IconButton onClick={() => router.push("/listings/crews")}>
+          <ArrowBack fontSize="large" />
+        </IconButton>
+        <Typography variant="h3" component="h1">
+          Crew
+        </Typography>
+      </Box>
+      <Typography variant="h2">{crew?.name}</Typography>
       <Stack direction="row" spacing={2}>
-        <Button onClick={handleDelete} variant="outlined" color="error" startIcon={<DeleteIcon />}>
+        <Button 
+          onClick={handleDelete} 
+          variant="contained" 
+          color="error"
+          sx={{ color: "white", background: colors.redAccent[700] }}
+          startIcon={<DeleteIcon />}>
           Delete
         </Button>
-        <Button onClick={handleOpen} variant="outlined" color="warning" startIcon={<EditIcon />}>
+        <Button 
+          onClick={handleOpen} 
+          variant="contained" 
+          color="warning" 
+          startIcon={<EditIcon />}
+          sx={{ color: "white", background: colors.grey[700] }}
+        >
           Edit
         </Button>
       </Stack>
-      <CrewMember crewId={crewId} />
+      <CrewMember crewId={crewId} onUpdateCrew={handleUpdateCrew} />
       {crew?.employees && crew.employees.length > 0 && (
-        <div>
-          <h3>Crew Members</h3>
-          <EmployeeTable 
-          employees={crew.employees} 
-          onDeleteEmployee={handleDeleteEmployee}
-        />
-        </div>
+        <Box mt={2}>
+          <Typography variant="h3">Crew Members</Typography>
+          <EmployeeTable employees={crew.employees} onDeleteEmployee={handleDeleteEmployee} />
+        </Box>
       )}
       <Modal
         open={open}
@@ -165,11 +194,8 @@ const CrewDisplay = ({crewId} : CrewDisplayProps) => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Edit Crew Details
           </Typography>
-          <Box>
-            <Formik
-              onSubmit={handleFormSubmit}
-              initialValues={initialValues}
-            >
+          <Box mt={2}>
+            <Formik onSubmit={handleFormSubmit} initialValues={initialValues}>
               {({
                 values,
                 errors,
@@ -204,9 +230,14 @@ const CrewDisplay = ({crewId} : CrewDisplayProps) => {
                     />
 
                   </Box>
-                  <Box display="flex" justifyContent="end" mt="20px">
-                    <Button type="submit" color="secondary" variant="contained">
-                      Edit 
+                  <Box display="flex" justifyContent="end" mt={2}>
+                    <Button 
+                      type="submit" 
+                      color="warning" 
+                      variant="contained"
+                      sx={{ color: "white", background: colors.grey[700] }}
+                    >
+                      Edit
                     </Button>
                   </Box>
                 </form>
@@ -215,8 +246,9 @@ const CrewDisplay = ({crewId} : CrewDisplayProps) => {
           </Box>
         </Box>
       </Modal>
-    </>
+    </Box>
   )
 }
 
-export default CrewDisplay
+export default CrewDisplay;
+
