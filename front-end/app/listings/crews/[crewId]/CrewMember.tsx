@@ -3,12 +3,16 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { Box, FormControl, InputLabel, useTheme} from "@mui/material";
+import { tokens } from "@/app/theme";
 
 
-const CrewMember = ({ crewId }: { crewId: string }) => {
+const CrewMember = ({ crewId, onUpdateCrew }: { crewId: string; onUpdateCrew: () => void }) => {
     const [employees, setEmployee] = useState<Employee[]>([]);
     const [selectedEmployees, setSelectedEmployees] = useState<Employee[]>([]);
     const [currentSelection, setCurrentSelection] = useState<Employee | null>(null);
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
 
     useEffect(() => {
         getEmployees();
@@ -31,47 +35,43 @@ const CrewMember = ({ crewId }: { crewId: string }) => {
         setCurrentSelection(employee);
     };
 
-    const handleAddEmployee = () => {
-        if (currentSelection) {
-            setSelectedEmployees([...selectedEmployees, currentSelection]);
-            setCurrentSelection(null);
-        }
-    };
-
     const availableEmployees = employees.filter(
         (employee) => !selectedEmployees.some((selected) => selected.id === employee.id)
     );
 
-    const assignEmployeesToCrew = async () => {
+    const handleAddAndAssignEmployee = async () => {
         if (currentSelection) {
-            setSelectedEmployees([...selectedEmployees, currentSelection]);
-            setCurrentSelection(null);
-        }
-        if (selectedEmployees.length === 0) {
-            alert("No employees selected.");
-            return;
-        }
-        
-        try {
-            const response = await fetch(`http://localhost:8080/api/crews/addEmployees`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    id: crewId,
-                    employeeIds: selectedEmployees.map((employee) => employee.id),
-                }),
-            });
+            try {
+                const updatedSelectedEmployees = [...selectedEmployees, currentSelection];
+                setSelectedEmployees(updatedSelectedEmployees);
+                setCurrentSelection(null);
 
-            if (!response.ok) {
-                throw new Error("Failed to assign employees to crew.");
+                if (updatedSelectedEmployees.length === 0) {
+                    alert("No employees selected.");
+                    return;
+                }
+
+                const response = await fetch(`http://localhost:8080/api/crews/addEmployees`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        id: crewId,
+                        employeeIds: updatedSelectedEmployees.map((employee) => employee.id),
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to assign employees to crew.");
+                }
+                onUpdateCrew();
+                alert("Employees successfully assigned to the crew.");
+                setSelectedEmployees([]);
+            } catch (error) {
+                console.error(error);
+                alert("An error occurred while assigning employees to the crew.");
             }
-            alert("Employees successfully assigned to the crew.");
-            setSelectedEmployees([]);
-        } catch (error) {
-            console.error(error);
-            alert("An error occurred while assigning employees to the crew.");
         }
     };
 
@@ -81,35 +81,43 @@ const CrewMember = ({ crewId }: { crewId: string }) => {
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <div>
-                        <Select
-                            value={currentSelection ? currentSelection.id.toString() : ""}
-                            onChange={(e) => {
-                                const selectedId = parseInt(e.target.value);
-                                const selectedEmployee = availableEmployees.find(
-                                    (employee) => employee.id === selectedId
-                                );
-                                if (selectedEmployee) {
-                                    handleSelectEmployee(selectedEmployee);
-                                }
-                            }}
-                            style={{ minWidth: "200px" }}
+                        <Box >
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Select Crew Member</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={currentSelection ? currentSelection.id.toString() : ""}
+                                    label="Select Crew Member"
+                                    onChange={(e) => {
+                                        const selectedId = parseInt(e.target.value);
+                                        const selectedEmployee = availableEmployees.find(
+                                            (employee) => employee.id === selectedId
+                                        );
+                                        if (selectedEmployee) {
+                                            handleSelectEmployee(selectedEmployee);
+                                        }
+                                    }}
+                                >
+                                    {availableEmployees.map((employee) => (
+                                        <MenuItem key={employee.id} value={employee.id.toString()}>
+                                            {employee.name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Box>
+                        <Button 
+                            variant="contained" 
+                            onClick={handleAddAndAssignEmployee} 
+                            color="secondary"
+                            sx={{ color: "white", background: colors.greenAccent[700] }}
                         >
-                            {/* Add the default option */}
-                            <MenuItem value="">
-                                Select Crew Member
-                            </MenuItem>
-                            {availableEmployees.map((employee) => (
-                                <MenuItem key={employee.id} value={employee.id.toString()}>
-                                    {employee.name}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                        <Button variant="contained" onClick={handleAddEmployee}>
                             Add
                         </Button>
-                        <Button variant="contained" onClick={assignEmployeesToCrew}>
-                            Assign Employee to Crew
-                        </Button>
+
+          
+
                     </div>
                 </Grid>
             </Grid>
