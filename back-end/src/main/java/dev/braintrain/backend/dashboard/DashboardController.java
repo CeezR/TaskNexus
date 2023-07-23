@@ -87,9 +87,9 @@ public class DashboardController {
         long jobsCompletedCount = jobs.stream().filter(job -> job.getStatus().equalsIgnoreCase("Completed")).count();
         long jobsToBeCompleted = jobs.stream().filter(job -> job.getStatus().equalsIgnoreCase("To be completed")).count();
         List<Map<String, Object>> jobsData = new ArrayList<>();
-        jobsData.add(getJobStatusData("In-progress", "In progress", jobsInProgressCount, "hsl(27, 70%, 50%)"));
-        jobsData.add(getJobStatusData("Completed", "completed", jobsCompletedCount, "hsl(347, 70%, 50%)"));
-        jobsData.add(getJobStatusData("To-Be-Completed", "To-Be-Completed", jobsToBeCompleted, "hsl(347, 70%, 50%)"));
+        jobsData.add(getJobStatusData("In-progress", "In progress", jobsInProgressCount));
+        jobsData.add(getJobStatusData("Completed", "Completed", jobsCompletedCount));
+        jobsData.add(getJobStatusData("Not Assigned", "Not Assigned", jobsToBeCompleted));
 
         response.put("jobStatus", jobsData);
 
@@ -139,12 +139,11 @@ public class DashboardController {
         return Date.from(previousDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
-    private Map<String, Object> getJobStatusData(String id, String label, long value, String color) {
+    private Map<String, Object> getJobStatusData(String id, String label, long value) {
         Map<String, Object> itemData = new HashMap<>();
         itemData.put("id", id);
         itemData.put("label", label);
         itemData.put("value", value);
-        itemData.put("color", color);
         return itemData;
     }
 }
