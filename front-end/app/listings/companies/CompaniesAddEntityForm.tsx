@@ -11,7 +11,6 @@ import {
 import { Formik } from "formik";
 import { tokens } from "../../theme";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { type } from 'os';
 
 type AddEntityFormProps = {
     companies: Company[]
