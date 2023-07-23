@@ -39,3 +39,22 @@ type Crew = {
 type ApiCrewResponse = {
     crewList: Crew[]
 }
+
+type JobStatus = {
+    color: string;
+    id: string;
+    label: string;
+    value: number;
+};
+
+type Statbox = {
+    subtitle: string;
+    progress: number;
+    title: string;
+    increase: number;
+};
+
+type Dashboard = {
+    jobStatus: JobStatus[];
+    statbox: Statbox[]
+}
