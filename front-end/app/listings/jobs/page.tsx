@@ -87,7 +87,6 @@ export default function Jobs() {
       throw new Error("Failed to add job");
     }
     const data = await response.json();
-    console.log(JSON.stringify(data, undefined, 2))
     setManagedCrew(data);
   }
 

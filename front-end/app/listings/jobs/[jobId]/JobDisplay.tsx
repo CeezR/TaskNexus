@@ -127,9 +127,6 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
   return (
     <>
     <h1>Job</h1>
-      <h2>Name: {job?.name}</h2>
-      <h2>Description: {job?.description}</h2>
-      <h2>Status: {job?.status}</h2>
       <Stack direction="row" spacing={2}>
       <Button 
           onClick={handleDelete} 
@@ -149,6 +146,9 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
           Edit
         </Button>
       </Stack>
+      <h2>Name: {job?.name}</h2>
+      <h2>Description: {job?.description}</h2>
+      <h2>Status: {job?.status}</h2>
       <Modal
         open={open}
         onClose={handleClose}

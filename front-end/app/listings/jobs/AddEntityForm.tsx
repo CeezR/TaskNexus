@@ -71,7 +71,7 @@ const AddEntityForm = ({ jobs, setJobs, crews }: AddEntityFormProps) => {
   const initialValues: InitialValues = {
     name: "",
     description: "",
-    status: "To be completed",
+    status: "Not Assigned",
     crewId: 123
     // contact: "",
     // address1: "",
@@ -156,10 +156,10 @@ const AddEntityForm = ({ jobs, setJobs, crews }: AddEntityFormProps) => {
                       helperText={touched.description && errors.description}
                       sx={{ gridColumn: "span 4" }}
                     />
-                    <Select name="status" defaultValue={"To be completed"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
+                    <Select name="status" defaultValue={"Not Assigned"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
                       {/* Add the default option */}
-                      <MenuItem value="To be completed">
-                        To be completed
+                      <MenuItem value="Not Assigned">
+                        Not Assigned
                       </MenuItem>
                       <MenuItem value="In progress">In progress</MenuItem>
                       <MenuItem value="Completed">Completed</MenuItem>

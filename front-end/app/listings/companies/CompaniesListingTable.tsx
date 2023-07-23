@@ -42,7 +42,8 @@ export default function CompaniesListingTable({ companies }: BasicTableProp) {
   return (
     <Box
       m="40px 0 0 0"
-      height="75vh"
+      height="100%"
+      width="100%"
       sx={{
         "& .MuiDataGrid-root": {
           border: "none",

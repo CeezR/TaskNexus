@@ -41,7 +41,6 @@ type ApiCrewResponse = {
 }
 
 type JobStatus = {
-    color: string;
     id: string;
     label: string;
     value: number;
