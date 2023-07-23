@@ -122,19 +122,12 @@ const Sidebar: React.FC = () => {
                     </MenuItem>
 
                     <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-
-                        <Item
-                            title="Dashboard"
-                            icon={<DashboardCustomizeOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        
                         <Item
                             title="Home"
                             icon={<HomeOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
+                            onClick={() => handleLink("/")}
                         />
                         <Item
                             title="Schedule"
