@@ -1,14 +1,13 @@
 // Dashboard component
 'use client'
 import React, { useState, useEffect } from "react";
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Button, useTheme } from "@mui/material";
 import { tokens } from "./theme";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 
 import Header from "../components/Header";
 import StatBox from "../components/StatBox";
 import { ResponsivePie } from "@nivo/pie";
-import { Height } from "@mui/icons-material";
 
 type JobStatus = {
     color: string;
@@ -191,12 +190,6 @@ const Dashboard = () => {
                             {
                                 match: {
                                     id: 'In-progress'
-                                },
-                                id: 'dots'
-                            },
-                            {
-                                match: {
-                                    id: 'c'
                                 },
                                 id: 'dots'
                             },

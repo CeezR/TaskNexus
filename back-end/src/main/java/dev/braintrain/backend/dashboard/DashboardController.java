@@ -44,7 +44,6 @@ public class DashboardController {
     }
     @GetMapping
     public ResponseEntity<Map<String, Object>> getStatBoxData() {
-        Map<String, Object> statBoxData = new HashMap<>();
 
         // Get the count of companies, crews, employees, and jobs
         List<Company> companies = companyRepository.findAll();
@@ -74,7 +73,7 @@ public class DashboardController {
         double employeePercentIncrease = (previousEmployeeCount != 0) ? (employeeIncrease / previousEmployeeCount)  : 0;
         double jobPercentIncrease = (previousJobCount != 0) ? (jobIncrease / previousJobCount)  : 0;
 
-        List statBoxList = new ArrayList();
+        List<Object> statBoxList = new ArrayList<Object>();
         statBoxList.add(getStatBoxItemData("Company", "StatBox", companyPercentIncrease, companyIncrease));
         statBoxList.add(getStatBoxItemData("Crew", "StatBox", crewPercentIncrease, crewIncrease));
         statBoxList.add(getStatBoxItemData("Employee", "StatBox", employeePercentIncrease, employeeIncrease));
@@ -95,11 +94,6 @@ public class DashboardController {
         response.put("jobStatus", jobsData);
 
         return ResponseEntity.ok(response);
-    }
-
-    private double getRandomIncrease() {
-        // Generate a random increase percentage between 0 and 30
-        return (Math.random() * 30);
     }
 
     private Map<String, Object> getStatBoxItemData(String title, String subtitle, double progress, double increase) {
