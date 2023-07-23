@@ -1,8 +1,10 @@
 package dev.braintrain.backend.employee;
 
 import dev.braintrain.backend.crew.Crew;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Employee {
@@ -17,6 +19,17 @@ public class Employee {
     private String email;
     @Column(name = "employee_phone_number")
     private String phoneNumber;
+
+
+    @Column(name = "created_date", nullable = true, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+
+
+    @Column(name = "updated_date", nullable = true)
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedDate;
 
     @ManyToOne
     @JoinColumn(name = "crew_id", nullable = true, columnDefinition = "BIGINT DEFAULT NULL")
@@ -70,5 +83,28 @@ public class Employee {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        if (createdDate == null) {
+            createdDate = new Date();
+        }
     }
 }
