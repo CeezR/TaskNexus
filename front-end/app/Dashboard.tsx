@@ -40,7 +40,6 @@ const Dashboard = () => {
                 throw new Error("Network response was not ok");
             }
             const data: Dashboard = await response.json();
-            console.log("=== " + JSON.stringify(data, undefined, 2))
             setDashboard(data);
 
         } catch (error) {
@@ -130,7 +129,7 @@ const Dashboard = () => {
                         margin: "20px",
                     }}
                 >
-                    <PieChart />
+                    <PieChart jobStatus={dashboard.jobStatus}/>
                 </Box>
 
 
