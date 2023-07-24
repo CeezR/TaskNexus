@@ -35,9 +35,6 @@ public class Crew {
     @UpdateTimestamp
     private Date updatedDate;
 
-
-
-    // Getter and setter for employees
     public List<Employee> getEmployees() {
         return employees;
     }

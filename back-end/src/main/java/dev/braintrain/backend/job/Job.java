@@ -1,5 +1,6 @@
 package dev.braintrain.backend.job;
 
+import dev.braintrain.backend.company.Company;
 import dev.braintrain.backend.crew.Crew;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -37,17 +38,23 @@ public class Job {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    public Job(String name, String description, String status, Crew crew) {
+    @ManyToOne
+    @JoinColumn(name = "company_id", nullable = true, columnDefinition = "BIGINT DEFAULT NULL")
+    private Company company;
+
+    public Job(String name, String description, String status, Crew crew, Company company) {
         this.name = name;
         this.description = description;
         this.status = status;
         this.crew = crew;
+        this.company = company;
     }
 
-    public Job(String name, String description, String status) {
+    public Job(String name, String description, String status, Company company) {
         this.name = name;
         this.description = description;
         this.status = status;
+        this.company = company;
     }
 
     public Job() {
@@ -108,6 +115,13 @@ public class Job {
 
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
+    }
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     @PrePersist

@@ -1,5 +1,6 @@
 package dev.braintrain.backend.job;
 
+import dev.braintrain.backend.company.Company;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,7 +36,7 @@ class JobControllerTest {
     @Test
     void getJobByIdMappingShouldReturnOneJob() {
         String uriPost = "http://localhost:%s/api/jobs".formatted(port);
-        RequestJobDTO job = new RequestJobDTO("TestName", "", "", null);
+        RequestJobDTO job = new RequestJobDTO("TestName", "", "", null, null);
         ResponseEntity<Job> postExchange = restTemplate.exchange(uriPost, HttpMethod.POST, new HttpEntity<>(job), Job.class);
 
         String uri = "http://localhost:%s/api/jobs/%s".formatted(port,postExchange.getBody().getId());
@@ -48,7 +49,7 @@ class JobControllerTest {
     @Test
     void shouldCreateJobForPostRequest() {
         String uri = "http://localhost:%s/api/jobs".formatted(port);
-        RequestJobDTO job = new RequestJobDTO("TestName", "", "", null);
+        RequestJobDTO job = new RequestJobDTO("TestName", "", "", null, null);
         ResponseEntity<Job> exchange = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(job), Job.class);
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(exchange.hasBody()).isTrue();
@@ -59,11 +60,11 @@ class JobControllerTest {
     @Test
     void shouldUpdateJobForPutRequest() {
         String postUri = "http://localhost:%s/api/jobs".formatted(port);
-        RequestJobDTO job = new RequestJobDTO("TestName", "", "", null);
+        RequestJobDTO job = new RequestJobDTO("TestName", "", "", null, null);
         ResponseEntity<Job> postExchange = restTemplate.exchange(postUri, HttpMethod.POST, new HttpEntity<>(job), Job.class);
 
         String uri = "http://localhost:%s/api/jobs/%s".formatted(port, postExchange.getBody().getId());
-        RequestJobDTO updatedJob = new RequestJobDTO("Not Developer", "", "", null);
+        RequestJobDTO updatedJob = new RequestJobDTO("Not Developer", "", "", null, null);
         ResponseEntity<Job> exchange = restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(updatedJob), Job.class);
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(exchange.hasBody()).isTrue();
@@ -73,7 +74,7 @@ class JobControllerTest {
     @Test
     void shouldReturnNoContentWhenDeletingJob() {
         String postUri = "http://localhost:%s/api/jobs".formatted(port);
-        RequestJobDTO job = new RequestJobDTO("TestName", "", "", null);
+        RequestJobDTO job = new RequestJobDTO("TestName", "", "", null, null);
         ResponseEntity<Job> postExchange = restTemplate.exchange(postUri, HttpMethod.POST, new HttpEntity<>(job), Job.class);
 
         String uri = "http://localhost:%s/api/jobs/%s".formatted(port, postExchange.getBody().getId());

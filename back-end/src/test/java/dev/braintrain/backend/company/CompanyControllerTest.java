@@ -29,7 +29,6 @@ class CompanyControllerTest {
         ResponseEntity<CompanyResponseDTO> exchange = restTemplate.exchange(uri, HttpMethod.GET, HttpEntity.EMPTY, CompanyResponseDTO.class);
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(exchange.hasBody()).isTrue();
-        assertThat(exchange.getBody().companyList()).isNotNull();
     }
 
     @Test

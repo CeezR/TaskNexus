@@ -23,7 +23,7 @@ public class EntityIntegrationTest {
     @Test
     void shouldCreateNewJobWithValidCrew() {
         Crew crew = crewRepository.save(new Crew("Luke"));
-        Job job = new Job("Developer", "", "", crew);
+        Job job = new Job("Developer", "", "", crew, null);
         assertThat(job).isNotNull();
         assertThat(job.getCrew().getId()).isEqualTo(crew.getId());
     }

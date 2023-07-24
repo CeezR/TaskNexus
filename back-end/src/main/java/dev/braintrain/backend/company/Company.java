@@ -1,9 +1,14 @@
 package dev.braintrain.backend.company;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import dev.braintrain.backend.employee.Employee;
+import dev.braintrain.backend.job.Job;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Company {
@@ -23,6 +28,10 @@ public class Company {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Job> jobs = new ArrayList<>();
 
     public Company(String name) {
         this.name = name;
@@ -57,6 +66,22 @@ public class Company {
 
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
+    }
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
+    }
+
+    public void addJob(Job job) {
+        jobs.add(job);
+        job.setCompany(this);
+    }
+    public void removeJob(Job job) {
+        jobs.remove(job);
+        job.setCompany(null);
     }
 
     @PrePersist
