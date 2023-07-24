@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, Modal, TextField, Typography, useTheme } from "@mui/material";
+import { Box, Button, IconButton, Modal, TextField, Typography, useTheme} from "@mui/material";
 import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -7,10 +7,14 @@ import Stack from "@mui/material/Stack";
 import { useRouter } from "next/navigation";
 import { Formik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import CompanyMember from "./CompanyMember";
+import JobTable from "./JobTable";
+import { ArrowBack } from "@mui/icons-material";
 import { tokens } from "@/app/theme";
 
+
 type CompanyDisplayProps = {
-  companyId : string
+  companyId: string
 }
 
 const style = {
@@ -25,7 +29,7 @@ const style = {
   p: 4,
 };
 
-const CompanyDisplay = ({companyId} : CompanyDisplayProps) => {
+const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
   const [company, setCompany] = useState<Company>();
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
@@ -35,33 +39,24 @@ const CompanyDisplay = ({companyId} : CompanyDisplayProps) => {
   const colors = tokens(theme.palette.mode);
 
   const handleFormSubmit = async (values: InitialValues) => {
-      alert(JSON.stringify(values, undefined, 2));
-      handleClose();
-      const res = await editCompany(values);
-      setCompany(res);
+    
+    const res = await editCompany(values);
+    setCompany(res);
+    handleClose();
+    getCompany();
   };
 
   useEffect(() => {
     getCompany();
-  }, []);
+  }, [companyId]);
 
 
   interface InitialValues {
     name: string | undefined;
-    // lastName: string;
-    // email: string;
-    // contact: string;
-    // address1: string;
-    // address2: string;
   }
 
   const initialValues: InitialValues = {
     name: company?.name,
-    // lastName: "",
-    // email: "",
-    // contact: "",
-    // address1: "",
-    // address2: "",
   };
 
   const getCompany = async () => {
@@ -96,17 +91,17 @@ const CompanyDisplay = ({companyId} : CompanyDisplayProps) => {
       id: company?.id,
       name: requestBody.name
     }
-  
+
     const response = await fetch(`http://localhost:8080/api/companies/${companyId}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        
-        body: JSON.stringify(editedCompany),
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify(editedCompany),
     });
     if (!response.ok) {
-        throw new Error("Failed to add company");
+      throw new Error("Failed to add company");
     }
     return await response.json();
   };
@@ -116,14 +111,56 @@ const CompanyDisplay = ({companyId} : CompanyDisplayProps) => {
     router.push('/listings/companies');
 
   }
-  const isNonMobile = useMediaQuery("(min-width:600px)");
 
+  const handleDeleteJob = async (jobId: number) => {
+    try {
+      const requestBody = {
+        id: companyId,
+        jobIds: [jobId],
+      };
+      const response = await fetch(
+        `http://localhost:8080/api/companies/removeJobs`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to delete job");
+      }
+      
+      getCompany();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleUpdateCompany = async () => {
+   
+    const updatedCompany = await getCompany();
+    if (updatedCompany) {
+      setCompany(updatedCompany);
+    }
+  };
+
+  const isNonMobile = useMediaQuery("(min-width:600px)");
+  
   return (
-    <>
-    <h1>Company</h1>
-      <h2>{company?.name}</h2>
+    <Box padding="20px">
+      <Box display="flex" alignItems="center" position="relative" mb={2}>
+        <IconButton onClick={() => router.push("/listings/companies")}>
+          <ArrowBack fontSize="large" />
+        </IconButton>
+        <Typography variant="h3" component="h1">
+          Company
+        </Typography>
+      </Box>
+      <Typography variant="h2">{company?.name}</Typography>
       <Stack direction="row" spacing={2}>
-      <Button 
+        <Button 
           onClick={handleDelete} 
           variant="contained" 
           color="error"
@@ -141,6 +178,13 @@ const CompanyDisplay = ({companyId} : CompanyDisplayProps) => {
           Edit
         </Button>
       </Stack>
+      <CompanyMember companyId={companyId} onUpdateCompany={handleUpdateCompany} />
+      {company?.jobs && company.jobs.length > 0 && (
+        <Box mt={2}>
+          <Typography variant="h3">Company Members</Typography>
+          <JobTable jobs={company.jobs} onDeleteJob={handleDeleteJob} />
+        </Box>
+      )}
       <Modal
         open={open}
         onClose={handleClose}
@@ -151,11 +195,8 @@ const CompanyDisplay = ({companyId} : CompanyDisplayProps) => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Edit Company Details
           </Typography>
-          <Box>
-            <Formik
-              onSubmit={handleFormSubmit}
-              initialValues={initialValues}
-            >
+          <Box mt={2}>
+            <Formik onSubmit={handleFormSubmit} initialValues={initialValues}>
               {({
                 values,
                 errors,
@@ -190,8 +231,13 @@ const CompanyDisplay = ({companyId} : CompanyDisplayProps) => {
                     />
 
                   </Box>
-                  <Box display="flex" justifyContent="end" mt="20px">
-                    <Button type="submit" color="secondary" variant="contained">
+                  <Box display="flex" justifyContent="end" mt={2}>
+                    <Button 
+                      type="submit" 
+                      color="warning" 
+                      variant="contained"
+                      sx={{ color: "white", background: colors.grey[700] }}
+                    >
                       Edit
                     </Button>
                   </Box>
@@ -201,8 +247,9 @@ const CompanyDisplay = ({companyId} : CompanyDisplayProps) => {
           </Box>
         </Box>
       </Modal>
-    </>
+    </Box>
   )
 }
 
-export default CompanyDisplay
+export default CompanyDisplay;
+
