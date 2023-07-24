@@ -16,13 +16,6 @@ type EmployeeApiResponse = {
   employeeList: Employee[];
 };
 
-type Employee = {
-  id: number | undefined;
-  name: string | undefined;
-  email: string | undefined;
-  phoneNumber: string | undefined;
-};
-
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,

@@ -23,13 +23,6 @@ type EmployeeDisplayProps = {
   employeeId: string;
 };
 
-type Employee = {
-  id: number | undefined;
-  name: string | undefined;
-  email: string | undefined;
-  phoneNumber: string | undefined;
-};
-
 const style = {
   position: "absolute" as const,
   top: "50%",
@@ -65,12 +58,16 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
     name: string | undefined;
     email: string | undefined;
     phoneNumber: string | undefined;
+    createdDate: string | undefined;
+    crew: Crew | undefined
   }
 
   const initialValues: InitialValues = {
     name: employee?.name,
     email: employee?.email,
     phoneNumber: employee?.phoneNumber,
+    createdDate: employee?.createdDate,
+    crew: employee?.crew
   };
 
   const getEmployee = async () => {
@@ -109,6 +106,8 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
       name: requestBody.name,
       email: requestBody.email,
       phoneNumber: requestBody.phoneNumber,
+      createdDate: requestBody.createdDate,
+      crew: requestBody.crew
     };
 
     const response = await fetch(
@@ -263,6 +262,8 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
       <Box textAlign="left" mt={2}>
         <p>Phone: {employee?.phoneNumber}</p>
         <p>Email: {employee?.email}</p>
+        <p>Date added: {employee?.createdDate}</p>
+        <p>Crew: {employee?.crew?.name}</p>
       </Box>
     </Box>
   );

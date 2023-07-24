@@ -12,13 +12,6 @@ import { Formik } from "formik";
 import { tokens } from "../../theme";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-type Employee = {
-  id: number | undefined;
-  name: string | undefined;
-  email: string | undefined;
-  phoneNumber: string | undefined;
-};
-
 type AddEntityFormProps = {
   setEmployees: Dispatch<SetStateAction<Employee[]>>;
 };

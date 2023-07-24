@@ -31,11 +31,13 @@ type Company = {
 }
 
 type Employee = {
-    id: number;
-    name: string;
-    email: string;
-    phoneNumber: string;
-};
+    id: number | undefined;
+    name: string | undefined;
+    email: string | undefined;
+    phoneNumber: string | undefined;
+    createdDate: string | undefined;
+    crew: Crew | undefined;
+  };
 
 type EmployeeListResponse = {
     employeeList: Employee[];
