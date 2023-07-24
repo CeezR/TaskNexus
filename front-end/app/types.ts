@@ -16,8 +16,8 @@ type JobRequest = {
     name: string | undefined,
     description: string | undefined,
     status: string | undefined,
-    company: string | undefined,
-    crew: string | undefined
+    companyId: number | undefined,
+    crewId: number | undefined
 }
 
 type ApiCompanyResponse = {

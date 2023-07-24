@@ -13,7 +13,7 @@ import { Description } from "@mui/icons-material";
 import { tokens } from "@/app/theme";
 
 type JobDisplayProps = {
-  jobId : string
+  jobId: string,
 }
 
 const style = {
@@ -28,7 +28,7 @@ const style = {
   p: 4,
 };
 
-const JobDisplay = ({jobId} : JobDisplayProps) => {
+const JobDisplay = ({ jobId }: JobDisplayProps) => {
   const [job, setJob] = useState<Job>();
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
@@ -36,33 +36,54 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
   const handleClose = () => setOpen(false);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [crews, setCrews] = useState<Crew[]>();
+  const [companies, setCompanies] = useState<Company[]>();
 
   const handleFormSubmit = async (values: InitialValues) => {
-      alert(JSON.stringify(values, undefined, 2));
-      handleClose();
-      const res = await editJob(values);
-      setJob(res);
+    alert(JSON.stringify(values, undefined, 2));
+    handleClose();
+    const res = await editJob(values);
+    setJob(res);
   };
 
   useEffect(() => {
     getJob();
+    getCompanies();
+    getCrew();
   }, []);
 
+  const getCompanies = async () => {
+    const response = await fetch("http://localhost:8080/api/companies");
+    if (!response.ok) {
+      throw new Error("Failed to add job");
+    }
+    const data = await response.json();
+    setCompanies(data);
+  }
+
+  const getCrew = async () => {
+    const response = await fetch("http://localhost:8080/api/crews");
+    if (!response.ok) {
+      throw new Error("Failed to add job");
+    }
+    const data = await response.json();
+    setCrews(data);
+  }
 
   interface InitialValues {
     name: string | undefined;
     description: string | undefined,
     status: string | undefined,
-    company: Company | undefined,
-    crew: Crew | undefined
+    companyId: number | undefined,
+    crewId: number | undefined
   }
 
   const initialValues: InitialValues = {
     name: job?.name,
     description: job?.description,
     status: job?.status,
-    company: job?.company,
-    crew: job?.crew
+    companyId: job?.company?.id,
+    crewId: job?.crew?.id
   };
 
   const getJob = async () => {
@@ -94,25 +115,25 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
   };
 
   const editJob = async (requestBody: InitialValues) => {
-    const editedJob: Job = {
+    const editedJob: JobRequest = {
       id: job?.id,
       name: requestBody.name,
       description: requestBody.description,
       status: requestBody.status,
-      company: requestBody.company,
-      crew: requestBody.crew
+      companyId: requestBody.companyId,
+      crewId: requestBody.crewId
     }
-  
+
     const response = await fetch(`http://localhost:8080/api/jobs/${jobId}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        
-        body: JSON.stringify(editedJob),
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify(editedJob),
     });
     if (!response.ok) {
-        throw new Error("Failed to add job");
+      throw new Error("Failed to add job");
     }
     return await response.json();
   };
@@ -126,20 +147,20 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
 
   return (
     <>
-    <h1>Job</h1>
+      <h1>Job</h1>
       <Stack direction="row" spacing={2}>
-      <Button 
-          onClick={handleDelete} 
-          variant="contained" 
+        <Button
+          onClick={handleDelete}
+          variant="contained"
           color="error"
           sx={{ color: "white", background: colors.redAccent[700] }}
           startIcon={<DeleteIcon />}>
           Delete
         </Button>
-        <Button 
-          onClick={handleOpen} 
-          variant="contained" 
-          color="warning" 
+        <Button
+          onClick={handleOpen}
+          variant="contained"
+          color="warning"
           startIcon={<EditIcon />}
           sx={{ color: "white", background: colors.grey[700] }}
         >
@@ -219,11 +240,32 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
                       <MenuItem value="In progress">In progress</MenuItem>
                       <MenuItem value="Completed">Completed</MenuItem>
                     </Select>
+                    <Select name="crewId" defaultValue={"Select Crew"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
+                      {/* Add the default option */}
+                      <MenuItem value="Select Crew">Select Crew</MenuItem>
+                      {/* Populate the select box with crew names */}
+                      {crews?.map((crew) => (
+                        <MenuItem key={crew.id} value={crew.id}>
+                          {crew.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    <Select name="companyId" defaultValue={"Select Company"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
+                      {/* Add the default option */}
+                      <MenuItem value="Select Company">Select Company</MenuItem>
+
+                      {/* Populate the select box with crew names */}
+                      {companies?.map((company) => (
+                        <MenuItem key={company.id} value={company.id}>
+                          {company.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
 
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
                     <Button type="submit" color="secondary" variant="contained">
-                      Edit 
+                      Edit
                     </Button>
                   </Box>
                 </form>
