@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
   Box,
   Typography,
@@ -7,6 +7,8 @@ import {
   TextField,
   Button,
   Modal,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { Formik } from "formik";
 import { tokens } from "../../theme";
@@ -18,10 +20,24 @@ type AddEntityFormProps = {
 
 const AddEmployeeForm = ({ setEmployees }: AddEntityFormProps) => {
   const theme = useTheme();
+  const [crews, setCrews] = useState<Crew[]>();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const colors = tokens(theme.palette.mode);
+
+  const getCrew = async () => {
+    const response = await fetch("http://localhost:8080/api/crews");
+    if (!response.ok) {
+      throw new Error("Failed to add job");
+    }
+    const data = await response.json();
+    setCrews(data);
+  }
+
+  useEffect(() => {
+    getCrew();
+  }, []);
 
   const handleFormSubmit = (values: InitialValues): void => {
     alert(JSON.stringify(values, undefined, 2));
@@ -52,12 +68,14 @@ const AddEmployeeForm = ({ setEmployees }: AddEntityFormProps) => {
     name: string;
     email: string;
     phoneNumber: string;
+    crewId : string;
   }
 
   const initialValues: InitialValues = {
     name: "",
     email: "",
     phoneNumber: "",
+    crewId: ""
   };
 
   const style = {
@@ -151,6 +169,17 @@ const AddEmployeeForm = ({ setEmployees }: AddEntityFormProps) => {
                       helperText={touched.phoneNumber && errors.phoneNumber}
                       sx={{ gridColumn: "span 4" }}
                     />
+                    <Select name="crewId" defaultValue={"Select Crew"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
+                      {/* Add the default option */}
+                      <MenuItem value="Select Crew">Select Crew</MenuItem>
+
+                      {/* Populate the select box with crew names */}
+                      {crews?.map((crew) => (
+                        <MenuItem key={crew.id} value={crew.id}>
+                          {crew.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
                     <Button

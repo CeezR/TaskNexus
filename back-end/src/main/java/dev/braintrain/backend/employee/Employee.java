@@ -20,11 +20,9 @@ public class Employee {
     @Column(name = "employee_phone_number")
     private String phoneNumber;
 
-
     @Column(name = "created_date", nullable = true, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
-
 
     @Column(name = "updated_date", nullable = true)
     @UpdateTimestamp
@@ -43,10 +41,11 @@ public class Employee {
         this.crew = crew;
     }
 
-    public Employee(String name, String email, String phoneNumber) {
+    public Employee(String name, String email, String phoneNumber, Crew crew) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.crew = crew;
     }
 
     public Employee() {
