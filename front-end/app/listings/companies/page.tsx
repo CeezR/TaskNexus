@@ -83,9 +83,10 @@ export default function Companies() {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      const data: ApiCompanyResponse = await response.json();
-      setCompanies(data.companyList);
-      setFilteredCompanies(data.companyList);
+      const data: Company[] = await response.json();
+      setCompanies(data);
+      setFilteredCompanies(data);
+      console.log(data);
       return data;
     } catch (error) {
       console.error("Error fetching data:", error);
