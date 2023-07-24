@@ -7,7 +7,6 @@ type Job = {
     name: string | undefined,
     description: string | undefined,
     status: string | undefined
-
 }
 
 type ApiCompanyResponse = {
@@ -17,6 +16,7 @@ type ApiCompanyResponse = {
 type Company = {
     id: number | undefined,
     name: string | undefined
+    jobs?: Job[] | undefined
 }
 
 type Employee = {
@@ -28,6 +28,10 @@ type Employee = {
 
 type EmployeeListResponse = {
     employeeList: Employee[];
+};
+
+type JobListResponse = {
+    jobList: Job[];
 };
 
 type Crew = {
