@@ -30,7 +30,7 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
- 
+
 
   const handleFormSubmit = (values: InitialValues): void => {
     alert(JSON.stringify(values, undefined, 2));
@@ -62,16 +62,16 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
     name: string;
     description: string;
     status: string;
-    companies: string;
-    crews: string;
+    companyId: string;
+    crewId: string;
   }
 
   const initialValues: InitialValues = {
     name: "",
     description: "",
     status: "Not Assigned",
-    companies: "",
-    crews: ""
+    companyId: "",
+    crewId: ""
   };
 
   const style = {
@@ -161,7 +161,7 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
                       <MenuItem value="Completed">Completed</MenuItem>
                     </Select>
 
-                    <Select name="crews" defaultValue={"Select Crew"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
+                    <Select name="crewId" defaultValue={"Select Crew"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
                       {/* Add the default option */}
                       <MenuItem value="Select Crew">Select Crew</MenuItem>
 
@@ -172,7 +172,7 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
                         </MenuItem>
                       ))}
                     </Select>
-                    <Select name="companies" defaultValue={"Select Company"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
+                    <Select name="companyId" defaultValue={"Select Company"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
                       {/* Add the default option */}
                       <MenuItem value="Select Company">Select Company</MenuItem>
 

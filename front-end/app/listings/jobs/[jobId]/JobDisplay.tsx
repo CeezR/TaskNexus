@@ -53,8 +53,8 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
     name: string | undefined;
     description: string | undefined,
     status: string | undefined,
-    company: string | undefined,
-    crew: string | undefined
+    company: Company | undefined,
+    crew: Crew | undefined
   }
 
   const initialValues: InitialValues = {
@@ -149,8 +149,8 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
       <h2>Name: {job?.name}</h2>
       <h2>Description: {job?.description}</h2>
       <h2>Status: {job?.status}</h2>
-      <h2>Company: {job?.company}</h2>
-      <h2>Crew: {job?.crew}</h2>
+      <h2>Company: {job?.company?.name}</h2>
+      <h2>Crew: {job?.crew?.name}</h2>
       <Modal
         open={open}
         onClose={handleClose}

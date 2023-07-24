@@ -7,6 +7,15 @@ type Job = {
     name: string | undefined,
     description: string | undefined,
     status: string | undefined,
+    company: Company | undefined,
+    crew: Crew | undefined
+}
+
+type JobRequest = {
+    id: number | undefined,
+    name: string | undefined,
+    description: string | undefined,
+    status: string | undefined,
     company: string | undefined,
     crew: string | undefined
 }
