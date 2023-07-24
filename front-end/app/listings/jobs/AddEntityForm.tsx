@@ -62,20 +62,16 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
     name: string;
     description: string;
     status: string;
-    crewId: number;
-    // contact: string;
-    // address1: string;
-    // address2: string;
+    companies: string;
+    crews: string;
   }
 
   const initialValues: InitialValues = {
     name: "",
     description: "",
     status: "Not Assigned",
-    crewId: 123
-    // contact: "",
-    // address1: "",
-    // address2: "",
+    companies: "",
+    crews: ""
   };
 
   const style = {

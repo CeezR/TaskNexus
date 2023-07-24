@@ -52,19 +52,17 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
   interface InitialValues {
     name: string | undefined;
     description: string | undefined,
-    status: string | undefined
-    // contact: string;
-    // address1: string;
-    // address2: string;
+    status: string | undefined,
+    company: string | undefined,
+    crew: string | undefined
   }
 
   const initialValues: InitialValues = {
     name: job?.name,
     description: job?.description,
-    status: job?.status
-    // contact: "",
-    // address1: "",
-    // address2: "",
+    status: job?.status,
+    company: job?.company,
+    crew: job?.crew
   };
 
   const getJob = async () => {
@@ -76,6 +74,7 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
         throw new Error("Network response was not ok");
       }
       const data: Job = await response.json();
+      console.log(data)
       setJob(data);
       return data;
     } catch (error) {
@@ -99,8 +98,9 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
       id: job?.id,
       name: requestBody.name,
       description: requestBody.description,
-      status: requestBody.status
-
+      status: requestBody.status,
+      company: requestBody.company,
+      crew: requestBody.crew
     }
   
     const response = await fetch(`http://localhost:8080/api/jobs/${jobId}`, {
@@ -149,6 +149,8 @@ const JobDisplay = ({jobId} : JobDisplayProps) => {
       <h2>Name: {job?.name}</h2>
       <h2>Description: {job?.description}</h2>
       <h2>Status: {job?.status}</h2>
+      <h2>Company: {job?.company}</h2>
+      <h2>Crew: {job?.crew}</h2>
       <Modal
         open={open}
         onClose={handleClose}
