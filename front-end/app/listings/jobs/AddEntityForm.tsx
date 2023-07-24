@@ -19,18 +19,18 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { type } from "os";
 
 type AddEntityFormProps = {
-  jobs: Job[];
   setJobs: Dispatch<SetStateAction<Job[]>>;
   crews: Crew[];
+  companies: Company[];
 };
 
-const AddEntityForm = ({ jobs, setJobs, crews }: AddEntityFormProps) => {
+const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+ 
 
   const handleFormSubmit = (values: InitialValues): void => {
     alert(JSON.stringify(values, undefined, 2));
@@ -173,6 +173,17 @@ const AddEntityForm = ({ jobs, setJobs, crews }: AddEntityFormProps) => {
                       {crews.map((crew) => (
                         <MenuItem key={crew.id} value={crew.id}>
                           {crew.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    <Select name="companies" defaultValue={"Select Company"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
+                      {/* Add the default option */}
+                      <MenuItem value="Select Company">Select Company</MenuItem>
+
+                      {/* Populate the select box with crew names */}
+                      {companies.map((company) => (
+                        <MenuItem key={company.id} value={company.id}>
+                          {company.name}
                         </MenuItem>
                       ))}
                     </Select>

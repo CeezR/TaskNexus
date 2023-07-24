@@ -50,6 +50,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Jobs() {
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [companies, setCompanies] = useState<Company[]>([]);
   const [filteredJobs, setFilteredJobs] = useState<Job[]>(jobs);
   const [search, setsearch] = useState("")
   const [managedCrew, setManagedCrew] = useState<Crew[]>([]);
@@ -66,10 +67,8 @@ export default function Jobs() {
 
   useEffect(() => {
     getJobs();
-  }, []);
-  
-  useEffect(() => {
     getCrew();
+    getCompanies();
   }, []);
 
 
@@ -108,6 +107,15 @@ export default function Jobs() {
     }
   };
 
+  const getCompanies = async () => {
+    const response = await fetch("http://localhost:8080/api/companies");
+    if (!response.ok) {
+      throw new Error("Failed to add job");
+    }
+    const data = await response.json();
+    setCompanies(data);
+  }
+
   return (
     <section className="EntityListing">
       <h1>Jobs</h1>
@@ -122,7 +130,7 @@ export default function Jobs() {
           onChange={(event) => handleSearchChange(event)}
         />
       </Search>
-      <AddEntityForm jobs={jobs} setJobs={setJobs} crews={managedCrew}/>
+      <AddEntityForm companies={companies} setJobs={setJobs} crews={managedCrew}/>
       <ListingsTable jobs={filteredJobs} />
     </section>
   );
