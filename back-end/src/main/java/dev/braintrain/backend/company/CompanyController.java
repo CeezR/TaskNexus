@@ -69,7 +69,7 @@ public class CompanyController {
             return ResponseEntity.notFound().build();
         }
 
-        for (Long jobId : jobMemberDTO.jobsIds()) {
+        for (Long jobId : jobMemberDTO.jobIds()) {
             Job job = jobService.findById(jobId).orElse(null);
             if (job != null) {
                 company.addJob(job);
@@ -87,7 +87,7 @@ public class CompanyController {
             return ResponseEntity.notFound().build();
         }
 
-        for (Long jobId : jobMemberDTO.jobsIds().toArray(new Long[0])) {
+        for (Long jobId : jobMemberDTO.jobIds().toArray(new Long[0])) {
             Job job = jobService.findById(jobId).orElse(null);
             if (job != null && job.getCompany() == company) {
                 company.removeJob(job);
