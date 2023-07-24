@@ -123,6 +123,7 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
       companyId: requestBody.companyId,
       crewId: requestBody.crewId
     }
+    console.log(editedJob);
 
     const response = await fetch(`http://localhost:8080/api/jobs/${jobId}`, {
       method: "PUT",

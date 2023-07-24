@@ -37,7 +37,14 @@ type Employee = {
     phoneNumber: string | undefined;
     createdDate: string | undefined;
     crew: Crew | undefined;
-  };
+};
+
+type EmployeeRequest = {
+    name: string | undefined;
+    email: string | undefined;
+    phoneNumber: string | undefined;
+    crewId: number | undefined;
+};
 
 type EmployeeListResponse = {
     employeeList: Employee[];

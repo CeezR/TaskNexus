@@ -4,7 +4,9 @@ import {
   Button,
   IconButton,
   Link,
+  MenuItem,
   Modal,
+  Select,
   TextField,
   Typography,
   useTheme
@@ -37,6 +39,7 @@ const style = {
 
 const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
   const [employee, setEmployee] = useState<Employee>();
+  const [crews, setCrews] = useState<Crew[]>();
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -52,14 +55,24 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
 
   useEffect(() => {
     getEmployee();
+    getCrew();
   }, []);
+
+  const getCrew = async () => {
+    const response = await fetch("http://localhost:8080/api/crews");
+    if (!response.ok) {
+      throw new Error("Failed to add job");
+    }
+    const data = await response.json();
+    setCrews(data);
+  }
 
   interface InitialValues {
     name: string | undefined;
     email: string | undefined;
     phoneNumber: string | undefined;
     createdDate: string | undefined;
-    crew: Crew | undefined
+    crewId: number | undefined
   }
 
   const initialValues: InitialValues = {
@@ -67,7 +80,7 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
     email: employee?.email,
     phoneNumber: employee?.phoneNumber,
     createdDate: employee?.createdDate,
-    crew: employee?.crew
+    crewId: employee?.crew?.id
   };
 
   const getEmployee = async () => {
@@ -101,13 +114,11 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
   };
 
   const editEmployee = async (requestBody: InitialValues) => {
-    const editedEmployee: Employee = {
-      id: employee?.id,
+    const editedEmployee: EmployeeRequest = {
       name: requestBody.name,
       email: requestBody.email,
       phoneNumber: requestBody.phoneNumber,
-      createdDate: requestBody.createdDate,
-      crew: requestBody.crew
+      crewId: requestBody.crewId
     };
 
     const response = await fetch(
@@ -241,6 +252,17 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
                       helperText={touched.phoneNumber && errors.phoneNumber}
                       sx={{ gridColumn: "span 4" }}
                     />
+                  <Select name="crewId" defaultValue={"Select Crew"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
+                      {/* Add the default option */}
+                      <MenuItem value="Select Crew">Select Crew</MenuItem>
+
+                      {/* Populate the select box with crew names */}
+                      {crews?.map((crew) => (
+                        <MenuItem key={crew.id} value={crew.id}>
+                          {crew.name}
+                        </MenuItem>
+                      ))}
+                  </Select>
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
                     <Button type="submit" color="secondary" variant="contained">

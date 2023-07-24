@@ -47,12 +47,12 @@ public class EmployeeController {
     }
 
     @PutMapping("/{employeeId}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable Long employeeId, @RequestBody Employee employeeUpdate) {
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long employeeId, @RequestBody EmployeeRequestDTO employeeRequest) {
         Employee employee = service.findEmployeeById(employeeId).orElse(null);
         if(employee == null) {
             return ResponseEntity.notFound().build();
         }
-        Employee updatedEmployee = service.saveEmployee(employeeUpdate);
+        Employee updatedEmployee = service.updateEmployee(employee, employeeRequest);
         return ResponseEntity.ok().body(updatedEmployee);
 
     }

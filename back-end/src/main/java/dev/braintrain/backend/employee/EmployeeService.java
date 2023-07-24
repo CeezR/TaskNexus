@@ -33,6 +33,17 @@ public class EmployeeService {
         return repository.saveEmployee(new Employee(employee.name(), employee.email(), employee.phoneNumber(), crew));
     }
 
+    public Employee updateEmployee(Employee employee, EmployeeRequestDTO requestDTO) {
+        Crew crew = crewRepository.findById(Long.valueOf(requestDTO.crewId())).orElse(null);
+
+        employee.setName(requestDTO.name());
+        employee.setEmail(requestDTO.email());
+        employee.setPhoneNumber(requestDTO.phoneNumber());
+        employee.setCrew(crew);
+
+        return repository.saveEmployee(employee);
+    }
+
     public Employee saveEmployee(Employee employee) {
         return repository.saveEmployee(employee);
     }
