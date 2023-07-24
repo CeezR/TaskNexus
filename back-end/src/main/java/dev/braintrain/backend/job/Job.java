@@ -27,11 +27,9 @@ public class Job {
     @JoinColumn(name = "crew_id")
     private Crew crew;
 
-
     @Column(name = "created_date", nullable = true, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
-
 
     @Column(name = "updated_date", nullable = true)
     @UpdateTimestamp

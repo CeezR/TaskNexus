@@ -41,6 +41,20 @@ public class JobService {
                 company));
     }
 
+    public Job update(Job job, RequestJobDTO jobRequest) {
+        Crew crew = crewRepository.findById(Long.valueOf(jobRequest.crewId())).orElse(null);
+        Company company = companyRepository.findById(Long.valueOf(jobRequest.companyId())).orElse(null);
+
+        job.setName(jobRequest.name());
+        job.setDescription(jobRequest.description());
+        job.setStatus(jobRequest.status());
+        job.setCrew(crew);
+        job.setCompany(company);
+
+        return repo.save(job);
+
+    }
+
     public Job save(Job job) {
         return repo.save(job);
     }

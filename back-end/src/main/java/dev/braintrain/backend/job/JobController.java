@@ -45,7 +45,7 @@ public class JobController {
         if(job == null) {
             return ResponseEntity.notFound().build();
         }
-        Job updatedJob = service.save(jobRequest);
+        Job updatedJob = service.update(job, jobRequest);
         return ResponseEntity.ok().body(updatedJob);
     }
 
