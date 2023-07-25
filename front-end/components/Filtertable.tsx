@@ -68,7 +68,7 @@ export default function QuickFilteringGrid() {
     );
 
     return (
-        <Box  m="40px 0 0 0"
+        <Box  
        overflow-x="scroll"
         width="100%"
         sx={{
@@ -95,12 +95,15 @@ export default function QuickFilteringGrid() {
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
           },
+          "& .MuiButtonBase-root": {
+            color: `${colors.greenAccent[200]} !important`,
+          },
         }}>
             <DataGrid
                 rows={rows}
                 columns={columns}
                 disableColumnFilter
-                disableColumnSelector
+                disableColumnMenu
                 disableDensitySelector
                 slots={{ toolbar: GridToolbar }}
                 slotProps={{

@@ -72,6 +72,7 @@ export default function CompaniesListingTable({ companies }: BasicTableProp) {
       <DataGrid
         rows={companies as readonly any[]} 
         columns={columns}
+        disableColumnMenu
       />
     </Box>
   );

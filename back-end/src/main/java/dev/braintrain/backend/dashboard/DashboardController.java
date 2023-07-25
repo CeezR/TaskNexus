@@ -85,7 +85,7 @@ public class DashboardController {
 
         long jobsInProgressCount = jobs.stream().filter(job -> job.getStatus().equalsIgnoreCase("In progress")).count();
         long jobsCompletedCount = jobs.stream().filter(job -> job.getStatus().equalsIgnoreCase("Completed")).count();
-        long jobsToBeCompleted = jobs.stream().filter(job -> job.getStatus().equalsIgnoreCase("To be completed")).count();
+        long jobsToBeCompleted = jobs.stream().filter(job -> job.getStatus().equalsIgnoreCase("Not Assigned")).count();
         List<Map<String, Object>> jobsData = new ArrayList<>();
         jobsData.add(getJobStatusData("In-progress", "In progress", jobsInProgressCount));
         jobsData.add(getJobStatusData("Completed", "Completed", jobsCompletedCount));

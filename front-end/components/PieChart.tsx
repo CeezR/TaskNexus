@@ -1,52 +1,38 @@
 import * as React from 'react';
-import { PieChart, pieArcClasses } from '@mui/x-charts/PieChart';
-import { Box, Typography, useTheme } from '@mui/material';
-import { tokens } from '@/app/theme';
+import { PieChart} from '@mui/x-charts/PieChart';
+import { Box, Typography } from '@mui/material';
 
-type PieActiveArcProps = {
-  jobStatus: JobStatus[]; // The prop for pieData
+const size = {
+  width: 400,
+  height: 200,
 };
 
-export default function PieActiveArc(props: PieActiveArcProps) {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+const pieParams = { height: 250, margin: { right: 5 } }
 
+type PieArcLabelProps = {
+  jobStatus: JobStatus[]; 
+};
 
+export default function PieArcLabel(props: PieArcLabelProps) {
   return (
-    <>
-      <Box 
-      flexGrow={1}
-      width="100%"
-      >
-        <Typography variant="h4"
-            fontWeight="bold"
-            padding="20px"
-            sx={{ color: colors.grey[100] }}
-            >
-              Job Status
-          </Typography>
-        {props.jobStatus === null ? (
-          <div>Loading...</div>
-        ) : (
-          <PieChart
-            series={[
-              {
-                type: 'pie',
-                data: props.jobStatus,
-                highlightScope: { faded: 'global', highlighted: 'item' },
-                faded: { innerRadius: 30, additionalRadius: -30 },
-              },
-            ]}
-            sx={{
-              [`& .${pieArcClasses.faded}`]: {
-                fill: colors.greenAccent,
-              }
-            }}
-            height={100}
-            width={300}
-          />
-        )}
+    <Box flexGrow={1}
+    textAlign="center"
+    >
+        <Typography
+        variant="h4"
+        fontWeight="bold"
+        >Job Status</Typography>
+        <PieChart
+          series={[{
+            arcLabel: (item) => `${item.label} (${item.value})`,
+            arcLabelMinAngle: 45,
+            type: 'pie',
+            data: props.jobStatus,
+            highlightScope: { faded: 'global', highlighted: 'item' },
+            faded: { innerRadius: 30, additionalRadius: -30 },
+          }]}
+          {...pieParams}
+        />
       </Box>
-    </>
   );
 }
