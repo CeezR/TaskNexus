@@ -1,11 +1,4 @@
-"use client";
-import React, {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useRef,
-  useState,
-} from "react";
+import React, { useState } from "react";
 import {
   Box,
   Typography,
@@ -14,50 +7,75 @@ import {
   Button,
   Modal,
   Select,
-  MenuItem
+  MenuItem,
 } from "@mui/material";
 import { Formik } from "formik";
 import { tokens } from "../../theme";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import DropZone from "@/components/DropZone";
+
+type FileError = {
+  field: string;
+  message: string;
+};
 
 type AddEntityFormProps = {
-  setJobs: Dispatch<SetStateAction<Job[]>>;
+  setJobs: React.Dispatch<React.SetStateAction<Job[]>>;
   crews: Crew[];
   companies: Company[];
 };
 
-const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
+const AddEntityForm: React.FC<AddEntityFormProps> = ({
+  companies,
+  setJobs,
+  crews,
+}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  
+  const [fileName, setFileName] = useState<string | null>(null);
 
- 
-
-  const handleFormSubmit = (values: InitialValues): void => {
-    alert(JSON.stringify(values, undefined, 2));
-    handleClose();
-    postJob(values);
+  const handleFileSelect = (files: FileList) => {
+    setSelectedFiles(files);
   };
 
-  const postJob = async (requestBody: InitialValues) => {
-    console.log(requestBody);
-    const response = await fetch("http://localhost:8080/api/jobs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestBody),
-    });
-    if (!response.ok) {
-      throw new Error("Failed to add job");
-    }
+  const handleFormSubmit = async (values: InitialValues): Promise<void> => {
+    if (selectedFiles && selectedFiles.length > 0) {
+      const formData = new FormData();
+      for (let i = 0; i < selectedFiles.length; i++) {
+        formData.append("files", selectedFiles[i]);
+      }
 
-    const data = await response.json();
-    const newJob: Job = await data;
-    setJobs((prevJobs) => [...prevJobs, newJob]);
+      formData.append("name", values.name);
+      formData.append("description", values.description);
+      formData.append("status", values.status);
+      formData.append("companyId", values.companyId);
+      formData.append("crewId", values.crewId);
+      formData.append("startDate", values.startDate);
+      formData.append("endDate", values.endDate);
+
+      try {
+        const response = await fetch("http://localhost:8080/api/jobs", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to add job");
+        }
+
+        const data = await response.json();
+        const newJob: Job = await data;
+        setJobs((prevJobs) => [...prevJobs, newJob]);
+        handleClose();
+      } catch (error) {
+        console.error("Error while submitting the form:", error);
+      }
+    } else {
+      setFileError({ field: "files", message: "Please select one or more files." });
+    }
   };
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -82,6 +100,9 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
     endDate: "",
   };
 
+  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+  const [fileError, setFileError] = useState<FileError | null>(null);
+
   const style = {
     position: "absolute" as const,
     top: "50%",
@@ -93,6 +114,7 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
     boxShadow: 24,
     p: 4,
   };
+
   return (
     <Box>
       <Button
@@ -146,7 +168,7 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
                       fullWidth
                       variant="filled"
                       type="text"
-                      label="Descritpion"
+                      label="Description"
                       onBlur={handleBlur}
                       onChange={handleChange}
                       value={values.description}
@@ -230,6 +252,7 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
                         </MenuItem>
                       ))}
                     </Select>
+                    <DropZone handleFileSelect={handleFileSelect} errorMessage={fileError?.message} />
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
                     <Button

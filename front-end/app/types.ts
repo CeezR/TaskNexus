@@ -10,7 +10,8 @@ type Job = {
     company: Company | undefined,
     crew: Crew | undefined
     startDate: string | undefined,
-    endDate: string | undefined
+    endDate: string | undefined,
+    fileData?: string;
 }
 
 type JobRequest = {
