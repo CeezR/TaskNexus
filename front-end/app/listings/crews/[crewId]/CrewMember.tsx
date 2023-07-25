@@ -87,7 +87,7 @@ const CrewMember = ({ crewId, onUpdateCrew }: { crewId: string; onUpdateCrew: ()
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={currentSelection ? currentSelection.id.toString() : ""}
+                                    value={currentSelection ? currentSelection.id?.toString() : ""}
                                     label="Select Crew Member"
                                     onChange={(e) => {
                                         const selectedId = parseInt(e.target.value);
@@ -100,7 +100,7 @@ const CrewMember = ({ crewId, onUpdateCrew }: { crewId: string; onUpdateCrew: ()
                                     }}
                                 >
                                     {availableEmployees.map((employee) => (
-                                        <MenuItem key={employee.id} value={employee.id.toString()}>
+                                        <MenuItem key={employee.id} value={employee.id?.toString()}>
                                             {employee.name}
                                         </MenuItem>
                                     ))}
