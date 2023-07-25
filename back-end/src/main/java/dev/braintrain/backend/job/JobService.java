@@ -42,8 +42,8 @@ public class JobService {
     }
 
     public Job update(Job job, RequestJobDTO jobRequest) {
-        Crew crew = crewRepository.findById(Long.valueOf(jobRequest.crewId())).orElse(null);
-        Company company = companyRepository.findById(Long.valueOf(jobRequest.companyId())).orElse(null);
+        Company company = jobRequest.companyId().isEmpty() ? null : companyRepository.findById(Long.valueOf(jobRequest.companyId())).orElse(null);
+        Crew crew = jobRequest.crewId().isEmpty() ? null : crewRepository.findById(Long.valueOf(jobRequest.crewId())).orElse(null);
 
         job.setName(jobRequest.name());
         job.setDescription(jobRequest.description());

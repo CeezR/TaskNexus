@@ -29,12 +29,12 @@ public class EmployeeService {
     }
 
     public Employee saveEmployee(EmployeeRequestDTO employee) {
-        Crew crew = crewRepository.findById(Long.valueOf(employee.crewId())).orElse(null);
+        Crew crew = employee.crewId().isEmpty() ? null : crewRepository.findById(Long.valueOf(employee.crewId())).orElse(null);
         return repository.saveEmployee(new Employee(employee.name(), employee.email(), employee.phoneNumber(), crew));
     }
 
     public Employee updateEmployee(Employee employee, EmployeeRequestDTO requestDTO) {
-        Crew crew = crewRepository.findById(Long.valueOf(requestDTO.crewId())).orElse(null);
+        Crew crew = requestDTO.crewId().isEmpty() ? null : crewRepository.findById(Long.valueOf(requestDTO.crewId())).orElse(null);
 
         employee.setName(requestDTO.name());
         employee.setEmail(requestDTO.email());
