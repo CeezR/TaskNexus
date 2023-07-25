@@ -130,7 +130,6 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
       startDate: requestBody.startDate,
       endDate: requestBody.endDate
     }
-    console.log(editedJob);
 
     const response = await fetch(`http://localhost:8080/api/jobs/${jobId}`, {
       method: "PUT",
@@ -241,6 +240,44 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
                       error={!!touched.description && !!errors.description}
                       helperText={touched.description && errors.description}
                       sx={{ gridColumn: "span 4" }}
+                    />
+                    <TextField
+                      fullWidth
+                      variant="filled"
+                      type="date"
+                      label="Start date"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.startDate}
+                      name="startDate"
+                      error={!!touched.startDate && !!errors.startDate}
+                      helperText={touched.startDate && errors.startDate}
+                      sx={{ gridColumn: "span 4" }}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      inputProps={{
+                        placeholder: "",
+                      }}
+                    />
+                    <TextField
+                      fullWidth
+                      variant="filled"
+                      type="date"
+                      label="End date"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.endDate}
+                      name="endDate"
+                      error={!!touched.endDate && !!errors.endDate}
+                      helperText={touched.endDate && errors.endDate}
+                      sx={{ gridColumn: "span 4" }}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      inputProps={{
+                        placeholder: "",
+                      }}
                     />
                     <Select name="status" defaultValue={"To be completed"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
                       {/* Add the default option */}
