@@ -49,23 +49,6 @@ public class Job {
     @Column(name = "end_date", nullable = true)
     private LocalDate endDate;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Attachment> attachments = new ArrayList<>();
-
-    public Job(String name, String description, String status, Crew crew, Company company, LocalDate startDate, LocalDate endDate, List<Attachment> attachments) {
-        this.name = name;
-        this.description = description;
-        this.status = status;
-        this.crew = crew;
-        this.company = company;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.attachments = attachments;
-    }
-
-
-
-
     public Job(String name, String description, String status, Crew crew, Company company, LocalDate startDate, LocalDate endDate) {
         this.name = name;
         this.description = description;
