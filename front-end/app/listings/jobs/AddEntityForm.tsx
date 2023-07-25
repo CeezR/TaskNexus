@@ -14,16 +14,11 @@ import {
   Button,
   Modal,
   Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  NativeSelect,
+  MenuItem
 } from "@mui/material";
 import { Formik } from "formik";
 import { tokens } from "../../theme";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { type } from "os";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 type AddEntityFormProps = {
   setJobs: Dispatch<SetStateAction<Job[]>>;
@@ -37,13 +32,9 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  
 
-  const handleButtonClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
+ 
 
   const handleFormSubmit = (values: InitialValues): void => {
     alert(JSON.stringify(values, undefined, 2));
@@ -79,7 +70,6 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
     crewId: string;
     startDate: string;
     endDate: string;
-    attachments: File[] | null
   }
 
   const initialValues: InitialValues = {
@@ -90,7 +80,6 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
     crewId: "",
     startDate: "",
     endDate: "",
-    attachments: null,
   };
 
   const style = {
@@ -241,24 +230,6 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
                         </MenuItem>
                       ))}
                     </Select>
-                    <React.Fragment>
-                      <Button
-                        sx={{ gridColumn: "span 8" }}
-                        variant="contained"
-                        endIcon={<UploadFileIcon />}
-                        onClick={handleButtonClick}
-                      >
-                        Upload
-                      </Button>
-                      <input
-                        name="attachments"
-                        type="file"
-                        ref={fileInputRef}
-                        style={{ display: "none" }}
-                        onChange={handleChange}
-                        multiple
-                      />
-                    </React.Fragment>
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
                     <Button
