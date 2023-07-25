@@ -1,10 +1,5 @@
 package dev.braintrain.backend.company;
 
-import dev.braintrain.backend.crew.Crew;
-import dev.braintrain.backend.crew.CrewResponseDTO;
-import dev.braintrain.backend.crew.CrewService;
-import dev.braintrain.backend.crew.EmployeeDTO;
-import dev.braintrain.backend.employee.Employee;
 import dev.braintrain.backend.job.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

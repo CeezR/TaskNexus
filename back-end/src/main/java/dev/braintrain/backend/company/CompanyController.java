@@ -1,7 +1,5 @@
 package dev.braintrain.backend.company;
 
-import dev.braintrain.backend.crew.Crew;
-import dev.braintrain.backend.employee.Employee;
 import dev.braintrain.backend.job.Job;
 import dev.braintrain.backend.job.JobService;
 import org.springframework.beans.factory.annotation.Autowired;

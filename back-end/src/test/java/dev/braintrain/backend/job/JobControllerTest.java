@@ -1,6 +1,5 @@
 package dev.braintrain.backend.job;
 
-import dev.braintrain.backend.company.Company;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

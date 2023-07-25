@@ -1,7 +1,6 @@
 package dev.braintrain.backend.company;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.braintrain.backend.employee.Employee;
 import dev.braintrain.backend.job.Job;
 import org.hibernate.annotations.UpdateTimestamp;
 
