@@ -49,7 +49,11 @@ public class Job {
     @Column(name = "end_date", nullable = true)
     private LocalDate endDate;
 
-    public Job(String name, String description, String status, Crew crew, Company company, LocalDate startDate, LocalDate endDate) {
+    @Lob
+    @Column(name = "file_data", nullable = true)
+    private byte[] fileData;
+
+    public Job(String name, String description, String status, Crew crew, Company company, LocalDate startDate, LocalDate endDate, byte[] fileData) {
         this.name = name;
         this.description = description;
         this.status = status;
@@ -57,6 +61,7 @@ public class Job {
         this.company = company;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.fileData = fileData;
     }
 
     public Job(String name, String description, String status, Crew crew, Company company) {
@@ -154,6 +159,14 @@ public class Job {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public byte[] getFileData() {
+        return fileData;
+    }
+
+    public void setFileData(byte[] fileData) {
+        this.fileData = fileData;
     }
 
     @PrePersist
