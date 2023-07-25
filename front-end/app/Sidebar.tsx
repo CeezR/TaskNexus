@@ -134,6 +134,7 @@ const Sidebar: React.FC = () => {
                             icon={<CalendarTodayOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
+                            onClick={() => handleLink("/schedule")}
                         />
                         <Item
                             title="Jobs"
