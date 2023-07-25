@@ -69,7 +69,7 @@ export default function QuickFilteringGrid() {
 
     return (
         <Box  m="40px 0 0 0"
-        height="100%"
+       overflow-x="scroll"
         width="100%"
         sx={{
           "& .MuiDataGrid-root": {

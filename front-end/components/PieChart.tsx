@@ -14,7 +14,10 @@ export default function PieActiveArc(props: PieActiveArcProps) {
 
   return (
     <>
-      <Box flexGrow={1}>
+      <Box 
+      flexGrow={1}
+      width="100%"
+      >
         <Typography variant="h4"
             fontWeight="bold"
             padding="20px"
@@ -39,8 +42,8 @@ export default function PieActiveArc(props: PieActiveArcProps) {
                 fill: colors.greenAccent,
               }
             }}
-            height={300}
-            width={500}
+            height={100}
+            width={300}
           />
         )}
       </Box>

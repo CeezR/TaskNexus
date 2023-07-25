@@ -57,34 +57,16 @@ const Dashboard = () => {
     return (
 
         <Box m="20px">
-            {/* HEADER */}
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Header title="HOME" subtitle="Welcome to your dashboard" />
-
-                <Box>
-                    <Button
-                        sx={{
-                            backgroundColor: colors.blueAccent[700],
-                            color: colors.grey[100],
-                            fontSize: "14px",
-                            fontWeight: "bold",
-                            padding: "10px 20px",
-                        }}
-                    >
-                        <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-                        Download Reports
-                    </Button>
-                </Box>
             </Box>
 
             {dashboard && (
                 <Box
                     display="grid"
-                    gridTemplateColumns="repeat(12, 1fr)"
+                    gridTemplateColumns="repeat(1, 1fr)"
                     gap="20px"
-
                 >
-                    {/* Iterate through StatBox data */}
                     {dashboard.statbox.map((item, index) => (
                         <Box
                             key={index}
@@ -94,7 +76,7 @@ const Dashboard = () => {
                             justifyContent="center"
                             padding="20px"
                             sx={{
-                                backgroundColor: colors.primary[400], // Set the background color using sx prop
+                                backgroundColor: colors.primary[400], 
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
@@ -120,20 +102,20 @@ const Dashboard = () => {
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
-                    width="700px"
+                    width="100%"
                     height="400px"
                     sx={{
                         backgroundColor: colors.primary[400],
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        margin: "20px",
+                        margin: "20px 0",
                     }}
                 >
                     <PieChart jobStatus={dashboard.jobStatus} />
                 </Box>
             )}
-            <QuickFilteringGrid />
+            {/* <QuickFilteringGrid /> */}
         </Box>
     );
 };
