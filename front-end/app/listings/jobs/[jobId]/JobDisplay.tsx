@@ -241,7 +241,7 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
                       helperText={touched.description && errors.description}
                       sx={{ gridColumn: "span 4" }}
                     />
-                    <Select name="status" defaultValue={"To be completed"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
+                    <Select name="status" defaultValue={"Not Assigned"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
                       {/* Add the default option */}
                       <MenuItem value="Not Assigned">
                         Not Assigned
