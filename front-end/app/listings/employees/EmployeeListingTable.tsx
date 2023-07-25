@@ -41,8 +41,7 @@ export default function EmployeeListingTable({ employees }: EmployeeTableProp) {
   return (
      <Box
      m="40px 0 0 0"
-     height="100%"
-      width="100%"
+    width="90%"
      sx={{
        "& .MuiDataGrid-root": {
          border: "none",

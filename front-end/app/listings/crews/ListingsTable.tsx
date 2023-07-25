@@ -45,14 +45,14 @@ export default function ListingsTable({ crews }: BasicTableProp) {
   return (
     <Box
       m="40px 0 0 0"
-      height="100%"
-      width="100%"
+      width="90%"
       sx={{
         "& .MuiDataGrid-root": {
           border: "none",
         },
         "& .MuiDataGrid-cell": {
           borderBottom: "none",
+          padding: "10px",
         },
         "& .name-column--cell": {
           color: colors.greenAccent[300],
@@ -67,9 +67,6 @@ export default function ListingsTable({ crews }: BasicTableProp) {
         "& .MuiDataGrid-footerContainer": {
           borderTop: "none",
           backgroundColor: colors.blueAccent[700],
-        },
-        "& .MuiCheckbox-root": {
-          color: `${colors.greenAccent[200]} !important`,
         },
       }}
     >
