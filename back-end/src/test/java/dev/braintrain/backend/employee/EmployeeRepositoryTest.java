@@ -23,14 +23,14 @@ class EmployeeRepositoryTest {
 
     @Test
     void shouldReturnEmployeeById() {
-        Employee employee = new Employee("John", "John@hotmail.com", "98765432");
+        Employee employee = new Employee("John", "John@hotmail.com", "98765432", null);
         Employee createEmployee = repository.saveEmployee(employee);
         assertThat(repository.findEmployeeById(createEmployee.getId())).isNotNull();
     }
 
     @Test
     void shouldCreateNewEmployee() {
-        Employee employee = new Employee("John", "John@hotmail.com", "98765432");
+        Employee employee = new Employee("John", "John@hotmail.com", "98765432", null);
         int employeeCount = repository.findAllEmployees().size();
         Employee createEmployee = repository.saveEmployee(employee);
         assertThat(createEmployee).isNotNull();
@@ -39,7 +39,7 @@ class EmployeeRepositoryTest {
 
     @Test
     void shouldDeleteJob() {
-        Employee employee = new Employee("John", "John@hotmail.com", "98765432");
+        Employee employee = new Employee("John", "John@hotmail.com", "98765432", null);
         Employee createdEmployee = repository.saveEmployee(employee);
         repository.deleteEmployeeById(createdEmployee.getId());
         Employee findEmployee = repository.findEmployeeById(createdEmployee.getId()).orElse(null);
