@@ -44,7 +44,7 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
       handleClose();
       const res = await editJob(values);
       setJob(res);
-      
+
   };
 
   useEffect(() => {
@@ -77,6 +77,8 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
     status: string | undefined,
     companyId: number | undefined,
     crewId: number | undefined
+    startDate: string | undefined,
+    endDate: string | undefined
   }
 
   const initialValues: InitialValues = {
@@ -84,7 +86,9 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
     description: job?.description,
     status: job?.status,
     companyId: job?.company?.id,
-    crewId: job?.crew?.id
+    crewId: job?.crew?.id,
+    startDate: job?.startDate,
+    endDate: job?.endDate
   };
 
   const getJob = async () => {
@@ -122,7 +126,9 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
       description: requestBody.description,
       status: requestBody.status,
       companyId: requestBody.companyId,
-      crewId: requestBody.crewId
+      crewId: requestBody.crewId,
+      startDate: requestBody.startDate,
+      endDate: requestBody.endDate
     }
     console.log(editedJob);
 
@@ -174,6 +180,8 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
       <h2>Status: {job?.status}</h2>
       <h2>Company: {job?.company?.name}</h2>
       <h2>Crew: {job?.crew?.name}</h2>
+      <h2>Start Date: {job?.startDate}</h2>
+      <h2>End Date: {job?.endDate}</h2>
       <Modal
         open={open}
         onClose={handleClose}

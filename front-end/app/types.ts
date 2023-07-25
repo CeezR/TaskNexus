@@ -9,6 +9,8 @@ type Job = {
     status: string | undefined,
     company: Company | undefined,
     crew: Crew | undefined
+    startDate: string | undefined,
+    endDate: string | undefined
 }
 
 type JobRequest = {
@@ -18,6 +20,8 @@ type JobRequest = {
     status: string | undefined,
     companyId: number | undefined,
     crewId: number | undefined
+    startDate: string | undefined,
+    endDate: string | undefined
 }
 
 type ApiCompanyResponse = {
