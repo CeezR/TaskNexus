@@ -7,6 +7,8 @@ import dev.braintrain.backend.crew.CrewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,24 +34,33 @@ public class JobService {
         Company company = jobRequest.companyId().isEmpty() ? null : companyRepository.findById(Long.valueOf(jobRequest.companyId())).orElse(null);
         Crew crew = jobRequest.crewId().isEmpty() ? null : crewRepository.findById(Long.valueOf(jobRequest.crewId())).orElse(null);
 
+        LocalDate startDate = jobRequest.startDate().isEmpty() ? null : LocalDate.parse(jobRequest.startDate() ,DateTimeFormatter.ISO_LOCAL_DATE);
+        LocalDate endDate = jobRequest.endDate().isEmpty() ? null : LocalDate.parse(jobRequest.endDate() ,DateTimeFormatter.ISO_LOCAL_DATE);
 
         return repo.save(new Job(
                 jobRequest.name(),
                 jobRequest.description(),
                 jobRequest.status(),
                 crew,
-                company));
+                company,
+                startDate,
+                endDate));
     }
 
     public Job update(Job job, RequestJobDTO jobRequest) {
         Company company = jobRequest.companyId().isEmpty() ? null : companyRepository.findById(Long.valueOf(jobRequest.companyId())).orElse(null);
         Crew crew = jobRequest.crewId().isEmpty() ? null : crewRepository.findById(Long.valueOf(jobRequest.crewId())).orElse(null);
 
+        LocalDate startDate = jobRequest.startDate().isEmpty() ? null : LocalDate.parse(jobRequest.startDate() ,DateTimeFormatter.ISO_LOCAL_DATE);
+        LocalDate endDate = jobRequest.endDate().isEmpty() ? null : LocalDate.parse(jobRequest.endDate() ,DateTimeFormatter.ISO_LOCAL_DATE);
+
         job.setName(jobRequest.name());
         job.setDescription(jobRequest.description());
         job.setStatus(jobRequest.status());
         job.setCrew(crew);
         job.setCompany(company);
+        job.setStartDate(startDate);
+        job.setEndDate(endDate);
 
         return repo.save(job);
 

@@ -5,7 +5,10 @@ import dev.braintrain.backend.crew.Crew;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Job {
@@ -39,6 +42,39 @@ public class Job {
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = true, columnDefinition = "BIGINT DEFAULT NULL")
     private Company company;
+
+    @Column(name = "start_date", nullable = true)
+    private LocalDate startDate;
+
+    @Column(name = "end_date", nullable = true)
+    private LocalDate endDate;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Attachment> attachments = new ArrayList<>();
+
+    public Job(String name, String description, String status, Crew crew, Company company, LocalDate startDate, LocalDate endDate, List<Attachment> attachments) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.crew = crew;
+        this.company = company;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.attachments = attachments;
+    }
+
+
+
+
+    public Job(String name, String description, String status, Crew crew, Company company, LocalDate startDate, LocalDate endDate) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.crew = crew;
+        this.company = company;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
     public Job(String name, String description, String status, Crew crew, Company company) {
         this.name = name;
@@ -120,6 +156,21 @@ public class Job {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     @PrePersist
