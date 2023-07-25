@@ -8,6 +8,7 @@ import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import Header from "../components/Header";
 import StatBox from "../components/StatBox";
 import PieChart from "@/components/PieChart";
+import QuickFilteringGrid from "@/components/Filtertable";
 
 type JobStatus = {
     color: string;
@@ -81,7 +82,7 @@ const Dashboard = () => {
                     display="grid"
                     gridTemplateColumns="repeat(12, 1fr)"
                     gap="20px"
-                   
+
                 >
                     {/* Iterate through StatBox data */}
                     {dashboard.statbox.map((item, index) => (
@@ -122,23 +123,17 @@ const Dashboard = () => {
                     width="700px"
                     height="400px"
                     sx={{
-                        backgroundColor: colors.primary[400], // Set the background color using sx prop
+                        backgroundColor: colors.primary[400],
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         margin: "20px",
                     }}
                 >
-                    <PieChart jobStatus={dashboard.jobStatus}/>
+                    <PieChart jobStatus={dashboard.jobStatus} />
                 </Box>
-
-
-
             )}
-
-
-
-
+            <QuickFilteringGrid />
         </Box>
     );
 };
