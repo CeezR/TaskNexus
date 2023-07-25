@@ -39,20 +39,20 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
 
   const postJob = async (requestBody: InitialValues) => {
     console.log(requestBody);
-    // const response = await fetch("http://localhost:8080/api/jobs", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(requestBody),
-    // });
-    // if (!response.ok) {
-    //   throw new Error("Failed to add job");
-    // }
+    const response = await fetch("http://localhost:8080/api/jobs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to add job");
+    }
 
-    // const data = await response.json();
-    // const newJob: Job = await data;
-    // setJobs((prevJobs) => [...prevJobs, newJob]);
+    const data = await response.json();
+    const newJob: Job = await data;
+    setJobs((prevJobs) => [...prevJobs, newJob]);
   };
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -171,7 +171,7 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
                         shrink: true,
                       }}
                       inputProps={{
-                        placeholder: "", 
+                        placeholder: "",
                       }}
                     />
                     <TextField
@@ -190,7 +190,7 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
                         shrink: true,
                       }}
                       inputProps={{
-                        placeholder: "", 
+                        placeholder: "",
                       }}
                     />
 
