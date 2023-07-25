@@ -3,7 +3,6 @@ package dev.braintrain.backend.job;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,7 +15,7 @@ class JobRepositoryTest {
 
     @Test
     void shouldReturnJobById() {
-        Job job = new Job("Developer");
+        Job job = new Job("Developer", "", "", null);
         Job createJob = repository.save(job);
         assertThat(repository.findById(createJob.getId())).isNotNull();
     }
@@ -28,23 +27,24 @@ class JobRepositoryTest {
 
     @Test
     void shouldReturnNewlyCreateJob() {
-        Job job = new Job("Developer");
+        Job job = new Job("Developer", "", "", null);
         Job createJob = repository.save(job);
         assertThat(createJob).isNotNull();
     }
 
     @Test
     void shouldCreateNewJob() {
-        Job job = new Job("Developer");
+        Job job = new Job("Developer", "", "", null);
         int jobCount = repository.findAll().size();
         Job createJob = repository.save(job);
         assertThat(createJob).isNotNull();
         assertThat(repository.findAll().size()).isEqualTo(jobCount + 1);
     }
 
+
     @Test
     void shouldUpdateJob() {
-        Job job = new Job("Developer");
+        Job job = new Job("Developer", "", "", null);
         Job createdJob = repository.save(job);
         createdJob.setName("Not Developer");
         Job updatedJob = repository.save(job);
@@ -54,7 +54,7 @@ class JobRepositoryTest {
 
     @Test
     void shouldDeleteJob() {
-        Job job = new Job("Developer");
+        Job job = new Job("Developer", "", "", null);
         Job createdJob = repository.save(job);
         repository.deleteById(createdJob.getId());
         Job findJob = repository.findById(createdJob.getId()).orElse(null);

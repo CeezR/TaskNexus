@@ -1,6 +1,6 @@
 "use client";
 
-import ListingsTable from "@/app/listings/ListingsTable";
+import ListingsTable from "@/app/listings/jobs/ListingsTable";
 import AddEntityForm from "./AddEntityForm";
 import { ChangeEvent, ChangeEventHandler, FormEvent, useEffect, useState } from "react";
 import { InputBase, TextField, alpha, styled } from "@mui/material";
@@ -50,8 +50,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Jobs() {
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [companies, setCompanies] = useState<Company[]>([]);
   const [filteredJobs, setFilteredJobs] = useState<Job[]>(jobs);
   const [search, setsearch] = useState("")
+  const [managedCrew, setManagedCrew] = useState<Crew[]>([]);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const searchText = event.currentTarget.value.toLowerCase();
@@ -65,7 +67,10 @@ export default function Jobs() {
 
   useEffect(() => {
     getJobs();
+    getCrew();
+    getCompanies();
   }, []);
+
 
   useEffect(() => {
     setFilteredJobs(jobs.filter((job) => {
@@ -74,6 +79,15 @@ export default function Jobs() {
       }
     }));
   }, [jobs])
+
+  const getCrew = async () => {
+    const response = await fetch("http://localhost:8080/api/crews");
+    if (!response.ok) {
+      throw new Error("Failed to add job");
+    }
+    const data = await response.json();
+    setManagedCrew(data);
+  }
 
   const getJobs = async () => {
     try {
@@ -93,8 +107,17 @@ export default function Jobs() {
     }
   };
 
+  const getCompanies = async () => {
+    const response = await fetch("http://localhost:8080/api/companies");
+    if (!response.ok) {
+      throw new Error("Failed to add job");
+    }
+    const data = await response.json();
+    setCompanies(data);
+  }
+
   return (
-    <div>
+    <section className="EntityListing">
       <h1>Jobs</h1>
       <Search>
         <SearchIconWrapper>
@@ -107,8 +130,8 @@ export default function Jobs() {
           onChange={(event) => handleSearchChange(event)}
         />
       </Search>
-      <AddEntityForm jobs={jobs} setJobs={setJobs} />
+      <AddEntityForm companies={companies} setJobs={setJobs} crews={managedCrew}/>
       <ListingsTable jobs={filteredJobs} />
-    </div>
+    </section>
   );
 }
