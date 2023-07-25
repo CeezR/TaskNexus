@@ -31,7 +31,6 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
   const handleFormSubmit = (values: InitialValues): void => {
     alert(JSON.stringify(values, undefined, 2));
     handleClose();
@@ -57,13 +56,14 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-
   interface InitialValues {
     name: string;
     description: string;
     status: string;
     companyId: string;
     crewId: string;
+    startDate: string
+    endDate: string
   }
 
   const initialValues: InitialValues = {
@@ -71,7 +71,9 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
     description: "",
     status: "Not Assigned",
     companyId: "",
-    crewId: ""
+    crewId: "",
+    startDate: "",
+    endDate: "",
   };
 
   const style = {
@@ -90,7 +92,7 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
       <Button
         onClick={handleOpen}
         variant="contained"
-        color='secondary'
+        color="secondary"
         sx={{ color: "white", background: colors.greenAccent[700] }}
       >
         Add Job
@@ -152,83 +154,92 @@ const AddEntityForm = ({ companies, setJobs, crews }: AddEntityFormProps) => {
                       helperText={touched.description && errors.description}
                       sx={{ gridColumn: "span 4" }}
                     />
-                    <Select name="status" defaultValue={"Not Assigned"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
-                      {/* Add the default option */}
-                      <MenuItem value="Not Assigned">
-                        Not Assigned
-                      </MenuItem>
+                    <TextField
+                      fullWidth
+                      variant="filled"
+                      type="date"
+                      label="Start date"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.startDate}
+                      name="startDate"
+                      error={!!touched.startDate && !!errors.startDate}
+                      helperText={touched.startDate && errors.startDate}
+                      sx={{ gridColumn: "span 4" }}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      inputProps={{
+                        placeholder: "", 
+                      }}
+                    />
+                    <TextField
+                      fullWidth
+                      variant="filled"
+                      type="date"
+                      label="End date"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.endDate}
+                      name="endDate"
+                      error={!!touched.endDate && !!errors.endDate}
+                      helperText={touched.endDate && errors.endDate}
+                      sx={{ gridColumn: "span 4" }}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      inputProps={{
+                        placeholder: "", 
+                      }}
+                    />
+
+                    <Select
+                      name="status"
+                      defaultValue={"Not Assigned"}
+                      onChange={handleChange}
+                      sx={{ gridColumn: "span 4" }}
+                    >
+                      <MenuItem value="Not Assigned">Not Assigned</MenuItem>
                       <MenuItem value="In progress">In progress</MenuItem>
                       <MenuItem value="Completed">Completed</MenuItem>
                     </Select>
 
-                    <Select name="crewId" defaultValue={"Select Crew"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
-                      {/* Add the default option */}
+                    <Select
+                      name="crewId"
+                      defaultValue={"Select Crew"}
+                      onChange={handleChange}
+                      sx={{ gridColumn: "span 4" }}
+                    >
                       <MenuItem value="Select Crew">Select Crew</MenuItem>
-
-                      {/* Populate the select box with crew names */}
                       {crews.map((crew) => (
                         <MenuItem key={crew.id} value={crew.id}>
                           {crew.name}
                         </MenuItem>
                       ))}
                     </Select>
-                    <Select name="companyId" defaultValue={"Select Company"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
-                      {/* Add the default option */}
+                    <Select
+                      name="companyId"
+                      defaultValue={"Select Company"}
+                      onChange={handleChange}
+                      sx={{ gridColumn: "span 4" }}
+                    >
                       <MenuItem value="Select Company">Select Company</MenuItem>
-
-                      {/* Populate the select box with crew names */}
                       {companies.map((company) => (
                         <MenuItem key={company.id} value={company.id}>
                           {company.name}
                         </MenuItem>
                       ))}
                     </Select>
-                    {/* <TextField
-                                            fullWidth
-                                            variant="filled"
-                                            type="text"
-                                            label="Contact Number"
-                                            onBlur={handleBlur}
-                                            onChange={handleChange}
-                                            value={values.contact}
-                                            name="contact"
-                                            error={!!touched.contact && !!errors.contact}
-                                            helperText={touched.contact && errors.contact}
-                                            sx={{ gridColumn: "span 4" }}
-                                        />
-                                        <TextField
-                                            fullWidth
-                                            variant="filled"
-                                            type="text"
-                                            label="Address 1"
-                                            onBlur={handleBlur}
-                                            onChange={handleChange}
-                                            value={values.address1}
-                                            name="address1"
-                                            error={!!touched.address1 && !!errors.address1}
-                                            helperText={touched.address1 && errors.address1}
-                                            sx={{ gridColumn: "span 4" }}
-                                        />
-                                        <TextField
-                                            fullWidth
-                                            variant="filled"
-                                            type="text"
-                                            label="Address 2"
-                                            onBlur={handleBlur}
-                                            onChange={handleChange}
-                                            value={values.address2}
-                                            name="address2"
-                                            error={!!touched.address2 && !!errors.address2}
-                                            helperText={touched.address2 && errors.address2}
-                                            sx={{ gridColumn: "span 4" }}
-                                        /> */}
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
                     <Button
                       type="submit"
                       color="secondary"
                       variant="contained"
-                      sx={{ color: "white", background: colors.greenAccent[700] }}
+                      sx={{
+                        color: "white",
+                        background: colors.greenAccent[700],
+                      }}
                     >
                       Submit
                     </Button>
