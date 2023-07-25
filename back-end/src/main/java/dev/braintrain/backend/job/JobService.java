@@ -29,9 +29,9 @@ public class JobService {
     }
 
     public Job save(RequestJobDTO jobRequest) {
-        System.out.println(jobRequest);
-        Crew crew = crewRepository.findById(Long.valueOf(jobRequest.crewId())).orElse(null);
-        Company company = companyRepository.findById(Long.valueOf(jobRequest.companyId())).orElse(null);
+        Company company = jobRequest.companyId().isEmpty() ? null : companyRepository.findById(Long.valueOf(jobRequest.companyId())).orElse(null);
+        Crew crew = jobRequest.crewId().isEmpty() ? null : crewRepository.findById(Long.valueOf(jobRequest.crewId())).orElse(null);
+
 
         return repo.save(new Job(
                 jobRequest.name(),
