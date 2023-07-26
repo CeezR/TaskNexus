@@ -220,25 +220,25 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
             {job?.description}
           </Typography>
         </fieldset>
-        <fieldset>
+        <fieldset className="custom-fieldset">
           <legend>Status</legend>
           <Typography variant="subtitle1" gutterBottom>
             {job?.status}
           </Typography>
         </fieldset>
-        <fieldset>
+        <fieldset className="custom-fieldset">
           <legend>Company</legend>
           <Typography variant="subtitle1" gutterBottom>
             {job?.company?.name}
           </Typography>
         </fieldset>
-        <fieldset>
+        <fieldset className="custom-fieldset">
           <legend>Crew</legend>
           <Typography variant="subtitle1" gutterBottom>
             {job?.crew?.name}
           </Typography>
         </fieldset>
-        <fieldset>
+        <fieldset className="custom-fieldset">
           <legend>Period</legend>
           <Typography variant="subtitle1">
             Start Date: {job?.startDate}
