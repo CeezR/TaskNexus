@@ -21,6 +21,7 @@ export default function PieArcLabel(props: PieArcLabelProps) {
         <Typography
         variant="h4"
         fontWeight="bold"
+        m="5px"
         >Job Status</Typography>
         <PieChart
           series={[{

@@ -11,7 +11,10 @@ const Header: React.FC<HeaderProps> = ({ title, subtitle }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
-    <Box mb="30px">
+    <Box mb="30px"
+     display="flex"
+     flexDirection="column"
+      alignItems="center">
       <Typography
         variant="h2"
         color={colors.grey[100]}

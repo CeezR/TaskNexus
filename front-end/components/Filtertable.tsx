@@ -17,7 +17,7 @@ interface Job {
     company: { name: string };
 }
 
-const VISIBLE_FIELDS = ['id', 'name', 'status'];
+const VISIBLE_FIELDS = ['id'];
 
 export default function QuickFilteringGrid() {
   const theme = useTheme();
@@ -52,6 +52,18 @@ export default function QuickFilteringGrid() {
         () => [
             ...VISIBLE_FIELDS.map((field) => ({ field, headerName: field, width: 150 })),
             {
+              field: 'name',
+              headerName: 'Job Name',
+              width: 150,
+              valueGetter: (params: { row: { name: { name: any; }; }; }) => params.row?.name || '-',
+          },
+          {
+              field: 'status',
+              headerName: 'Status',
+              width: 150,
+              valueGetter: (params: { row: { status: { name: any; }; }; }) => params.row?.status|| '-',
+          },
+            {
                 field: 'crewName',
                 headerName: 'Crew Name',
                 width: 150,
@@ -62,6 +74,18 @@ export default function QuickFilteringGrid() {
                 headerName: 'Company Name',
                 width: 150,
                 valueGetter: (params: { row: { company: { name: any; }; }; }) => params.row?.company?.name || '-',
+            },
+            {
+              field: 'startDate',
+              headerName: 'Start Date',
+              width: 150,
+              valueGetter: (params: { row: { startDate: any } }) => params.row?.startDate || '-',
+            },
+            {
+              field: 'endDate',
+              headerName: 'End Date',
+              width: 150,
+              valueGetter: (params: { row: { endDate: any } }) => params.row?.endDate || '-',
             },
         ],
         [],
