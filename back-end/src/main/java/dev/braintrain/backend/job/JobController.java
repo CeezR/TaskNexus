@@ -33,10 +33,15 @@ public class JobController {
     }
 
     @PostMapping
-    public ResponseEntity<Job> createJob(@RequestBody RequestJobDTO jobRequest) {
-        Job saveJob = service.save(jobRequest);
-        URI location  = URI.create("/api/jobs/" + saveJob.getId());
-        return ResponseEntity.created(location).body(saveJob);
+    public ResponseEntity<Job> createJob(@ModelAttribute RequestJobDTO jobRequest) {
+        Job savedJob = null;
+        try {
+            savedJob = service.save(jobRequest);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+        URI location  = URI.create("/api/jobs/" + savedJob.getId());
+        return ResponseEntity.created(location).body(savedJob);
     }
 
     @PutMapping("/{jobId}")

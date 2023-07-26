@@ -6,7 +6,9 @@ import dev.braintrain.backend.crew.Crew;
 import dev.braintrain.backend.crew.CrewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -30,12 +32,21 @@ public class JobService {
         return repo.findAll();
     }
 
-    public Job save(RequestJobDTO jobRequest) {
-        Company company = jobRequest.companyId().isEmpty() ? null : companyRepository.findById(Long.valueOf(jobRequest.companyId())).orElse(null);
+    public Job save(RequestJobDTO jobRequest) throws IOException {
+        Company company =
+                jobRequest.companyId()
+                        .isEmpty() ? null
+                        : companyRepository
+                        .findById(Long.valueOf(jobRequest.companyId()))
+                        .orElse(null);
         Crew crew = jobRequest.crewId().isEmpty() ? null : crewRepository.findById(Long.valueOf(jobRequest.crewId())).orElse(null);
 
         LocalDate startDate = jobRequest.startDate().isEmpty() ? null : LocalDate.parse(jobRequest.startDate() ,DateTimeFormatter.ISO_LOCAL_DATE);
         LocalDate endDate = jobRequest.endDate().isEmpty() ? null : LocalDate.parse(jobRequest.endDate() ,DateTimeFormatter.ISO_LOCAL_DATE);
+        MultipartFile[] files = jobRequest.files();
+
+        // Process the files and convert them to byte arrays
+        byte[] fileData = files[0].getBytes();
 
         return repo.save(new Job(
                 jobRequest.name(),
@@ -44,7 +55,8 @@ public class JobService {
                 crew,
                 company,
                 startDate,
-                endDate));
+                endDate,
+                fileData));
     }
 
     public Job update(Job job, RequestJobDTO jobRequest) {

@@ -71,6 +71,7 @@ export default function EmployeeListingTable({ employees }: EmployeeTableProp) {
      <DataGrid
        rows={employees as readonly any[]} 
        columns={columns}
+       disableColumnMenu
      />
    </Box>
   );

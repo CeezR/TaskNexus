@@ -1,10 +1,8 @@
 // Dashboard component
 'use client'
 import React, { useState, useEffect } from "react";
-import { Box, Button, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "./theme";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-
 import Header from "../components/Header";
 import StatBox from "../components/StatBox";
 import PieChart from "@/components/PieChart";
@@ -65,18 +63,18 @@ const Dashboard = () => {
                 <Box
                     display="grid"
                     gridTemplateColumns="repeat(1, 1fr)"
-                    gap="20px"
+                    gap="10px"
                 >
                     {dashboard.statbox.map((item, index) => (
                         <Box
                             key={index}
-                            gridColumn="span 3"
+                            gridColumn="span 4"
                             display="flex"
                             alignItems="center"
                             justifyContent="center"
-                            padding="20px"
+                            padding="10px"
                             sx={{
-                                backgroundColor: colors.primary[400], 
+                                backgroundColor: colors.primary[400],
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
@@ -103,7 +101,7 @@ const Dashboard = () => {
                     alignItems="center"
                     justifyContent="center"
                     width="100%"
-                    height="400px"
+                    height="300px"
                     sx={{
                         backgroundColor: colors.primary[400],
                         display: "flex",
@@ -115,7 +113,15 @@ const Dashboard = () => {
                     <PieChart jobStatus={dashboard.jobStatus} />
                 </Box>
             )}
-            {/* <QuickFilteringGrid /> */}
+            <Box sx={{ borderTop: "1px solid grey" }}
+            >
+                <Typography
+                    variant="h4"
+                    fontWeight="bold"
+                    m="40px 0 0 0"
+                >Jobs Table</Typography>
+                <QuickFilteringGrid />
+            </Box>
         </Box>
     );
 };

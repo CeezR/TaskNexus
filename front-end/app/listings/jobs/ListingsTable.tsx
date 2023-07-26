@@ -72,6 +72,7 @@ export default function ListingsTable({ jobs }: BasicTableProp) {
       <DataGrid
         rows={jobs as readonly any[]} 
         columns={columns}
+        disableColumnMenu
       />
     </Box>
   );
