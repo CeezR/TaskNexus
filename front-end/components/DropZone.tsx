@@ -40,7 +40,6 @@ const DropZone: React.FC<DropZoneProps> = ({ handleFileSelect, errorMessage }) =
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
-    
       <input
         id="fileSelect"
         type="file"

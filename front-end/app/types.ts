@@ -31,7 +31,9 @@ type ApiCompanyResponse = {
 
 type Company = {
     id: number | undefined,
-    name: string | undefined
+    name: string | undefined,
+    email: string | undefined;
+    phoneNumber: string | undefined;
     jobs?: Job[] | undefined
 }
 

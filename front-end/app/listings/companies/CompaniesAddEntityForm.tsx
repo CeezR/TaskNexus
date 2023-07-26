@@ -34,30 +34,35 @@ const CompaniesAddEntityForm = ({
   };
 
   const postCompany = async (requestBody: InitialValues) => {
-    const response = await fetch("http://localhost:8080/api/companies", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestBody),
-    });
-    if (!response.ok) {
-      throw new Error("Failed to add company");
-    }
+    console.log(requestBody);
+    // const response = await fetch("http://localhost:8080/api/companies", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(requestBody),
+    // });
+    // if (!response.ok) {
+    //   throw new Error("Failed to add company");
+    // }
 
-    const data = await response.json();
-    const newCompany: Company = await data;
-    setCompanies((prevCompanies) => [...prevCompanies, newCompany]);
+    // const data = await response.json();
+    // const newCompany: Company = await data;
+    // setCompanies((prevCompanies) => [...prevCompanies, newCompany]);
   };
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   interface InitialValues {
     name: string;
+    email: string;
+    phoneNumber: string;
   }
 
   const initialValues: InitialValues = {
     name: "",
+    email: "",
+    phoneNumber: ""
   };
 
   const style = {
@@ -125,32 +130,32 @@ const CompaniesAddEntityForm = ({
                       helperText={touched.name && errors.name}
                       sx={{ gridColumn: "span 4" }}
                     />
-                    {/* <TextField
-                                            fullWidth
-                                            variant="filled"
-                                            type="text"
-                                            label="Last Name"
-                                            onBlur={handleBlur}
-                                            onChange={handleChange}
-                                            value={values.lastName}
-                                            name="lastName"
-                                            error={!!touched.lastName && !!errors.lastName}
-                                            helperText={touched.lastName && errors.lastName}
-                                            sx={{ gridColumn: "span 2" }}
-                                        />
-                                        <TextField
-                                            fullWidth
-                                            variant="filled"
-                                            type="text"
-                                            label="Address 2"
-                                            onBlur={handleBlur}
-                                            onChange={handleChange}
-                                            value={values.address2}
-                                            name="address2"
-                                            error={!!touched.address2 && !!errors.address2}
-                                            helperText={touched.address2 && errors.address2}
-                                            sx={{ gridColumn: "span 4" }}
-                                        /> */}
+                    <TextField
+                      fullWidth
+                      variant="filled"
+                      type="text"
+                      label="Email"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.email}
+                      name="email"
+                      error={!!touched.email && !!errors.email}
+                      helperText={touched.email && errors.email}
+                      sx={{ gridColumn: "span 4" }}
+                    />
+                    <TextField
+                      fullWidth
+                      variant="filled"
+                      type="text"
+                      label="Phone Number"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.phoneNumber}
+                      name="phoneNumber"
+                      error={!!touched.phoneNumber && !!errors.phoneNumber}
+                      helperText={touched.phoneNumber && errors.phoneNumber}
+                      sx={{ gridColumn: "span 4" }}
+                    />
                   </Box>
                   <Box display="flex" justifyContent="space-between" mt="20px">
                     <Button
