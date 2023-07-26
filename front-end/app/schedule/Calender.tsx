@@ -101,49 +101,61 @@ const Scheduler = () => {
       />
       {selectedJob && (
         <Modal
-        open={!!selectedJob}
-        onClose={handleCloseModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={modalStyle}>
-          <Typography  variant="h2">{selectedJob.name}</Typography>
-          <fieldset style={{ margin: "15px 0" }}>
-            <legend style={{ fontSize: "16px", fontWeight: "bold",}}>Crew</legend>
-            <Typography variant="subtitle1">
-              {selectedJob.crew?.name}
-            </Typography>
-          </fieldset>
-          <fieldset style={{ marginBottom: "15px" }}>
-            <legend style={{ fontSize: "16px", fontWeight: "bold" }}>Company</legend>
-            <Typography variant="subtitle1">
-              {selectedJob.company?.name}
-            </Typography>
-          </fieldset>
-          <fieldset style={{ marginBottom: "15px" }}>
-            <legend style={{ fontSize: "16px", fontWeight: "bold"}}>Description</legend>
-            <Typography variant="subtitle1">
-              {selectedJob.description}
-            </Typography>
-          </fieldset>
-          <fieldset style={{ marginBottom: "15px" }}>
-            <legend style={{ fontSize: "16px", fontWeight: "bold"}}>Period</legend>
-            <Typography variant="subtitle1">
-              Start Date: {selectedJob.startDate?.toDateString()}
-            </Typography>
-            <Typography variant="subtitle1">
-              End Date: {selectedJob.startDate?.toDateString()}
-            </Typography>
-          </fieldset>
-          <Button
-            onClick={handleCloseModal}
-            variant="contained"
-            color="secondary"
-          >
-            Close
-          </Button>
-        </Box>
-      </Modal>
+          open={!!selectedJob}
+          onClose={handleCloseModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={modalStyle}>
+            <Typography variant="h2">{selectedJob.name}</Typography>
+            <fieldset style={{ margin: "15px 0" }}>
+              <legend style={{ fontSize: "16px", fontWeight: "bold" }}>
+                Crew
+              </legend>
+              <Typography variant="subtitle1">
+                {selectedJob.crew?.name}
+              </Typography>
+            </fieldset>
+            <fieldset style={{ marginBottom: "15px" }}>
+              <legend style={{ fontSize: "16px", fontWeight: "bold" }}>
+                Company
+              </legend>
+              <Typography variant="subtitle1">
+                {selectedJob.company?.name}
+              </Typography>
+            </fieldset>
+            <fieldset style={{ marginBottom: "15px" }}>
+              <legend style={{ fontSize: "16px", fontWeight: "bold" }}>
+                Description
+              </legend>
+              <Typography variant="subtitle1">
+                {selectedJob.description}
+              </Typography>
+            </fieldset>
+            <fieldset style={{ marginBottom: "15px" }}>
+              <legend style={{ fontSize: "16px", fontWeight: "bold" }}>
+                Period
+              </legend>
+              <Typography variant="subtitle1">
+                Start Date: {selectedJob.startDate?.toDateString()}
+              </Typography>
+              <Typography variant="subtitle1">
+                End Date: {selectedJob.startDate?.toDateString()}
+              </Typography>
+            </fieldset>
+            <Button
+              onClick={handleCloseModal}
+              variant="contained"
+              color="secondary"
+              sx={{
+                color: "white",
+                background: colors.redAccent[500],
+              }}
+            >
+              Close
+            </Button>
+          </Box>
+        </Modal>
       )}
     </div>
   );

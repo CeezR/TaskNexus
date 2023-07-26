@@ -74,7 +74,10 @@ const AddEntityForm: React.FC<AddEntityFormProps> = ({
         console.error("Error while submitting the form:", error);
       }
     } else {
-      setFileError({ field: "files", message: "Please select one or more files." });
+      setFileError({
+        field: "files",
+        message: "Please select one or more files.",
+      });
     }
   };
 
@@ -252,9 +255,23 @@ const AddEntityForm: React.FC<AddEntityFormProps> = ({
                         </MenuItem>
                       ))}
                     </Select>
-                    <DropZone handleFileSelect={handleFileSelect} errorMessage={fileError?.message} />
+                    <DropZone
+                      handleFileSelect={handleFileSelect}
+                      errorMessage={fileError?.message}
+                    />
                   </Box>
-                  <Box display="flex" justifyContent="end" mt="20px">
+                  <Box display="flex" justifyContent="space-between" mt="20px">
+                    <Button
+                      onClick={handleClose}
+                      variant="contained"
+                      color="secondary"
+                      sx={{
+                        color: "white",
+                        background: colors.redAccent[500],
+                      }}
+                    >
+                      Close
+                    </Button>
                     <Button
                       type="submit"
                       color="secondary"

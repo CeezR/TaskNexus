@@ -93,25 +93,21 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
   };
 
   const downloadFile = () => {
-    // Create a Blob from the base64 encoded fileData
     const byteCharacters = atob(job?.fileData || "");
     const byteNumbers = new Array(byteCharacters.length);
     for (let i = 0; i < byteCharacters.length; i++) {
       byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
     const byteArray = new Uint8Array(byteNumbers);
-    const blob = new Blob([byteArray], { type: "application/pdf" }); // Update the MIME type as per your file type
-
-    // Create a URL for the Blob
+    const blob = new Blob([byteArray], { type: "application/pdf" }); 
     const url = URL.createObjectURL(blob);
 
-    // Create a temporary anchor element to trigger the download
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${job?.name}.pdf`; // Update the file name and extension based on your file type
+    a.download = `${job?.name}.pdf`; 
     a.click();
 
-    // Revoke the URL to release resources
+
     URL.revokeObjectURL(url);
   };
 

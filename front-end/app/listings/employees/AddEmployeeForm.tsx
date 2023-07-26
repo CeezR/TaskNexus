@@ -181,7 +181,18 @@ const AddEmployeeForm = ({ setEmployees }: AddEntityFormProps) => {
                       ))}
                     </Select>
                   </Box>
-                  <Box display="flex" justifyContent="end" mt="20px">
+                  <Box display="flex" justifyContent="space-between" mt="20px">
+                  <Button
+                      onClick={handleClose}
+                      variant="contained"
+                      color="secondary"
+                      sx={{
+                        color: "white",
+                        background: colors.redAccent[500],
+                      }}
+                    >
+                      Close
+                    </Button>
                     <Button
                       type="submit"
                       color="secondary"

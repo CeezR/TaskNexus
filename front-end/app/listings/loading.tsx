@@ -4,14 +4,22 @@ export default function Loading() {
   return (
     <div
       style={{
+        width: "100%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         height: "100vh",
       }}
     >
-      <Box>
-        <CircularProgress color="inherit" size={150} />{" "}
+      <Box
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
+        <CircularProgress color="inherit" size={150} />
       </Box>
     </div>
   );
