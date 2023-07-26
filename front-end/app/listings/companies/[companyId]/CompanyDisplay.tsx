@@ -167,6 +167,18 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
         <Typography variant="h2" component="h2" alignSelf="center">
           {company?.name}
         </Typography>
+        <fieldset className="custom-fieldset">
+            <legend className="custom-legend">Phone</legend>
+            <Typography variant="subtitle1" gutterBottom>
+              {company?.phoneNumber}
+            </Typography>
+          </fieldset>
+          <fieldset className="custom-fieldset">
+            <legend className="custom-legend">Email</legend>
+            <Typography variant="subtitle1" gutterBottom>
+              {company?.email}
+            </Typography>
+          </fieldset>
         <Stack direction="row" spacing={2} justifyContent="center">
           <Button
             onClick={handleDelete}

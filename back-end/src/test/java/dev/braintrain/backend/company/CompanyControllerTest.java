@@ -37,7 +37,7 @@ class CompanyControllerTest {
     @Test
     void getCompanyByIdMappingShouldReturnOneCompany() {
         String uriPost = "http://localhost:%s/api/companies".formatted(port);
-        RequestCompanyDTO company = new RequestCompanyDTO("TestName");
+        RequestCompanyDTO company = new RequestCompanyDTO("TestName", "", "");
         ResponseEntity<Company> postExchange = restTemplate.exchange(uriPost, HttpMethod.POST, new HttpEntity<>(company), Company.class);
 
         String uri = "http://localhost:%s/api/companies/%s".formatted(port,postExchange.getBody().getId());
@@ -50,7 +50,7 @@ class CompanyControllerTest {
     @Test
     void shouldCreateJobForPostRequest() {
         String uri = "http://localhost:%s/api/companies".formatted(port);
-        RequestCompanyDTO company = new RequestCompanyDTO("TestName");
+        RequestCompanyDTO company = new RequestCompanyDTO("TestName", "", "");
         ResponseEntity<Company> exchange = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(company), Company.class);
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(exchange.hasBody()).isTrue();
@@ -61,11 +61,11 @@ class CompanyControllerTest {
     @Test
     void shouldUpdateCompanyForPutRequest() {
         String postUri = "http://localhost:%s/api/companies".formatted(port);
-        RequestCompanyDTO company = new RequestCompanyDTO("TestName");
+        RequestCompanyDTO company = new RequestCompanyDTO("TestName", "", "");
         ResponseEntity<Company> postExchange = restTemplate.exchange(postUri, HttpMethod.POST, new HttpEntity<>(company), Company.class);
 
         String uri = "http://localhost:%s/api/companies/%s".formatted(port, postExchange.getBody().getId());
-        RequestCompanyDTO updatedCompany = new RequestCompanyDTO("Not Developer");
+        RequestCompanyDTO updatedCompany = new RequestCompanyDTO("Not Developer", "", "");
         ResponseEntity<Company> exchange = restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(updatedCompany), Company.class);
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(exchange.hasBody()).isTrue();
@@ -75,7 +75,7 @@ class CompanyControllerTest {
     @Test
     void shouldReturnNoContentWhenDeletingJob() {
         String postUri = "http://localhost:%s/api/companies".formatted(port);
-        RequestCompanyDTO company = new RequestCompanyDTO("TestName");
+        RequestCompanyDTO company = new RequestCompanyDTO("TestName", "", "");
         ResponseEntity<Company> postExchange = restTemplate.exchange(postUri, HttpMethod.POST, new HttpEntity<>(company), Company.class);
 
         String uri = "http://localhost:%s/api/companies/%s".formatted(port, postExchange.getBody().getId());

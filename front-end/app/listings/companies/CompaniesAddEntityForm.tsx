@@ -35,20 +35,20 @@ const CompaniesAddEntityForm = ({
 
   const postCompany = async (requestBody: InitialValues) => {
     console.log(requestBody);
-    // const response = await fetch("http://localhost:8080/api/companies", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(requestBody),
-    // });
-    // if (!response.ok) {
-    //   throw new Error("Failed to add company");
-    // }
+    const response = await fetch("http://localhost:8080/api/companies", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to add company");
+    }
 
-    // const data = await response.json();
-    // const newCompany: Company = await data;
-    // setCompanies((prevCompanies) => [...prevCompanies, newCompany]);
+    const data = await response.json();
+    const newCompany: Company = await data;
+    setCompanies((prevCompanies) => [...prevCompanies, newCompany]);
   };
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
