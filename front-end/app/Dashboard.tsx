@@ -1,36 +1,20 @@
 // Dashboard component
 'use client'
 import React, { useState, useEffect } from "react";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { tokens } from "./theme";
 import Header from "../components/Header";
 import StatBox from "../components/StatBox";
 import PieChart from "@/components/PieChart";
 import QuickFilteringGrid from "@/components/Filtertable";
 
-type JobStatus = {
-    color: string;
-    id: string;
-    label: string;
-    value: number;
-};
 
-type Statbox = {
-    subtitle: string;
-    progress: number;
-    title: string;
-    increase: number;
-};
-
-type Dashboard = {
-    jobStatus: JobStatus[];
-    statbox: Statbox[]
-}
 
 const Dashboard = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [dashboard, setDashboard] = useState<Dashboard | null>(null);
+    const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
 
     const getDashboardData = async () => {
         try {
@@ -54,21 +38,25 @@ const Dashboard = () => {
 
     return (
 
-        <Box m="20px">
-            <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box 
+        m="20px"
+        width="100%"
+        maxWidth={isDesktop ? "80%" : "70%"}
+        marginX="auto" >
+            <Box >
                 <Header title="HOME" subtitle="Welcome to your dashboard" />
             </Box>
 
             {dashboard && (
                 <Box
                     display="grid"
-                    gridTemplateColumns="repeat(1, 1fr)"
+                    gridTemplateColumns={isDesktop ? "repeat(12, 3fr)" : "repeat(12, 1fr)"}
                     gap="10px"
                 >
                     {dashboard.statbox.map((item, index) => (
                         <Box
                             key={index}
-                            gridColumn="span 4"
+                            gridColumn={isDesktop ? `span 3` : "span 12"}
                             display="flex"
                             alignItems="center"
                             justifyContent="center"
@@ -98,15 +86,11 @@ const Dashboard = () => {
                 <Box
                     gridColumn="span 3"
                     display="flex"
-                    alignItems="center"
-                    justifyContent="center"
                     width="100%"
                     height="300px"
                     sx={{
                         backgroundColor: colors.primary[400],
                         display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
                         margin: "20px 0",
                     }}
                 >
@@ -119,7 +103,9 @@ const Dashboard = () => {
                     variant="h4"
                     fontWeight="bold"
                     m="40px 0 0 0"
-                >Jobs Table</Typography>
+                    textAlign="center"
+                >Jobs Table
+                </Typography>
                 <QuickFilteringGrid />
             </Box>
         </Box>

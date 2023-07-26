@@ -3,7 +3,7 @@ import Image from "next/image";
 
 type DropZoneProps = {
   handleFileSelect: (files: FileList) => void;
-  errorMessage: string | null;
+  errorMessage: string | undefined;
 };
 
 const DropZone: React.FC<DropZoneProps> = ({ handleFileSelect, errorMessage }) => {

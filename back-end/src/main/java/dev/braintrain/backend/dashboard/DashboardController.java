@@ -74,10 +74,10 @@ public class DashboardController {
         double jobPercentIncrease = (previousJobCount != 0) ? (jobIncrease / previousJobCount)  : 0;
 
         List<Object> statBoxList = new ArrayList<Object>();
-        statBoxList.add(getStatBoxItemData("Company", "StatBox", companyPercentIncrease, companyIncrease));
-        statBoxList.add(getStatBoxItemData("Crew", "StatBox", crewPercentIncrease, crewIncrease));
-        statBoxList.add(getStatBoxItemData("Employee", "StatBox", employeePercentIncrease, employeeIncrease));
-        statBoxList.add(getStatBoxItemData("Job", "StatBox", jobPercentIncrease, jobIncrease));
+        statBoxList.add(getStatBoxItemData("Company", "Increase/Day", companyPercentIncrease, companyIncrease));
+        statBoxList.add(getStatBoxItemData("Crew", "Increase/Day", crewPercentIncrease, crewIncrease));
+        statBoxList.add(getStatBoxItemData("Employee", "Increase/Day", employeePercentIncrease, employeeIncrease));
+        statBoxList.add(getStatBoxItemData("Job", "Increase/Day", jobPercentIncrease, jobIncrease));
 
         Map<String, Object> response= new HashMap<>();
         response.put("statbox", statBoxList);
