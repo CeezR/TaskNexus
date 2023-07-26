@@ -1,10 +1,9 @@
-"use client";
 import React, { useEffect, useState } from "react";
 import { Calendar, momentLocalizer, Event } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import Modal from "react-modal";
-import styles from "./style.module.css";
+import { Box, Typography, Button, Modal, useTheme } from "@mui/material";
+import { tokens } from "../theme";
 
 const localizer = momentLocalizer(moment);
 
@@ -19,6 +18,8 @@ interface JobEvent extends Event {
 }
 
 const Scheduler = () => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const [jobs, setJobs] = useState<JobEvent[]>([]);
   const [selectedJob, setSelectedJob] = useState<JobEvent | null>(null);
 
@@ -37,7 +38,7 @@ const Scheduler = () => {
       const parsedJobs: JobEvent[] = data.jobList.map((job: Job) => ({
         id: job.id,
         name: job.name,
-        title: `${job.crew?.name} - ${job.name}`,
+        title: `${job.name} (${job.crew?.name})`,
         description: job.description,
         company: job.company,
         startDate: job.startDate ? new Date(job.startDate) : undefined,
@@ -75,6 +76,18 @@ const Scheduler = () => {
     setSelectedJob(null);
   };
 
+  const modalStyle = {
+    position: "absolute" as const,
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
   return (
     <div style={{ height: "100%", maxWidth: "100%" }}>
       <Calendar
@@ -85,27 +98,52 @@ const Scheduler = () => {
         style={{ width: "100%", height: "100%" }}
         onSelectEvent={handleJobClick}
       />
-      <Modal
-        isOpen={!!selectedJob}
-        onRequestClose={handleCloseModal}
-        contentLabel="Job Details"
-        className={styles.modal}
-        overlayClassName={styles["modal-overlay"]}
-        ariaHideApp={false}
+      {selectedJob && (
+        <Modal
+        open={!!selectedJob}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
-        {selectedJob && (
-          <div>
-            <h2>
-              {selectedJob.crew?.name} {selectedJob.name}
-            </h2>
-            <h3>Company: {selectedJob.company?.name}</h3>
-            <p>Description: {selectedJob.description}</p>
-            <p>Start Date: {selectedJob.startDate?.toDateString()}</p>
-            <p>End Date: {selectedJob.endDate?.toDateString()}</p>
-            <button onClick={handleCloseModal}>Close</button>
-          </div>
-        )}
+        <Box sx={modalStyle}>
+          <Typography  variant="h2">{selectedJob.name}</Typography>
+          <fieldset style={{ margin: "15px 0" }}>
+            <legend style={{ fontSize: "16px", fontWeight: "bold",}}>Crew</legend>
+            <Typography variant="subtitle1">
+              {selectedJob.crew?.name}
+            </Typography>
+          </fieldset>
+          <fieldset style={{ marginBottom: "15px" }}>
+            <legend style={{ fontSize: "16px", fontWeight: "bold" }}>Company</legend>
+            <Typography variant="subtitle1">
+              {selectedJob.company?.name}
+            </Typography>
+          </fieldset>
+          <fieldset style={{ marginBottom: "15px" }}>
+            <legend style={{ fontSize: "16px", fontWeight: "bold"}}>Description</legend>
+            <Typography variant="subtitle1">
+              {selectedJob.description}
+            </Typography>
+          </fieldset>
+          <fieldset style={{ marginBottom: "15px" }}>
+            <legend style={{ fontSize: "16px", fontWeight: "bold"}}>Period</legend>
+            <Typography variant="subtitle1">
+              Start Date: {selectedJob.startDate?.toDateString()}
+            </Typography>
+            <Typography variant="subtitle1">
+              End Date: {selectedJob.startDate?.toDateString()}
+            </Typography>
+          </fieldset>
+          <Button
+            onClick={handleCloseModal}
+            variant="contained"
+            color="secondary"
+          >
+            Close
+          </Button>
+        </Box>
       </Modal>
+      )}
     </div>
   );
 };
