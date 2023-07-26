@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import JobDisplay from "./JobDisplay";
+import { Box } from "@mui/material";
 
 type Props = {
   params: {
@@ -10,9 +11,9 @@ type Props = {
 
 const page = (props: Props) => {
   return (
-    <section>
+    <Box width="100%" padding="1rem">
       <JobDisplay jobId={props.params.jobId} />
-    </section>
+    </Box>
   );
 };
 

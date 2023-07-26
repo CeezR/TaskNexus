@@ -3,7 +3,7 @@
 import ListingsTable from "@/app/listings/jobs/ListingsTable";
 import AddEntityForm from "./AddEntityForm";
 import { ChangeEvent, ChangeEventHandler, FormEvent, useEffect, useState } from "react";
-import { InputBase, TextField, alpha, styled } from "@mui/material";
+import { Box, InputBase, TextField, alpha, styled } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
 
@@ -117,7 +117,7 @@ export default function Jobs() {
   }
 
   return (
-    <section className="EntityListing">
+    <Box className="EntityListing">
       <h1>Jobs</h1>
       <Search>
         <SearchIconWrapper>
@@ -132,6 +132,6 @@ export default function Jobs() {
       </Search>
       <AddEntityForm companies={companies} setJobs={setJobs} crews={managedCrew}/>
       <ListingsTable jobs={filteredJobs} />
-    </section>
+    </Box>
   );
 }

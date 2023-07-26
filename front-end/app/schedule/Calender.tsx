@@ -4,6 +4,7 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Box, Typography, Button, Modal, useTheme } from "@mui/material";
 import { tokens } from "../theme";
+import "./scheduler.css";
 
 const localizer = momentLocalizer(moment);
 

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import CrewDisplay from "./CrewDisplay";
+import { Box } from "@mui/material";
 
 type Props = {
   params: {
@@ -10,9 +11,9 @@ type Props = {
 
 const page = (props: Props) => {
   return (
-    <section>
+    <Box width="100%" padding="1rem">
       <CrewDisplay crewId={props.params.crewId} />
-    </section>
+    </Box>
   );
 };
 

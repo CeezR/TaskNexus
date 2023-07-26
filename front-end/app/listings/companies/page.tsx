@@ -3,7 +3,7 @@
 import CompaniesListingTable from "./CompaniesListingTable";
 import CompaniesAddEntityForm from "./CompaniesAddEntityForm";
 import { ChangeEvent, ChangeEventHandler, FormEvent, useEffect, useState } from "react";
-import { InputBase, TextField, alpha, styled } from "@mui/material";
+import { Box, InputBase, TextField, alpha, styled } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
 
@@ -95,7 +95,7 @@ export default function Companies() {
   };
 
   return (
-    <section className="EntityListing">
+    <Box className="EntityListing">
       <h1>Companies</h1>
       <Search>
         <SearchIconWrapper>
@@ -110,6 +110,6 @@ export default function Companies() {
       </Search>
       <CompaniesAddEntityForm companies={companies} setCompanies={setCompanies} />
       <CompaniesListingTable companies={filteredCompanies} />
-    </section>
+    </Box>
   );
 }
