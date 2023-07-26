@@ -42,11 +42,14 @@ const AddEntityForm: React.FC<AddEntityFormProps> = ({
   };
 
   const handleFormSubmit = async (values: InitialValues): Promise<void> => {
-    if (selectedFiles && selectedFiles.length > 0) {
+    
       const formData = new FormData();
-      for (let i = 0; i < selectedFiles.length; i++) {
-        formData.append("files", selectedFiles[i]);
+      if(selectedFiles != null && selectedFiles.length > 0){
+        for (let i = 0; i < selectedFiles.length; i++) {
+          formData.append("files", selectedFiles[i]);
+        }
       }
+      
 
       formData.append("name", values.name);
       formData.append("description", values.description);
@@ -73,12 +76,7 @@ const AddEntityForm: React.FC<AddEntityFormProps> = ({
       } catch (error) {
         console.error("Error while submitting the form:", error);
       }
-    } else {
-      setFileError({
-        field: "files",
-        message: "Please select one or more files.",
-      });
-    }
+   
   };
 
   const isNonMobile = useMediaQuery("(min-width:600px)");

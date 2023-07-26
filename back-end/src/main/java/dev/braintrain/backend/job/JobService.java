@@ -43,10 +43,11 @@ public class JobService {
 
         LocalDate startDate = jobRequest.startDate().isEmpty() ? null : LocalDate.parse(jobRequest.startDate() ,DateTimeFormatter.ISO_LOCAL_DATE);
         LocalDate endDate = jobRequest.endDate().isEmpty() ? null : LocalDate.parse(jobRequest.endDate() ,DateTimeFormatter.ISO_LOCAL_DATE);
+        byte[] fileData = null;
+        if(jobRequest != null & jobRequest.files() != null){
         MultipartFile[] files = jobRequest.files();
-
-        // Process the files and convert them to byte arrays
-        byte[] fileData = files[0].getBytes();
+         fileData = files[0].getBytes();
+        }
 
         return repo.save(new Job(
                 jobRequest.name(),
