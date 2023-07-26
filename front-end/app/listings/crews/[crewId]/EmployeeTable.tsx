@@ -54,7 +54,7 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, onDeleteEmploy
   return (
     <ThemeProvider theme={theme}>
       <Box
-        m="40px 0 0 0"
+        m="5px 0 0 0"
         height="100%"
         width="100%"
         sx={{

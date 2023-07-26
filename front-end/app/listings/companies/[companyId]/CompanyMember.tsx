@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import { Box, FormControl, InputLabel, useTheme} from "@mui/material";
+import { Box, FormControl, InputLabel, Typography, useTheme } from "@mui/material";
 import { tokens } from "@/app/theme";
 
 
@@ -76,49 +76,48 @@ const CompanyMember = ({ companyId, onUpdateCompany }: { companyId: string; onUp
     };
 
     return (
-        <div style={{ padding: "20px" }}>
-            <h2>Select Company Members</h2>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <div>
-                        <Box >
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Select Company Member</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={currentSelection ? currentSelection.id?.toString() : ""}
-                                    label="Select Company Member"
-                                    onChange={(e) => {
-                                        const selectedId = parseInt(e.target.value);
-                                        const selectedJob = availableJobs.find(
-                                            (job) => job.id === selectedId
-                                        );
-                                        if (selectedJob) {
-                                            handleSelectJob(selectedJob);
-                                        }
-                                    }}
-                                >
-                                    {availableJobs.map((job) => (
-                                        <MenuItem key={job.id} value={job.id?.toString()}>
-                                            {job.name}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
+        <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <div>
+                    <Box display="flex" flexDirection="column" gap="1rem">
+                        <FormControl>
+                            <InputLabel id="demo-simple-select-label">Select Company Member</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={currentSelection ? currentSelection.id?.toString() : ""}
+                                label="Select Company Member"
+                                onChange={(e) => {
+                                    const selectedId = parseInt(e.target.value);
+                                    const selectedJob = availableJobs.find(
+                                        (job) => job.id === selectedId
+                                    );
+                                    if (selectedJob) {
+                                        handleSelectJob(selectedJob);
+                                    }
+                                }}
+                            >
+                                {availableJobs.map((job) => (
+                                    <MenuItem key={job.id} value={job.id?.toString()}>
+                                        {job.name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <Box display="flex" justifyContent="center">
+                            <Button
+                                variant="contained"
+                                onClick={handleAddAndAssignJob}
+                                color="secondary"
+                                sx={{ color: "white", background: colors.greenAccent[700], padding: ".5rem 2rem" }}
+                            >
+                                Add
+                            </Button>
                         </Box>
-                        <Button 
-                            variant="contained" 
-                            onClick={handleAddAndAssignJob} 
-                            color="secondary"
-                            sx={{ color: "white", background: colors.greenAccent[700] }}
-                        >
-                            Add
-                        </Button>
-                    </div>
-                </Grid>
+                    </Box>
+                </div>
             </Grid>
-        </div>
+        </Grid>
     );
 };
 

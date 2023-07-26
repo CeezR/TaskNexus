@@ -145,149 +145,170 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      textAlign="left"
-    >
-      <Box display="flex" alignItems="center" position="relative" mb={2}>
+    <>
+      <Box display="flex" flexDirection="row" marginBottom="2rem" justifyContent="space-between" alignItems="center">
         <IconButton
           onClick={() => router.push("/listings/employees")}
         >
           <ArrowBack fontSize="large" />
         </IconButton>
-        <Typography variant="h4" component="h1">
+        <Typography variant="h2" component="h1" fontWeight="500">
           Employee
         </Typography>
-      </Box>
-      <h2>{employee?.name}</h2>
-      <Stack direction="row" spacing={2}>
-      <Button 
-          onClick={handleDelete} 
-          variant="contained" 
-          color="error"
-          sx={{ color: "white", background: colors.redAccent[700] }}
-          startIcon={<DeleteIcon />}>
-          Delete
-        </Button>
-        <Button 
-          onClick={handleOpen} 
-          variant="contained" 
-          color="warning" 
-          startIcon={<EditIcon />}
-          sx={{ color: "white", background: colors.grey[700] }}
-        >
-          Edit
-        </Button>
-      </Stack>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Edit Employee Details
-          </Typography>
-          <Box>
-            <Formik onSubmit={handleFormSubmit} initialValues={initialValues}>
-              {({
-                values,
-                errors,
-                touched,
-                handleBlur,
-                handleChange,
-                handleSubmit,
-              }) => (
-                <form onSubmit={handleSubmit}>
-                  <Box
-                    display="grid"
-                    gap="30px"
-                    gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-                    sx={{
-                      "& > div": {
-                        gridColumn: isNonMobile ? undefined : "span 4",
-                      },
-                    }}
-                  >
-                    <TextField
-                      fullWidth
-                      variant="filled"
-                      type="text"
-                      label="Name"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.name}
-                      name="name"
-                      error={!!touched.name && !!errors.name}
-                      helperText={touched.name && errors.name}
-                      sx={{ gridColumn: "span 4" }}
-                    />
-                    <TextField
-                      fullWidth
-                      variant="filled"
-                      type="text"
-                      label="Email"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.email}
-                      name="email"
-                      error={!!touched.email && !!errors.email}
-                      helperText={touched.email && errors.email}
-                      sx={{ gridColumn: "span 4" }}
-                    />
-                    <TextField
-                      fullWidth
-                      variant="filled"
-                      type="text"
-                      label="Phone Number"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.phoneNumber}
-                      name="phoneNumber"
-                      error={!!touched.phoneNumber && !!errors.phoneNumber}
-                      helperText={touched.phoneNumber && errors.phoneNumber}
-                      sx={{ gridColumn: "span 4" }}
-                    />
-                  <Select name="crewId" defaultValue={"Select Crew"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
-                      {/* Add the default option */}
-                      <MenuItem value="Select Crew">Select Crew</MenuItem>
-
-                      {/* Populate the select box with crew names */}
-                      {crews?.map((crew) => (
-                        <MenuItem key={crew.id} value={crew.id}>
-                          {crew.name}
-                        </MenuItem>
-                      ))}
-                  </Select>
-                  </Box>
-                  <Box display="flex" justifyContent="end" mt="20px">
-                    <Button type="submit" color="secondary" variant="contained">
-                      Edit
-                    </Button>
-                  </Box>
-                </form>
-              )}
-            </Formik>
-          </Box>
+        <Box visibility="hidden">
+          <ArrowBack fontSize="large" />
         </Box>
-      </Modal>
-      <Box mt={4} mb={2}>
-        <img
-          height={"100px"}
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png"
-        />
       </Box>
-      <Box textAlign="left" mt={2}>
-        <p>Phone: {employee?.phoneNumber}</p>
-        <p>Email: {employee?.email}</p>
-        <p>Date added: {employee?.createdDate}</p>
-        <p>Crew: {employee?.crew?.name}</p>
+      <Box display="flex" flexDirection="column" justifyContent="center" margin="auto" width="100%" gap="10px" maxWidth="600px">
+        <Typography variant="h2" component="h2" alignSelf="center">
+          {employee?.name}
+        </Typography>
+        <Stack direction="row" spacing={2} justifyContent="center">
+          <Button
+            onClick={handleDelete}
+            variant="contained"
+            color="error"
+            sx={{ color: "white", background: colors.redAccent[700] }}
+            startIcon={<DeleteIcon />}>
+            Delete
+          </Button>
+          <Button
+            onClick={handleOpen}
+            variant="contained"
+            color="warning"
+            startIcon={<EditIcon />}
+            sx={{ color: "white", background: colors.grey[700] }}
+          >
+            Edit
+          </Button>
+        </Stack>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Edit Employee Details
+            </Typography>
+            <Box>
+              <Formik onSubmit={handleFormSubmit} initialValues={initialValues}>
+                {({
+                  values,
+                  errors,
+                  touched,
+                  handleBlur,
+                  handleChange,
+                  handleSubmit,
+                }) => (
+                  <form onSubmit={handleSubmit}>
+                    <Box
+                      display="grid"
+                      gap="30px"
+                      gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                      sx={{
+                        "& > div": {
+                          gridColumn: isNonMobile ? undefined : "span 4",
+                        },
+                      }}
+                    >
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="Name"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.name}
+                        name="name"
+                        error={!!touched.name && !!errors.name}
+                        helperText={touched.name && errors.name}
+                        sx={{ gridColumn: "span 4" }}
+                      />
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="Email"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.email}
+                        name="email"
+                        error={!!touched.email && !!errors.email}
+                        helperText={touched.email && errors.email}
+                        sx={{ gridColumn: "span 4" }}
+                      />
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="Phone Number"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.phoneNumber}
+                        name="phoneNumber"
+                        error={!!touched.phoneNumber && !!errors.phoneNumber}
+                        helperText={touched.phoneNumber && errors.phoneNumber}
+                        sx={{ gridColumn: "span 4" }}
+                      />
+                      <Select name="crewId" defaultValue={"Select Crew"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
+                        {/* Add the default option */}
+                        <MenuItem value="Select Crew">Select Crew</MenuItem>
+
+                        {/* Populate the select box with crew names */}
+                        {crews?.map((crew) => (
+                          <MenuItem key={crew.id} value={crew.id}>
+                            {crew.name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </Box>
+                    <Box display="flex" justifyContent="end" mt="20px">
+                      <Button type="submit" color="secondary" variant="contained">
+                        Edit
+                      </Button>
+                    </Box>
+                  </form>
+                )}
+              </Formik>
+            </Box>
+          </Box>
+        </Modal>
+        <Box margin="auto">
+          <img
+            height={"150px"}
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png"
+          />
+        </Box>
+        <Box>
+          <fieldset className="custom-fieldset">
+            <legend className="custom-legend">Phone</legend>
+            <Typography variant="subtitle1" gutterBottom>
+              {employee?.phoneNumber}
+            </Typography>
+          </fieldset>
+          <fieldset className="custom-fieldset">
+            <legend className="custom-legend">Email</legend>
+            <Typography variant="subtitle1" gutterBottom>
+              {employee?.email}
+            </Typography>
+          </fieldset>
+          <fieldset className="custom-fieldset">
+            <legend className="custom-legend">Date Added</legend>
+            <Typography variant="subtitle1" gutterBottom>
+              {employee?.createdDate}
+            </Typography>
+          </fieldset>
+          <fieldset className="custom-fieldset">
+            <legend className="custom-legend">Crew</legend>
+            <Typography variant="subtitle1" gutterBottom>
+              {employee?.crew?.name}
+            </Typography>
+          </fieldset>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

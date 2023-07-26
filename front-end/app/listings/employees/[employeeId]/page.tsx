@@ -1,4 +1,5 @@
 "use client";
+import { Box } from "@mui/material";
 import EmployeeDisplay from "./EmployeeDisplay";
 
 type Props = {
@@ -9,9 +10,9 @@ type Props = {
 
 const page = (props: Props) => {
   return (
-    <section>
+    <Box width="100%" padding="1rem">
       <EmployeeDisplay employeeId={props.params.employeeId} />
-    </section>
+    </Box>
   );
 };
 

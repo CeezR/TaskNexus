@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import { Box, FormControl, InputLabel, useTheme} from "@mui/material";
+import { Box, FormControl, InputLabel, useTheme } from "@mui/material";
 import { tokens } from "@/app/theme";
 
 
@@ -76,52 +76,48 @@ const CrewMember = ({ crewId, onUpdateCrew }: { crewId: string; onUpdateCrew: ()
     };
 
     return (
-        <div style={{ padding: "20px" }}>
-            <h2>Select Crew Members</h2>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <div>
-                        <Box >
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Select Crew Member</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={currentSelection ? currentSelection.id?.toString() : ""}
-                                    label="Select Crew Member"
-                                    onChange={(e) => {
-                                        const selectedId = parseInt(e.target.value);
-                                        const selectedEmployee = availableEmployees.find(
-                                            (employee) => employee.id === selectedId
-                                        );
-                                        if (selectedEmployee) {
-                                            handleSelectEmployee(selectedEmployee);
-                                        }
-                                    }}
-                                >
-                                    {availableEmployees.map((employee) => (
-                                        <MenuItem key={employee.id} value={employee.id?.toString()}>
-                                            {employee.name}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
+        <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <div>
+                    <Box display="flex" flexDirection="column" gap="1rem">
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Select Crew Member</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={currentSelection ? currentSelection.id?.toString() : ""}
+                                label="Select Crew Member"
+                                onChange={(e) => {
+                                    const selectedId = parseInt(e.target.value);
+                                    const selectedEmployee = availableEmployees.find(
+                                        (employee) => employee.id === selectedId
+                                    );
+                                    if (selectedEmployee) {
+                                        handleSelectEmployee(selectedEmployee);
+                                    }
+                                }}
+                            >
+                                {availableEmployees.map((employee) => (
+                                    <MenuItem key={employee.id} value={employee.id?.toString()}>
+                                        {employee.name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <Box display="flex" justifyContent="center">
+                            <Button
+                                variant="contained"
+                                onClick={handleAddAndAssignEmployee}
+                                color="secondary"
+                                sx={{ color: "white", background: colors.greenAccent[700], padding: ".5rem 2rem" }}
+                            >
+                                Add
+                            </Button>
                         </Box>
-                        <Button 
-                            variant="contained" 
-                            onClick={handleAddAndAssignEmployee} 
-                            color="secondary"
-                            sx={{ color: "white", background: colors.greenAccent[700] }}
-                        >
-                            Add
-                        </Button>
-
-          
-
-                    </div>
-                </Grid>
+                    </Box>
+                </div>
             </Grid>
-        </div>
+        </Grid>
     );
 };
 
