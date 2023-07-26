@@ -53,10 +53,14 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
 
   interface InitialValues {
     name: string | undefined;
+    email: string | undefined;
+    phoneNumber: string | undefined;
   }
 
   const initialValues: InitialValues = {
     name: company?.name,
+    email: company?.email,
+    phoneNumber: company?.phoneNumber
   };
 
   const getCompany = async () => {
@@ -89,7 +93,9 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
   const editCompany = async (requestBody: InitialValues) => {
     const editedCompany: Company = {
       id: company?.id,
-      name: requestBody.name
+      name: requestBody.name,
+      email: requestBody.email,
+      phoneNumber: requestBody.phoneNumber
     }
 
     const response = await fetch(`http://localhost:8080/api/companies/${companyId}`, {
@@ -167,18 +173,6 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
         <Typography variant="h2" component="h2" alignSelf="center">
           {company?.name}
         </Typography>
-        <fieldset className="custom-fieldset">
-            <legend className="custom-legend">Phone</legend>
-            <Typography variant="subtitle1" gutterBottom>
-              {company?.phoneNumber}
-            </Typography>
-          </fieldset>
-          <fieldset className="custom-fieldset">
-            <legend className="custom-legend">Email</legend>
-            <Typography variant="subtitle1" gutterBottom>
-              {company?.email}
-            </Typography>
-          </fieldset>
         <Stack direction="row" spacing={2} justifyContent="center">
           <Button
             onClick={handleDelete}
@@ -198,6 +192,18 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
             Edit
           </Button>
         </Stack>
+        <fieldset className="custom-fieldset">
+          <legend className="custom-legend">Phone</legend>
+          <Typography variant="subtitle1" gutterBottom>
+            {company?.phoneNumber}
+          </Typography>
+        </fieldset>
+        <fieldset className="custom-fieldset">
+          <legend className="custom-legend">Email</legend>
+          <Typography variant="subtitle1" gutterBottom>
+            {company?.email}
+          </Typography>
+        </fieldset>
 
         <CompanyMember companyId={companyId} onUpdateCompany={handleUpdateCompany} />
         {company?.jobs && company.jobs.length > 0 && (
@@ -252,7 +258,32 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
                         helperText={touched.name && errors.name}
                         sx={{ gridColumn: "span 4" }}
                       />
-
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="Email"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.email}
+                        name="email"
+                        error={!!touched.email && !!errors.email}
+                        helperText={touched.email && errors.email}
+                        sx={{ gridColumn: "span 4" }}
+                      />
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="Phone Number"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.phoneNumber}
+                        name="phoneNumber"
+                        error={!!touched.phoneNumber && !!errors.phoneNumber}
+                        helperText={touched.phoneNumber && errors.phoneNumber}
+                        sx={{ gridColumn: "span 4" }}
+                      />
                     </Box>
                     <Box display="flex" justifyContent="end" mt={2}>
                       <Button
