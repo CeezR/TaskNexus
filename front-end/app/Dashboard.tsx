@@ -14,7 +14,7 @@ const Dashboard = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [dashboard, setDashboard] = useState<Dashboard | null>(null);
-    const isDesktop = useMediaQuery(theme.breakpoints.up("lg"));
+    const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
 
     const getDashboardData = async () => {
         try {
@@ -38,8 +38,11 @@ const Dashboard = () => {
 
     return (
 
-        <Box m="20px"
-        width={isDesktop ? "100%" : "70%"}>
+        <Box 
+        m="20px"
+        width="100%"
+        maxWidth={isDesktop ? "80%" : "70%"}
+        marginX="auto" >
             <Box >
                 <Header title="HOME" subtitle="Welcome to your dashboard" />
             </Box>
