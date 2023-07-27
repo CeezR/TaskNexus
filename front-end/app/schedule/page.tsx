@@ -5,11 +5,11 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import Header from "@/components/Header";
 
-const page = () => {
+const Schedule = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
-    <Box style={{ height: "100vh", width: "100%" }}  m="20px">
+    <Box style={{ height: "100vh", width: "100%" }} m="20px">
       <div style={{ height: "100vh", width: "100%" }}>
         <Header title="SCHEDULE" subtitle="Welcome to your schedule" />
         <Calender />
@@ -18,4 +18,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Schedule;
