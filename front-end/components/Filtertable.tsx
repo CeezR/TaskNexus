@@ -1,21 +1,10 @@
+"use client"
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridValueGetterParams } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material';
 import { tokens } from '@/app/theme';
-
-
-interface Job {
-    id: number;
-    name: string;
-    description: string;
-    status: string;
-    createdDate: string;
-    updatedDate: string;
-    crew: { name: string };
-    company: { name: string };
-}
 
 const VISIBLE_FIELDS = ['id'];
 
@@ -24,7 +13,8 @@ export default function QuickFilteringGrid() {
   const colors = tokens(theme.palette.mode);
     const [jobs, setJobs] = useState<Job[]>([]);
 
-    const rows = React.useMemo(() => jobs.map((job) => ({ ...job, id: job.id.toString() })), [jobs]);
+    const rows = React.useMemo(() => jobs.map((job) => ({ ...job })), [jobs]);
+
 
     const getTableData = async () => {
         try {
@@ -55,37 +45,37 @@ export default function QuickFilteringGrid() {
               field: 'name',
               headerName: 'Job Name',
               width: 150,
-              valueGetter: (params: { row: { name: { name: any; }; }; }) => params.row?.name || '-',
+              valueGetter: (params: GridValueGetterParams<Job>) => params.row.name || '-',
           },
           {
               field: 'status',
               headerName: 'Status',
               width: 150,
-              valueGetter: (params: { row: { status: { name: any; }; }; }) => params.row?.status|| '-',
+              valueGetter: (params: GridValueGetterParams<Job>) => params.row.status || '-',
           },
             {
                 field: 'crewName',
                 headerName: 'Crew Name',
                 width: 150,
-                valueGetter: (params: { row: { crew: { name: any; }; }; }) => params.row?.crew?.name || '-',
+                valueGetter: (params: GridValueGetterParams<Job>) => params.row.crew?.name || '-',
             },
             {
                 field: 'companyName',
                 headerName: 'Company Name',
                 width: 150,
-                valueGetter: (params: { row: { company: { name: any; }; }; }) => params.row?.company?.name || '-',
+                valueGetter: (params: GridValueGetterParams<Job>) => params.row.company?.name || '-',
             },
             {
               field: 'startDate',
               headerName: 'Start Date',
               width: 150,
-              valueGetter: (params: { row: { startDate: any } }) => params.row?.startDate || '-',
+              valueGetter: (params: GridValueGetterParams<Job>) => params.row.startDate || '-',
             },
             {
               field: 'endDate',
               headerName: 'End Date',
               width: 150,
-              valueGetter: (params: { row: { endDate: any } }) => params.row?.endDate || '-',
+              valueGetter: (params: GridValueGetterParams<Job>) => params.row.endDate || '-',
             },
         ],
         [],
