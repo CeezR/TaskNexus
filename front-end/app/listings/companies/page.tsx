@@ -88,7 +88,7 @@ export default function Companies() {
 
   const getCompanies = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/companies`);
+      const response = await fetch(`tasknexus123.azurewebsites.net/api/companies`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

@@ -17,7 +17,7 @@ export default function QuickFilteringGrid() {
 
   const getTableData = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/jobs`);
+      const response = await fetch(`tasknexus123.azurewebsites.net/api/jobs`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

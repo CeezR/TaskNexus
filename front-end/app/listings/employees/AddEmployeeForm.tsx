@@ -27,7 +27,7 @@ const AddEmployeeForm = ({ setEmployees }: AddEntityFormProps) => {
   const colors = tokens(theme.palette.mode);
 
   const getCrew = async () => {
-    const response = await fetch("http://localhost:8080/api/crews");
+    const response = await fetch("tasknexus123.azurewebsites.net/api/crews");
     if (!response.ok) {
       throw new Error("Failed to add job");
     }
@@ -46,7 +46,7 @@ const AddEmployeeForm = ({ setEmployees }: AddEntityFormProps) => {
   };
 
   const postEmployee = async (requestBody: InitialValues) => {
-    const response = await fetch("http://localhost:8080/api/employees", {
+    const response = await fetch("tasknexus123.azurewebsites.net/api/employees", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

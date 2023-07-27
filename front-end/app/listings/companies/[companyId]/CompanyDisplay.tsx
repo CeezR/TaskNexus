@@ -71,7 +71,7 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
   const getCompany = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/companies/${companyId}`
+        `tasknexus123.azurewebsites.net/api/companies/${companyId}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -88,7 +88,7 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
   const deleteCompany = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/companies/${companyId}`,
+        `tasknexus123.azurewebsites.net/api/companies/${companyId}`,
         {
           method: "DELETE",
         }
@@ -107,7 +107,7 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
     };
 
     const response = await fetch(
-      `http://localhost:8080/api/companies/${companyId}`,
+      `tasknexus123.azurewebsites.net/api/companies/${companyId}`,
       {
         method: "PUT",
         headers: {
@@ -135,7 +135,7 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
         jobIds: [jobId],
       };
       const response = await fetch(
-        `http://localhost:8080/api/companies/removeJobs`,
+        `tasknexus123.azurewebsites.net/api/companies/removeJobs`,
         {
           method: "DELETE",
           headers: {

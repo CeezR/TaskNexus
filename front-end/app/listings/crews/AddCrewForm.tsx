@@ -30,7 +30,7 @@ const AddCrewForm = ({ crews, setCrews }: AddCrewFormProps) => {
   };
 
   const postCrew = async (requestBody: InitialValues) => {
-    const response = await fetch("http://localhost:8080/api/crews", {
+    const response = await fetch("tasknexus123.azurewebsites.net/api/crews", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

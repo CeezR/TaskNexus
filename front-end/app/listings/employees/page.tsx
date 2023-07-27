@@ -86,7 +86,7 @@ export default function Employees() {
 
   const getEmployees = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/employees`);
+      const response = await fetch(`tasknexus123.azurewebsites.net/api/employees`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

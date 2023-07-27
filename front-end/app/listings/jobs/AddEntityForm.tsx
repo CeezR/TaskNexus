@@ -52,7 +52,7 @@ const AddEntityForm: React.FC<AddEntityFormProps> = ({
     formData.append("endDate", values.endDate);
 
     try {
-      const response = await fetch("http://localhost:8080/api/jobs", {
+      const response = await fetch("tasknexus123.azurewebsites.net/api/jobs", {
         method: "POST",
         body: formData,
       });

@@ -15,7 +15,7 @@ const Dashboard = () => {
 
   const getDashboardData = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/dashboard`);
+      const response = await fetch(`tasknexus123.azurewebsites.net/api/dashboard`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
