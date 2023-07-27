@@ -19,6 +19,13 @@ public class Company {
     @Column(name = "company_name", nullable = false)
     private String name;
 
+    @Column(name = "company_email")
+    private String email;
+
+
+    @Column(name = "company_phone_number")
+    private String phoneNumber;
+
     @Column(name = "created_date", nullable = true, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -32,8 +39,10 @@ public class Company {
     @JsonIgnore
     private List<Job> jobs = new ArrayList<>();
 
-    public Company(String name) {
+    public Company(String name, String email, String phoneNumber) {
         this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 
     public Company() {
@@ -81,6 +90,21 @@ public class Company {
     public void removeJob(Job job) {
         jobs.remove(job);
         job.setCompany(null);
+    }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @PrePersist

@@ -24,6 +24,8 @@ public class CompanyService {
                 .map(company -> new CompanyResponseDTO(
                         company.getId(),
                         company.getName(),
+                        company.getEmail(),
+                        company.getPhoneNumber(),
                         mapJobToDTOs(company.getJobs()))
                         ).collect(Collectors.toList());
     }
@@ -34,8 +36,8 @@ public class CompanyService {
                 .collect(Collectors.toList());
     }
 
-    public Company save(RequestCompanyDTO companyRequest) {
-        return repo.save(new Company(companyRequest.name()));
+    public Company save(RequestCompanyDTO dto) {
+        return repo.save(new Company(dto.name(), dto.email(), dto.phoneNumber()));
     }
 
     public Company save(Company company) {
@@ -61,7 +63,7 @@ public class CompanyService {
             if(company.get().getJobs() != null){
                 jobDTOS = convertToDTOList(company.get().getJobs());
             }
-            return new CompanyResponseDTO(company.get().getId(), company.get().getName(), jobDTOS);
+            return new CompanyResponseDTO(company.get().getId(), company.get().getName(), company.get().getEmail(), company.get().getPhoneNumber(), jobDTOS);
         }else{
             return null;
         }
