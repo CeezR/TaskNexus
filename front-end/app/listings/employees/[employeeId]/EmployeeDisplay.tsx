@@ -58,7 +58,7 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
   }, []);
 
   const getCrew = async () => {
-    const response = await fetch("tasknexus123.azurewebsites.net/api/crews");
+    const response = await fetch("https://tasknexus123.azurewebsites.net/api/crews");
     if (!response.ok) {
       throw new Error("Failed to add job");
     }
@@ -85,7 +85,7 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
   const getEmployee = async () => {
     try {
       const response = await fetch(
-        `tasknexus123.azurewebsites.net/api/employees/${employeeId}`
+        `https://tasknexus123.azurewebsites.net/api/employees/${employeeId}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -102,7 +102,7 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
   const deleteEmployee = async () => {
     try {
       const response = await fetch(
-        `tasknexus123.azurewebsites.net/api/employees/${employeeId}`,
+        `https://tasknexus123.azurewebsites.net/api/employees/${employeeId}`,
         {
           method: "DELETE",
         }
@@ -121,7 +121,7 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
     };
 
     const response = await fetch(
-      `tasknexus123.azurewebsites.net/api/employees/${employeeId}`,
+      `https://tasknexus123.azurewebsites.net/api/employees/${employeeId}`,
       {
         method: "PUT",
         headers: {

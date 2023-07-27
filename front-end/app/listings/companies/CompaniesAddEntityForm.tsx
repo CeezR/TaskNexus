@@ -35,7 +35,7 @@ const CompaniesAddEntityForm = ({
 
   const postCompany = async (requestBody: InitialValues) => {
     console.log(requestBody);
-    const response = await fetch("tasknexus123.azurewebsites.net/api/companies", {
+    const response = await fetch("https://tasknexus123.azurewebsites.net/api/companies", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

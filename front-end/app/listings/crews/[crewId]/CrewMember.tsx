@@ -27,7 +27,7 @@ const CrewMember = ({
 
   const getEmployees = async () => {
     try {
-      const response = await fetch(`tasknexus123.azurewebsites.net/api/employees`);
+      const response = await fetch(`https://tasknexus123.azurewebsites.net/api/employees`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -63,7 +63,7 @@ const CrewMember = ({
         }
 
         const response = await fetch(
-          `tasknexus123.azurewebsites.net/api/crews/addEmployees`,
+          `https://tasknexus123.azurewebsites.net/api/crews/addEmployees`,
           {
             method: "POST",
             headers: {

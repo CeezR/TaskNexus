@@ -85,7 +85,7 @@ export default function Jobs() {
   }, [jobs]);
 
   const getCrew = async () => {
-    const response = await fetch("tasknexus123.azurewebsites.net/api/crews");
+    const response = await fetch("https://tasknexus123.azurewebsites.net/api/crews");
     if (!response.ok) {
       throw new Error("Failed to add job");
     }
@@ -95,7 +95,7 @@ export default function Jobs() {
 
   const getJobs = async () => {
     try {
-      const response = await fetch(`tasknexus123.azurewebsites.net/api/jobs`);
+      const response = await fetch(`https://tasknexus123.azurewebsites.net/api/jobs`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -110,7 +110,7 @@ export default function Jobs() {
   };
 
   const getCompanies = async () => {
-    const response = await fetch("tasknexus123.azurewebsites.net/api/companies");
+    const response = await fetch("https://tasknexus123.azurewebsites.net/api/companies");
     if (!response.ok) {
       throw new Error("Failed to add job");
     }

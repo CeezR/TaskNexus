@@ -66,7 +66,7 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
 
   const getCrew = async () => {
     try {
-      const response = await fetch(`tasknexus123.azurewebsites.net/api/crews/${crewId}`);
+      const response = await fetch(`https://tasknexus123.azurewebsites.net/api/crews/${crewId}`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -82,7 +82,7 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
   const deleteCrew = async () => {
     try {
       const response = await fetch(
-        `tasknexus123.azurewebsites.net/api/crews/${crewId}`,
+        `https://tasknexus123.azurewebsites.net/api/crews/${crewId}`,
         {
           method: "DELETE",
         }
@@ -98,7 +98,7 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
       name: requestBody.name,
     };
 
-    const response = await fetch(`tasknexus123.azurewebsites.net/api/crews/${crewId}`, {
+    const response = await fetch(`https://tasknexus123.azurewebsites.net/api/crews/${crewId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -124,7 +124,7 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
         employeeIds: [employeeId],
       };
       const response = await fetch(
-        `tasknexus123.azurewebsites.net/api/crews/removeEmployees`,
+        `https://tasknexus123.azurewebsites.net/api/crews/removeEmployees`,
         {
           method: "DELETE",
           headers: {
