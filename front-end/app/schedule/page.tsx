@@ -9,7 +9,7 @@ const Schedule = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
-    <Box style={{ height: "100vh", width: "100%" }} m="20px">
+    <Box style={{ height: "100vh" }} m="20px">
       <div style={{ height: "100vh", width: "100%" }}>
         <Header title="SCHEDULE" subtitle="Welcome to your schedule" />
         <Calender />

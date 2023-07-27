@@ -4,9 +4,7 @@ type DropZoneProps = {
   handleFileSelect: (files: FileList) => void;
 };
 
-const DropZone: React.FC<DropZoneProps> = ({
-  handleFileSelect,
-}) => {
+const DropZone: React.FC<DropZoneProps> = ({ handleFileSelect }) => {
   const [isDragActive, setIsDragActive] = useState(false);
 
   const handleDragEnter = (e: DragEvent) => {
