@@ -5,6 +5,7 @@ import AddEntityForm from "./AddEntityForm";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Box, InputBase, TextField, alpha, styled } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import Header from "@/components/Header";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -120,7 +121,7 @@ export default function Jobs() {
 
   return (
     <Box className="EntityListing">
-      <h1>Jobs</h1>
+      <Header title="JOBS" subtitle="" />
       <Search>
         <SearchIconWrapper>
           <SearchIcon />

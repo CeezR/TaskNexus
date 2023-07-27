@@ -15,7 +15,9 @@ const Dashboard = () => {
 
   const getDashboardData = async () => {
     try {
-      const response = await fetch(`https://tasknexus123.azurewebsites.net/api/dashboard`);
+      const response = await fetch(
+        `https://tasknexus123.azurewebsites.net/api/dashboard`
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -32,9 +34,9 @@ const Dashboard = () => {
 
   return (
     <Box
-      m="20px"
+      m="10px"
       width="100%"
-      maxWidth={isDesktop ? "80%" : "70%"}
+      maxWidth={isDesktop ? "80%" : "90%"}
       marginX="auto"
     >
       <Box>
