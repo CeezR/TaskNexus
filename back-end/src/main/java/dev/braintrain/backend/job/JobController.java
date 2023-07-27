@@ -10,7 +10,6 @@ import java.net.URI;
 @RequestMapping("/api/jobs")
 @CrossOrigin(origins = "*")
 public class JobController {
-
     private final JobService service;
 
     @Autowired
