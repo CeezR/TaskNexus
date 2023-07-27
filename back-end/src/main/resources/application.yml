@@ -2,7 +2,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://tasknexus.mysql.database.azure.com:3306/TaskNexus?serverTimezone=UTC
+    url: jdbc:mysql://task-nexus-server.mysql.database.azure.com:3306/TaskNexus?serverTimezone=UTC
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   jpa:
