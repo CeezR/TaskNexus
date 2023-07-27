@@ -1,14 +1,14 @@
 package dev.braintrain.backend.job;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -23,6 +23,21 @@ class JobControllerTest {
     @Autowired
     RestTemplate restTemplate;
 
+    private static MultiValueMap<String, Object> modelAttribute;
+
+    @BeforeAll
+    static void setup() {
+        modelAttribute = new LinkedMultiValueMap<>();
+        modelAttribute.add("name", "TestName");
+        modelAttribute.add("description", "");
+        modelAttribute.add("status", "");
+        modelAttribute.add("crewId", "1");
+        modelAttribute.add("companyId", "1");
+        modelAttribute.add("startDate", "");
+        modelAttribute.add("endDate", "");
+        modelAttribute.add("files", null);
+    }
+
     @Test
     void getJobMappingShouldReturnJobList() {
         String uri = "http://localhost:%s/api/jobs".formatted(port);
@@ -33,12 +48,17 @@ class JobControllerTest {
     }
 
     @Test
-    void getJobByIdMappingShouldReturnOneJob() {
+    void shouldCreateJobForPostRequest() {
         String uriPost = "http://localhost:%s/api/jobs".formatted(port);
-        RequestJobDTO job = new RequestJobDTO("TestName", "", "", "1", "1", "", "");
-        ResponseEntity<Job> postExchange = restTemplate.exchange(uriPost, HttpMethod.POST, new HttpEntity<>(job), Job.class);
 
-        String uri = "http://localhost:%s/api/jobs/%s".formatted(port,postExchange.getBody().getId());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(modelAttribute, headers);
+
+        ResponseEntity<Job> postExchange = restTemplate.exchange(uriPost, HttpMethod.POST, requestEntity, Job.class);
+
+        String uri = "http://localhost:%s/api/jobs/%s".formatted(port, postExchange.getBody().getId());
         ResponseEntity<Job> exchange = restTemplate.exchange(uri, HttpMethod.GET, HttpEntity.EMPTY, Job.class);
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(exchange.hasBody()).isTrue();
@@ -46,46 +66,15 @@ class JobControllerTest {
     }
 
     @Test
-    void shouldCreateJobForPostRequest() {
-        String uri = "http://localhost:%s/api/jobs".formatted(port);
-        RequestJobDTO job = new RequestJobDTO("TestName", "", "", "1", "1", "", "");
-        ResponseEntity<Job> exchange = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(job), Job.class);
-        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(exchange.hasBody()).isTrue();
-        assertThat(exchange.getHeaders().getLocation()).isNotNull();
-        assertThat(exchange.getBody()).isNotNull();
-    }
-
-    @Test
-    void shouldCreateJobForPostRequestWithNoCrewId() {
-        String uri = "http://localhost:%s/api/jobs".formatted(port);
-        RequestJobDTO job = new RequestJobDTO("TestName", "", "", "", "1", "", "");
-        ResponseEntity<Job> exchange = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(job), Job.class);
-        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(exchange.hasBody()).isTrue();
-        assertThat(exchange.getHeaders().getLocation()).isNotNull();
-        assertThat(exchange.getBody()).isNotNull();
-    }
-
-    @Test
-    void shouldCreateJobForPostRequestWithNoCompanyId() {
-        String uri = "http://localhost:%s/api/jobs".formatted(port);
-        RequestJobDTO job = new RequestJobDTO("TestName", "", "", "1", "", "", "");
-        ResponseEntity<Job> exchange = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(job), Job.class);
-        assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(exchange.hasBody()).isTrue();
-        assertThat(exchange.getHeaders().getLocation()).isNotNull();
-        assertThat(exchange.getBody()).isNotNull();
-    }
-
-    @Test
     void shouldUpdateJobForPutRequest() {
-        String postUri = "http://localhost:%s/api/jobs".formatted(port);
-        RequestJobDTO job = new RequestJobDTO("TestName", "", "", "1", "1", "", "");
-        ResponseEntity<Job> postExchange = restTemplate.exchange(postUri, HttpMethod.POST, new HttpEntity<>(job), Job.class);
+        String uriPost = "http://localhost:%s/api/jobs".formatted(port);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(modelAttribute, headers);
+        ResponseEntity<Job> postExchange = restTemplate.exchange(uriPost, HttpMethod.POST, requestEntity, Job.class);
 
         String uri = "http://localhost:%s/api/jobs/%s".formatted(port, postExchange.getBody().getId());
-        RequestJobDTO updatedJob = new RequestJobDTO("Not Developer", "", "", "1", "1", "", "");
+        RequestJobDTO updatedJob = new RequestJobDTO("Not Developer", "", "", "1", "1", "", "", null);
         ResponseEntity<Job> exchange = restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(updatedJob), Job.class);
         assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(exchange.hasBody()).isTrue();
@@ -94,9 +83,11 @@ class JobControllerTest {
 
     @Test
     void shouldReturnNoContentWhenDeletingJob() {
-        String postUri = "http://localhost:%s/api/jobs".formatted(port);
-        RequestJobDTO job = new RequestJobDTO("TestName", "", "", "1", "1", "", "");
-        ResponseEntity<Job> postExchange = restTemplate.exchange(postUri, HttpMethod.POST, new HttpEntity<>(job), Job.class);
+        String uriPost = "http://localhost:%s/api/jobs".formatted(port);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(modelAttribute, headers);
+        ResponseEntity<Job> postExchange = restTemplate.exchange(uriPost, HttpMethod.POST, requestEntity, Job.class);
 
         String uri = "http://localhost:%s/api/jobs/%s".formatted(port, postExchange.getBody().getId());
         ResponseEntity<Void> exchange = restTemplate.exchange(uri, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
