@@ -82,7 +82,6 @@ const CrewMember = ({
           throw new Error("Failed to assign employees to crew.");
         }
         onUpdateCrew();
-        alert("Employees successfully assigned to the crew.");
         setSelectedEmployees([]);
       } catch (error) {
         console.error(error);

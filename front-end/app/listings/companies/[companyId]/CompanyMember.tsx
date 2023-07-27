@@ -79,8 +79,6 @@ const CompanyMember = ({
         if (!response.ok) {
           throw new Error("Failed to assign jobs to company.");
         }
-        onUpdateCompany();
-        alert("Jobs successfully assigned to the company.");
         setSelectedJobs([]);
       } catch (error) {
         console.error(error);

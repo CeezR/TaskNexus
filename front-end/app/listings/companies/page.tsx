@@ -95,7 +95,6 @@ export default function Companies() {
       const data: Company[] = await response.json();
       setCompanies(data);
       setFilteredCompanies(data);
-      console.log(data);
       return data;
     } catch (error) {
       console.error("Error fetching data:", error);

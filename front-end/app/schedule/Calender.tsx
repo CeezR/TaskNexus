@@ -59,8 +59,6 @@ const Scheduler = () => {
   );
 
   const handleJobClick = (event: JobEvent) => {
-    console.log("Clicked Event ID:", event.id);
-    console.log("Events Array:", filteredEvents);
 
     if (selectedJob && selectedJob.id === event.id) {
       setSelectedJob(null);

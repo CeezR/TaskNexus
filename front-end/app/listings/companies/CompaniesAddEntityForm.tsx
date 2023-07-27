@@ -28,13 +28,11 @@ const CompaniesAddEntityForm = ({
   const handleClose = () => setOpen(false);
 
   const handleFormSubmit = (values: InitialValues): void => {
-    alert(JSON.stringify(values, undefined, 2));
     handleClose();
     postCompany(values);
   };
 
   const postCompany = async (requestBody: InitialValues) => {
-    console.log(requestBody);
     const response = await fetch("https://tasknexus123.azurewebsites.net/api/companies", {
       method: "POST",
       headers: {

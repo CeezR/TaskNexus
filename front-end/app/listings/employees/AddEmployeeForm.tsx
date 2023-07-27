@@ -40,7 +40,6 @@ const AddEmployeeForm = ({ setEmployees }: AddEntityFormProps) => {
   }, []);
 
   const handleFormSubmit = (values: InitialValues): void => {
-    alert(JSON.stringify(values, undefined, 2));
     handleClose();
     postEmployee(values);
   };
