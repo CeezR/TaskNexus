@@ -1,5 +1,4 @@
 "use client";
-import React, { useState, useEffect } from "react";
 import CompanyDisplay from "./CompanyDisplay";
 import { Box } from "@mui/material";
 

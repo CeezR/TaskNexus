@@ -1,15 +1,13 @@
-import * as React from 'react';
-import { ArrowForward } from '@mui/icons-material';
-import { useRouter } from 'next/navigation';
-import { Box, IconButton, useTheme } from '@mui/material';
-import { tokens } from '@/app/theme';
-import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
-
+import * as React from "react";
+import { ArrowForward } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
+import { Box, IconButton, useTheme } from "@mui/material";
+import { tokens } from "@/app/theme";
+import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
 
 type BasicTableProp = {
-  companies: Company[] | undefined
-}
-
+  companies: Company[] | undefined;
+};
 
 export default function CompaniesListingTable({ companies }: BasicTableProp) {
   const router = useRouter();
@@ -28,10 +26,12 @@ export default function CompaniesListingTable({ companies }: BasicTableProp) {
       headerName: "View",
       sortable: false,
       renderCell: ({ row }) => (
-        <IconButton onClick={() => handleRowClick(row)} style={{ color: "white" }}>
+        <IconButton
+          onClick={() => handleRowClick(row)}
+          style={{ color: "white" }}
+        >
           <ArrowForward />
         </IconButton>
-        
       ),
     },
   ];
@@ -70,7 +70,7 @@ export default function CompaniesListingTable({ companies }: BasicTableProp) {
       }}
     >
       <DataGrid
-        rows={companies as readonly any[]} 
+        rows={companies as readonly any[]}
         columns={columns}
         disableColumnMenu
       />

@@ -14,11 +14,6 @@ import { tokens } from "../../theme";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import DropZone from "@/components/DropZone";
 
-type FileError = {
-  field: string;
-  message: string;
-};
-
 type AddEntityFormProps = {
   setJobs: React.Dispatch<React.SetStateAction<Job[]>>;
   crews: Crew[];
@@ -35,48 +30,44 @@ const AddEntityForm: React.FC<AddEntityFormProps> = ({
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [fileName, setFileName] = useState<string | null>(null);
 
   const handleFileSelect = (files: FileList) => {
     setSelectedFiles(files);
   };
 
   const handleFormSubmit = async (values: InitialValues): Promise<void> => {
-    
-      const formData = new FormData();
-      if(selectedFiles != null && selectedFiles.length > 0){
-        for (let i = 0; i < selectedFiles.length; i++) {
-          formData.append("files", selectedFiles[i]);
-        }
+    const formData = new FormData();
+    if (selectedFiles != null && selectedFiles.length > 0) {
+      for (let i = 0; i < selectedFiles.length; i++) {
+        formData.append("files", selectedFiles[i]);
       }
-      
+    }
 
-      formData.append("name", values.name);
-      formData.append("description", values.description);
-      formData.append("status", values.status);
-      formData.append("companyId", values.companyId);
-      formData.append("crewId", values.crewId);
-      formData.append("startDate", values.startDate);
-      formData.append("endDate", values.endDate);
+    formData.append("name", values.name);
+    formData.append("description", values.description);
+    formData.append("status", values.status);
+    formData.append("companyId", values.companyId);
+    formData.append("crewId", values.crewId);
+    formData.append("startDate", values.startDate);
+    formData.append("endDate", values.endDate);
 
-      try {
-        const response = await fetch("http://localhost:8080/api/jobs", {
-          method: "POST",
-          body: formData,
-        });
+    try {
+      const response = await fetch("http://localhost:8080/api/jobs", {
+        method: "POST",
+        body: formData,
+      });
 
-        if (!response.ok) {
-          throw new Error("Failed to add job");
-        }
-
-        const data = await response.json();
-        const newJob: Job = await data;
-        setJobs((prevJobs) => [...prevJobs, newJob]);
-        handleClose();
-      } catch (error) {
-        console.error("Error while submitting the form:", error);
+      if (!response.ok) {
+        throw new Error("Failed to add job");
       }
-   
+
+      const data = await response.json();
+      const newJob: Job = await data;
+      setJobs((prevJobs) => [...prevJobs, newJob]);
+      handleClose();
+    } catch (error) {
+      console.error("Error while submitting the form:", error);
+    }
   };
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -102,7 +93,6 @@ const AddEntityForm: React.FC<AddEntityFormProps> = ({
   };
 
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
-  const [fileError, setFileError] = useState<FileError | null>(null);
 
   const style = {
     position: "absolute" as const,
@@ -255,7 +245,6 @@ const AddEntityForm: React.FC<AddEntityFormProps> = ({
                     </Select>
                     <DropZone
                       handleFileSelect={handleFileSelect}
-                      errorMessage={fileError?.message}
                     />
                   </Box>
                   <Box display="flex" justifyContent="space-between" mt="20px">

@@ -22,7 +22,7 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
         borderRadius: "50%",
         width: `${size}px`,
         height: `${size}px`,
-        margin: "5px"
+        margin: "5px",
       }}
     />
   );

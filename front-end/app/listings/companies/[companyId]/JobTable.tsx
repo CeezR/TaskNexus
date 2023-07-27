@@ -1,14 +1,9 @@
 import React from "react";
-import {
-  Box,
-  useTheme,
-  IconButton,
-} from "@mui/material";
+import { Box, useTheme, IconButton } from "@mui/material";
 import { ThemeProvider, styled } from "@mui/material/styles";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { tokens } from "@/app/theme";
 import DeleteIcon from "@mui/icons-material/Delete";
-
 
 type JobTableProps = {
   jobs: Job[];
@@ -27,10 +22,13 @@ const JobTable: React.FC<JobTableProps> = ({ jobs, onDeleteJob }) => {
       cellClassName: "name-column--cell",
     },
     {
-      field: "actions", 
+      field: "actions",
       headerName: "Actions",
       renderCell: ({ row }) => (
-        <IconButton onClick={() => onDeleteJob(row.id)} style={{ color: "red" }}>
+        <IconButton
+          onClick={() => onDeleteJob(row.id)}
+          style={{ color: "red" }}
+        >
           <DeleteIcon />
         </IconButton>
       ),

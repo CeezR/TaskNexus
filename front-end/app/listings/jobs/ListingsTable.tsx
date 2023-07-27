@@ -1,15 +1,13 @@
-import * as React from 'react';
-import { useRouter } from 'next/navigation';
-import { ArrowForward } from '@mui/icons-material';
-import { Box, IconButton, useTheme } from '@mui/material';
-import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
-import { tokens } from '@/app/theme';
-
+import * as React from "react";
+import { useRouter } from "next/navigation";
+import { ArrowForward } from "@mui/icons-material";
+import { Box, IconButton, useTheme } from "@mui/material";
+import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
+import { tokens } from "@/app/theme";
 
 type BasicTableProp = {
-  jobs: Job[] | undefined
-}
-
+  jobs: Job[] | undefined;
+};
 
 export default function ListingsTable({ jobs }: BasicTableProp) {
   const router = useRouter();
@@ -28,10 +26,12 @@ export default function ListingsTable({ jobs }: BasicTableProp) {
       headerName: "View",
       sortable: false,
       renderCell: ({ row }) => (
-        <IconButton onClick={() => handleRowClick(row)} style={{ color: "white" }}>
+        <IconButton
+          onClick={() => handleRowClick(row)}
+          style={{ color: "white" }}
+        >
           <ArrowForward />
         </IconButton>
-        
       ),
     },
   ];
@@ -70,7 +70,7 @@ export default function ListingsTable({ jobs }: BasicTableProp) {
       }}
     >
       <DataGrid
-        rows={jobs as readonly any[]} 
+        rows={jobs as readonly any[]}
         columns={columns}
         disableColumnMenu
       />

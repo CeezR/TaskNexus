@@ -1,5 +1,15 @@
 "use client";
-import { Box, Button, IconButton, MenuItem, Modal, Select, TextField, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  MenuItem,
+  Modal,
+  Select,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -11,11 +21,11 @@ import Jobs from "../page";
 import { describe } from "node:test";
 import { ArrowBack, Description } from "@mui/icons-material";
 import { tokens } from "@/app/theme";
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 
 type JobDisplayProps = {
-  jobId: string,
-}
+  jobId: string;
+};
 
 const style = {
   position: "absolute" as const,
@@ -45,7 +55,6 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
     handleClose();
     const res = await editJob(values);
     setJob(res);
-
   };
 
   useEffect(() => {
@@ -61,7 +70,7 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
     }
     const data = await response.json();
     setCompanies(data);
-  }
+  };
 
   const getCrew = async () => {
     const response = await fetch("http://localhost:8080/api/crews");
@@ -70,16 +79,16 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
     }
     const data = await response.json();
     setCrews(data);
-  }
+  };
 
   interface InitialValues {
     name: string | undefined;
-    description: string | undefined,
-    status: string | undefined,
-    companyId: number | undefined,
-    crewId: number | undefined
-    startDate: string | undefined,
-    endDate: string | undefined
+    description: string | undefined;
+    status: string | undefined;
+    companyId: number | undefined;
+    crewId: number | undefined;
+    startDate: string | undefined;
+    endDate: string | undefined;
   }
 
   const initialValues: InitialValues = {
@@ -89,7 +98,7 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
     companyId: job?.company?.id,
     crewId: job?.crew?.id,
     startDate: job?.startDate,
-    endDate: job?.endDate
+    endDate: job?.endDate,
   };
 
   const downloadFile = () => {
@@ -99,28 +108,25 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
       byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
     const byteArray = new Uint8Array(byteNumbers);
-    const blob = new Blob([byteArray], { type: "application/pdf" }); 
+    const blob = new Blob([byteArray], { type: "application/pdf" });
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${job?.name}.pdf`; 
+    a.download = `${job?.name}.pdf`;
     a.click();
-
 
     URL.revokeObjectURL(url);
   };
 
   const getJob = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/jobs/${jobId}`
-      );
+      const response = await fetch(`http://localhost:8080/api/jobs/${jobId}`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const data: Job = await response.json();
-      console.log(data)
+      console.log(data);
       setJob(data);
       return data;
     } catch (error) {
@@ -148,8 +154,8 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
       companyId: requestBody.companyId,
       crewId: requestBody.crewId,
       startDate: requestBody.startDate,
-      endDate: requestBody.endDate
-    }
+      endDate: requestBody.endDate,
+    };
 
     const response = await fetch(`http://localhost:8080/api/jobs/${jobId}`, {
       method: "PUT",
@@ -167,17 +173,19 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
 
   const handleDelete = async () => {
     await deleteJob();
-    router.push('/listings/jobs');
-
-  }
+    router.push("/listings/jobs");
+  };
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   return (
     <>
-      <Box display="flex" flexDirection="row" marginBottom="2rem" justifyContent="space-between">
-        <IconButton
-          onClick={() => router.push("/listings/jobs")}
-        >
+      <Box
+        display="flex"
+        flexDirection="row"
+        marginBottom="2rem"
+        justifyContent="space-between"
+      >
+        <IconButton onClick={() => router.push("/listings/jobs")}>
           <ArrowBack fontSize="large" />
         </IconButton>
         <Typography variant="h1" component="h1" fontWeight="500">
@@ -187,7 +195,15 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
           <ArrowBack fontSize="large" />
         </Box>
       </Box>
-      <Box display="flex" flexDirection="column" justifyContent="center" margin="auto" width="100%" gap="10px" maxWidth="600px">
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        margin="auto"
+        width="100%"
+        gap="10px"
+        maxWidth="600px"
+      >
         <Typography variant="h2" component="h2" alignSelf="center">
           {job?.name}
         </Typography>
@@ -197,7 +213,8 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
             variant="contained"
             color="error"
             sx={{ color: "white", background: colors.redAccent[700] }}
-            startIcon={<DeleteIcon />}>
+            startIcon={<DeleteIcon />}
+          >
             Delete
           </Button>
           <Button
@@ -239,9 +256,7 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
           <Typography variant="subtitle1">
             Start Date: {job?.startDate}
           </Typography>
-          <Typography variant="subtitle1">
-            End Date:  {job?.endDate}
-          </Typography>
+          <Typography variant="subtitle1">End Date: {job?.endDate}</Typography>
         </fieldset>
         <Box display="flex" justifyContent="center" mt="20px">
           <Button
@@ -264,10 +279,7 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
               Edit Job Details
             </Typography>
             <Box>
-              <Formik
-                onSubmit={handleFormSubmit}
-                initialValues={initialValues}
-              >
+              <Formik onSubmit={handleFormSubmit} initialValues={initialValues}>
                 {({
                   values,
                   errors,
@@ -313,15 +325,23 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
                         helperText={touched.description && errors.description}
                         sx={{ gridColumn: "span 4" }}
                       />
-                      <Select name="status" defaultValue={"Not Assigned"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
+                      <Select
+                        name="status"
+                        defaultValue={"Not Assigned"}
+                        onChange={handleChange}
+                        sx={{ gridColumn: "span 4" }}
+                      >
                         {/* Add the default option */}
-                        <MenuItem value="Not Assigned">
-                          Not Assigned
-                        </MenuItem>
+                        <MenuItem value="Not Assigned">Not Assigned</MenuItem>
                         <MenuItem value="In progress">In progress</MenuItem>
                         <MenuItem value="Completed">Completed</MenuItem>
                       </Select>
-                      <Select name="crewId" defaultValue={"Select Crew"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
+                      <Select
+                        name="crewId"
+                        defaultValue={"Select Crew"}
+                        onChange={handleChange}
+                        sx={{ gridColumn: "span 4" }}
+                      >
                         {/* Add the default option */}
                         <MenuItem value="Select Crew">Select Crew</MenuItem>
                         {/* Populate the select box with crew names */}
@@ -331,9 +351,16 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
                           </MenuItem>
                         ))}
                       </Select>
-                      <Select name="companyId" defaultValue={"Select Company"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
+                      <Select
+                        name="companyId"
+                        defaultValue={"Select Company"}
+                        onChange={handleChange}
+                        sx={{ gridColumn: "span 4" }}
+                      >
                         {/* Add the default option */}
-                        <MenuItem value="Select Company">Select Company</MenuItem>
+                        <MenuItem value="Select Company">
+                          Select Company
+                        </MenuItem>
 
                         {/* Populate the select box with crew names */}
                         {companies?.map((company) => (
@@ -342,10 +369,13 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
                           </MenuItem>
                         ))}
                       </Select>
-
                     </Box>
                     <Box display="flex" justifyContent="end" mt="20px">
-                      <Button type="submit" color="secondary" variant="contained">
+                      <Button
+                        type="submit"
+                        color="secondary"
+                        variant="contained"
+                      >
                         Edit
                       </Button>
                     </Box>
@@ -357,7 +387,7 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
         </Modal>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default JobDisplay
+export default JobDisplay;

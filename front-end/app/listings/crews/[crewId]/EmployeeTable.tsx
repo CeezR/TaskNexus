@@ -1,21 +1,19 @@
 import React from "react";
-import {
-  Box,
-  useTheme,
-  IconButton,
-} from "@mui/material";
+import { Box, useTheme, IconButton } from "@mui/material";
 import { ThemeProvider, styled } from "@mui/material/styles";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { tokens } from "@/app/theme";
 import DeleteIcon from "@mui/icons-material/Delete";
-
 
 type EmployeeTableProps = {
   employees: Employee[];
   onDeleteEmployee: (employeeId: number) => void;
 };
 
-const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, onDeleteEmployee }) => {
+const EmployeeTable: React.FC<EmployeeTableProps> = ({
+  employees,
+  onDeleteEmployee,
+}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns: GridColDef[] = [
@@ -38,10 +36,13 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, onDeleteEmploy
       flex: 1,
     },
     {
-      field: "actions", 
+      field: "actions",
       headerName: "Actions",
       renderCell: ({ row }) => (
-        <IconButton onClick={() => onDeleteEmployee(row.id)} style={{ color: "red" }}>
+        <IconButton
+          onClick={() => onDeleteEmployee(row.id)}
+          style={{ color: "red" }}
+        >
           <DeleteIcon />
         </IconButton>
       ),

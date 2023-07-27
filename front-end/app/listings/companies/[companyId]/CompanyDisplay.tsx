@@ -1,5 +1,13 @@
 "use client";
-import { Box, Button, IconButton, Modal, TextField, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Modal,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -12,10 +20,9 @@ import JobTable from "./JobTable";
 import { ArrowBack } from "@mui/icons-material";
 import { tokens } from "@/app/theme";
 
-
 type CompanyDisplayProps = {
-  companyId: string
-}
+  companyId: string;
+};
 
 const style = {
   position: "absolute" as const,
@@ -39,7 +46,6 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
   const colors = tokens(theme.palette.mode);
 
   const handleFormSubmit = async (values: InitialValues) => {
-
     const res = await editCompany(values);
     setCompany(res);
     handleClose();
@@ -50,7 +56,6 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
     getCompany();
   }, [companyId]);
 
-
   interface InitialValues {
     name: string | undefined;
     email: string | undefined;
@@ -60,7 +65,7 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
   const initialValues: InitialValues = {
     name: company?.name,
     email: company?.email,
-    phoneNumber: company?.phoneNumber
+    phoneNumber: company?.phoneNumber,
   };
 
   const getCompany = async () => {
@@ -82,9 +87,12 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
 
   const deleteCompany = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/companies/${companyId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `http://localhost:8080/api/companies/${companyId}`,
+        {
+          method: "DELETE",
+        }
+      );
     } catch (error) {
       console.error(error);
     }
@@ -95,17 +103,20 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
       id: company?.id,
       name: requestBody.name,
       email: requestBody.email,
-      phoneNumber: requestBody.phoneNumber
-    }
+      phoneNumber: requestBody.phoneNumber,
+    };
 
-    const response = await fetch(`http://localhost:8080/api/companies/${companyId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const response = await fetch(
+      `http://localhost:8080/api/companies/${companyId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-      body: JSON.stringify(editedCompany),
-    });
+        body: JSON.stringify(editedCompany),
+      }
+    );
     if (!response.ok) {
       throw new Error("Failed to add company");
     }
@@ -114,9 +125,8 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
 
   const handleDelete = async () => {
     await deleteCompany();
-    router.push('/listings/companies');
-
-  }
+    router.push("/listings/companies");
+  };
 
   const handleDeleteJob = async (jobId: number) => {
     try {
@@ -145,7 +155,6 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
   };
 
   const handleUpdateCompany = async () => {
-
     const updatedCompany = await getCompany();
     if (updatedCompany) {
       setCompany(updatedCompany);
@@ -156,20 +165,36 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
 
   return (
     <>
-      <Box display="flex" flexDirection="row" marginBottom="2rem" justifyContent="space-between">
-        <IconButton
-          onClick={() => router.push("/listings/companies")}
-        >
+      <Box
+        display="flex"
+        flexDirection="row"
+        marginBottom="2rem"
+        justifyContent="space-between"
+      >
+        <IconButton onClick={() => router.push("/listings/companies")}>
           <ArrowBack fontSize="large" />
         </IconButton>
-        <Typography variant="h3" component="h1" fontWeight="500" alignSelf="center">
+        <Typography
+          variant="h3"
+          component="h1"
+          fontWeight="500"
+          alignSelf="center"
+        >
           Company
         </Typography>
         <Box visibility="hidden">
           <ArrowBack fontSize="large" />
         </Box>
       </Box>
-      <Box display="flex" flexDirection="column" justifyContent="center" margin="auto" width="100%" gap="10px" maxWidth="600px">
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        margin="auto"
+        width="100%"
+        gap="10px"
+        maxWidth="600px"
+      >
         <Typography variant="h2" component="h2" alignSelf="center">
           {company?.name}
         </Typography>
@@ -179,7 +204,8 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
             variant="contained"
             color="error"
             sx={{ color: "white", background: colors.redAccent[700] }}
-            startIcon={<DeleteIcon />}>
+            startIcon={<DeleteIcon />}
+          >
             Delete
           </Button>
           <Button
@@ -205,7 +231,10 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
           </Typography>
         </fieldset>
 
-        <CompanyMember companyId={companyId} onUpdateCompany={handleUpdateCompany} />
+        <CompanyMember
+          companyId={companyId}
+          onUpdateCompany={handleUpdateCompany}
+        />
         {company?.jobs && company.jobs.length > 0 && (
           <Box mt={2}>
             <Typography variant="h2" component="h2" alignSelf="center">
@@ -303,8 +332,7 @@ const CompanyDisplay = ({ companyId }: CompanyDisplayProps) => {
         </Modal>
       </Box>
     </>
-  )
-}
+  );
+};
 
 export default CompanyDisplay;
-

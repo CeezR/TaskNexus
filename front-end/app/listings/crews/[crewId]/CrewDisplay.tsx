@@ -1,5 +1,13 @@
 "use client";
-import { Box, Button, IconButton, Modal, TextField, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Modal,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -12,10 +20,9 @@ import EmployeeTable from "./EmployeeTable";
 import { ArrowBack } from "@mui/icons-material";
 import { tokens } from "@/app/theme";
 
-
 type CrewDisplayProps = {
-  crewId: string
-}
+  crewId: string;
+};
 
 const style = {
   position: "absolute" as const,
@@ -39,7 +46,6 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
   const colors = tokens(theme.palette.mode);
 
   const handleFormSubmit = async (values: InitialValues) => {
-
     const res = await editCrew(values);
     setCrew(res);
     handleClose();
@@ -49,7 +55,6 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
   useEffect(() => {
     getCrew();
   }, [crewId]);
-
 
   interface InitialValues {
     name: string | undefined;
@@ -61,9 +66,7 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
 
   const getCrew = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/crews/${crewId}`
-      );
+      const response = await fetch(`http://localhost:8080/api/crews/${crewId}`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -78,9 +81,12 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
 
   const deleteCrew = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/crews/${crewId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `http://localhost:8080/api/crews/${crewId}`,
+        {
+          method: "DELETE",
+        }
+      );
     } catch (error) {
       console.error(error);
     }
@@ -89,8 +95,8 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
   const editCrew = async (requestBody: InitialValues) => {
     const editedCrew: Crew = {
       id: crew?.id,
-      name: requestBody.name
-    }
+      name: requestBody.name,
+    };
 
     const response = await fetch(`http://localhost:8080/api/crews/${crewId}`, {
       method: "PUT",
@@ -108,9 +114,8 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
 
   const handleDelete = async () => {
     await deleteCrew();
-    router.push('/listings/crews');
-
-  }
+    router.push("/listings/crews");
+  };
 
   const handleDeleteEmployee = async (employeeId: number) => {
     try {
@@ -139,7 +144,6 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
   };
 
   const handleUpdateCrew = async () => {
-
     const updatedCrew = await getCrew();
     if (updatedCrew) {
       setCrew(updatedCrew);
@@ -150,21 +154,37 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
 
   return (
     <>
-      <Box display="flex" flexDirection="row" marginBottom="2rem" justifyContent="space-between">
-        <IconButton
-          onClick={() => router.push("/listings/crews")}
-        >
+      <Box
+        display="flex"
+        flexDirection="row"
+        marginBottom="2rem"
+        justifyContent="space-between"
+      >
+        <IconButton onClick={() => router.push("/listings/crews")}>
           <ArrowBack fontSize="large" />
         </IconButton>
-        <Typography variant="h3" component="h1" fontWeight="500" alignSelf="center">
+        <Typography
+          variant="h3"
+          component="h1"
+          fontWeight="500"
+          alignSelf="center"
+        >
           Crew
         </Typography>
         <Box visibility="hidden">
           <ArrowBack fontSize="large" />
         </Box>
       </Box>
-      <Box display="flex" flexDirection="column" justifyContent="center" margin="auto" width="100%" gap="10px" maxWidth="600px">
-      <Typography variant="h2" component="h2" alignSelf="center">
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        margin="auto"
+        width="100%"
+        gap="10px"
+        maxWidth="600px"
+      >
+        <Typography variant="h2" component="h2" alignSelf="center">
           {crew?.name}
         </Typography>
         <Stack direction="row" spacing={2} alignSelf="center">
@@ -173,7 +193,8 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
             variant="contained"
             color="error"
             sx={{ color: "white", background: colors.redAccent[700] }}
-            startIcon={<DeleteIcon />}>
+            startIcon={<DeleteIcon />}
+          >
             Delete
           </Button>
           <Button
@@ -192,7 +213,10 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
             <Typography variant="h2" component="h2" alignSelf="center">
               Crew Members
             </Typography>
-            <EmployeeTable employees={crew.employees} onDeleteEmployee={handleDeleteEmployee} />
+            <EmployeeTable
+              employees={crew.employees}
+              onDeleteEmployee={handleDeleteEmployee}
+            />
           </Box>
         )}
         <Modal
@@ -239,7 +263,6 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
                         helperText={touched.name && errors.name}
                         sx={{ gridColumn: "span 4" }}
                       />
-
                     </Box>
                     <Box display="flex" justifyContent="end" mt={2}>
                       <Button
@@ -259,8 +282,7 @@ const CrewDisplay = ({ crewId }: CrewDisplayProps) => {
         </Modal>
       </Box>
     </>
-  )
-}
+  );
+};
 
 export default CrewDisplay;
-

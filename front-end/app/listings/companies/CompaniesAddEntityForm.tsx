@@ -62,7 +62,7 @@ const CompaniesAddEntityForm = ({
   const initialValues: InitialValues = {
     name: "",
     email: "",
-    phoneNumber: ""
+    phoneNumber: "",
   };
 
   const style = {

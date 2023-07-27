@@ -1,18 +1,13 @@
-import * as React from 'react';
+import * as React from "react";
 import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
-import { ArrowForward } from '@mui/icons-material';
-import { useRouter } from 'next/navigation';
-import {
-  Box,
-  useTheme,
-  IconButton,
-} from "@mui/material";
+import { ArrowForward } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
+import { Box, useTheme, IconButton } from "@mui/material";
 import { tokens } from "@/app/theme";
 
-
 type BasicTableProp = {
-  crews: Crew[] | undefined
-}
+  crews: Crew[] | undefined;
+};
 
 export default function ListingsTable({ crews }: BasicTableProp) {
   const router = useRouter();
@@ -31,10 +26,12 @@ export default function ListingsTable({ crews }: BasicTableProp) {
       headerName: "View",
       sortable: false,
       renderCell: ({ row }) => (
-        <IconButton onClick={() => handleRowClick(row)} style={{ color: "white" }}>
+        <IconButton
+          onClick={() => handleRowClick(row)}
+          style={{ color: "white" }}
+        >
           <ArrowForward />
         </IconButton>
-        
       ),
     },
   ];
@@ -71,7 +68,7 @@ export default function ListingsTable({ crews }: BasicTableProp) {
       }}
     >
       <DataGrid
-        rows={crews as readonly any[]} 
+        rows={crews as readonly any[]}
         columns={columns}
         disableColumnMenu
       />

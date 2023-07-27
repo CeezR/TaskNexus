@@ -1,12 +1,12 @@
 import React, { useState, ChangeEvent, DragEvent } from "react";
-import Image from "next/image";
 
 type DropZoneProps = {
   handleFileSelect: (files: FileList) => void;
-  errorMessage: string | undefined;
 };
 
-const DropZone: React.FC<DropZoneProps> = ({ handleFileSelect, errorMessage }) => {
+const DropZone: React.FC<DropZoneProps> = ({
+  handleFileSelect,
+}) => {
   const [isDragActive, setIsDragActive] = useState(false);
 
   const handleDragEnter = (e: DragEvent) => {
@@ -48,7 +48,6 @@ const DropZone: React.FC<DropZoneProps> = ({ handleFileSelect, errorMessage }) =
       />
       <label htmlFor="fileSelect">Select Files</label>
       {isDragActive && <h3>Drop your files here</h3>}
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
     </div>
   );
 };

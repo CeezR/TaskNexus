@@ -2,10 +2,9 @@
 
 import ListingsTable from "@/app/listings/jobs/ListingsTable";
 import AddEntityForm from "./AddEntityForm";
-import { ChangeEvent, ChangeEventHandler, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Box, InputBase, TextField, alpha, styled } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
-
+import SearchIcon from "@mui/icons-material/Search";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -33,16 +32,16 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
+  color: "inherit",
+  "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
       },
     },
   },
@@ -52,17 +51,21 @@ export default function Jobs() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [companies, setCompanies] = useState<Company[]>([]);
   const [filteredJobs, setFilteredJobs] = useState<Job[]>(jobs);
-  const [search, setsearch] = useState("")
+  const [search, setsearch] = useState("");
   const [managedCrew, setManagedCrew] = useState<Crew[]>([]);
 
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleSearchChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const searchText = event.currentTarget.value.toLowerCase();
     setsearch(searchText);
-    setFilteredJobs(jobs.filter((job) => {
-      if(job.name !== undefined) {
-        return job.name.toLowerCase().startsWith(searchText)
-      }
-    }));
+    setFilteredJobs(
+      jobs.filter((job) => {
+        if (job.name !== undefined) {
+          return job.name.toLowerCase().startsWith(searchText);
+        }
+      })
+    );
   };
 
   useEffect(() => {
@@ -71,14 +74,15 @@ export default function Jobs() {
     getCompanies();
   }, []);
 
-
   useEffect(() => {
-    setFilteredJobs(jobs.filter((job) => {
-      if(job.name) {
-        return job.name.toLowerCase().startsWith(search)
-      }
-    }));
-  }, [jobs])
+    setFilteredJobs(
+      jobs.filter((job) => {
+        if (job.name) {
+          return job.name.toLowerCase().startsWith(search);
+        }
+      })
+    );
+  }, [jobs]);
 
   const getCrew = async () => {
     const response = await fetch("http://localhost:8080/api/crews");
@@ -87,13 +91,11 @@ export default function Jobs() {
     }
     const data = await response.json();
     setManagedCrew(data);
-  }
+  };
 
   const getJobs = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/jobs`
-      );
+      const response = await fetch(`http://localhost:8080/api/jobs`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -114,7 +116,7 @@ export default function Jobs() {
     }
     const data = await response.json();
     setCompanies(data);
-  }
+  };
 
   return (
     <Box className="EntityListing">
@@ -130,7 +132,11 @@ export default function Jobs() {
           onChange={(event) => handleSearchChange(event)}
         />
       </Search>
-      <AddEntityForm companies={companies} setJobs={setJobs} crews={managedCrew}/>
+      <AddEntityForm
+        companies={companies}
+        setJobs={setJobs}
+        crews={managedCrew}
+      />
       <ListingsTable jobs={filteredJobs} />
     </Box>
   );

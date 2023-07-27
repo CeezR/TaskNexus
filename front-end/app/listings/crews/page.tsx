@@ -1,11 +1,9 @@
 "use client";
-
 import ListingsTable from "@/app/listings/crews/ListingsTable";
 import AddEntityForm from "./AddCrewForm";
 import { ChangeEvent, useEffect, useState } from "react";
 import { InputBase, alpha, styled } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
-
+import SearchIcon from "@mui/icons-material/Search";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -33,16 +31,16 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
+  color: "inherit",
+  "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
       },
     },
   },
@@ -52,7 +50,9 @@ export default function Crews() {
   const [crews, setCrews] = useState<Crew[]>([]);
   const [search, setSearch] = useState("");
 
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleSearchChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const searchText = event.currentTarget.value.toLowerCase();
     setSearch(searchText);
   };
@@ -63,9 +63,7 @@ export default function Crews() {
 
   const getCrews = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/crews`
-      );
+      const response = await fetch(`http://localhost:8080/api/crews`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -84,17 +82,16 @@ export default function Crews() {
       <Search>
         <SearchIconWrapper>
           <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-            value={search}
-            onChange={(event) => handleSearchChange(event)}
-          />
+        </SearchIconWrapper>
+        <StyledInputBase
+          placeholder="Search…"
+          inputProps={{ "aria-label": "search" }}
+          value={search}
+          onChange={(event) => handleSearchChange(event)}
+        />
       </Search>
       <AddEntityForm crews={crews} setCrews={setCrews} />
       <ListingsTable crews={crews} />
     </section>
   );
-
 }

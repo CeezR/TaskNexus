@@ -1,11 +1,15 @@
 "use client";
-
 import CompaniesListingTable from "./CompaniesListingTable";
 import CompaniesAddEntityForm from "./CompaniesAddEntityForm";
-import { ChangeEvent, ChangeEventHandler, FormEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  FormEvent,
+  useEffect,
+  useState,
+} from "react";
 import { Box, InputBase, TextField, alpha, styled } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
-
+import SearchIcon from "@mui/icons-material/Search";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -33,16 +37,16 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
+  color: "inherit",
+  "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
       },
     },
   },
@@ -50,17 +54,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Companies() {
   const [companies, setCompanies] = useState<Company[]>([]);
-  const [filteredCompanies, setFilteredCompanies] = useState<Company[]>(companies);
-  const [search, setsearch] = useState("")
+  const [filteredCompanies, setFilteredCompanies] =
+    useState<Company[]>(companies);
+  const [search, setsearch] = useState("");
 
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleSearchChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const searchText = event.currentTarget.value.toLowerCase();
     setsearch(searchText);
-    setFilteredCompanies(companies.filter((companies) => {
-      if (companies.name !== undefined) {
-        return companies.name.toLowerCase().startsWith(searchText)
-      }
-    }));
+    setFilteredCompanies(
+      companies.filter((companies) => {
+        if (companies.name !== undefined) {
+          return companies.name.toLowerCase().startsWith(searchText);
+        }
+      })
+    );
   };
 
   useEffect(() => {
@@ -68,18 +77,18 @@ export default function Companies() {
   }, []);
 
   useEffect(() => {
-    setFilteredCompanies(companies.filter((company) => {
-      if (company.name) {
-        return company.name.toLowerCase().startsWith(search)
-      }
-    }));
-  }, [companies])
+    setFilteredCompanies(
+      companies.filter((company) => {
+        if (company.name) {
+          return company.name.toLowerCase().startsWith(search);
+        }
+      })
+    );
+  }, [companies]);
 
   const getCompanies = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/companies`
-      );
+      const response = await fetch(`http://localhost:8080/api/companies`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -108,7 +117,10 @@ export default function Companies() {
           onChange={(event) => handleSearchChange(event)}
         />
       </Search>
-      <CompaniesAddEntityForm companies={companies} setCompanies={setCompanies} />
+      <CompaniesAddEntityForm
+        companies={companies}
+        setCompanies={setCompanies}
+      />
       <CompaniesListingTable companies={filteredCompanies} />
     </Box>
   );

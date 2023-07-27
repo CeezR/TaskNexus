@@ -1,13 +1,6 @@
 "use client";
-
-import {
-  ChangeEvent,
-  ChangeEventHandler,
-  FormEvent,
-  useEffect,
-  useState,
-} from "react";
-import { InputBase, TextField, alpha, styled } from "@mui/material";
+import { ChangeEvent, useEffect, useState } from "react";
+import { InputBase, alpha, styled } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import EmployeeListingTable from "./EmployeeListingTable";
 import AddEmployeeForm from "./AddEmployeeForm";

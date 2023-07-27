@@ -33,7 +33,7 @@ const AddEmployeeForm = ({ setEmployees }: AddEntityFormProps) => {
     }
     const data = await response.json();
     setCrews(data);
-  }
+  };
 
   useEffect(() => {
     getCrew();
@@ -68,14 +68,14 @@ const AddEmployeeForm = ({ setEmployees }: AddEntityFormProps) => {
     name: string;
     email: string;
     phoneNumber: string;
-    crewId : string;
+    crewId: string;
   }
 
   const initialValues: InitialValues = {
     name: "",
     email: "",
     phoneNumber: "",
-    crewId: ""
+    crewId: "",
   };
 
   const style = {
@@ -94,7 +94,7 @@ const AddEmployeeForm = ({ setEmployees }: AddEntityFormProps) => {
       <Button
         onClick={handleOpen}
         variant="contained"
-        color='secondary'
+        color="secondary"
         sx={{ color: "white", background: colors.greenAccent[700] }}
       >
         Add Employee
@@ -169,11 +169,13 @@ const AddEmployeeForm = ({ setEmployees }: AddEntityFormProps) => {
                       helperText={touched.phoneNumber && errors.phoneNumber}
                       sx={{ gridColumn: "span 4" }}
                     />
-                    <Select name="crewId" defaultValue={"Select Crew"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
-                      {/* Add the default option */}
+                    <Select
+                      name="crewId"
+                      defaultValue={"Select Crew"}
+                      onChange={handleChange}
+                      sx={{ gridColumn: "span 4" }}
+                    >
                       <MenuItem value="Select Crew">Select Crew</MenuItem>
-
-                      {/* Populate the select box with crew names */}
                       {crews?.map((crew) => (
                         <MenuItem key={crew.id} value={crew.id}>
                           {crew.name}
@@ -182,7 +184,7 @@ const AddEmployeeForm = ({ setEmployees }: AddEntityFormProps) => {
                     </Select>
                   </Box>
                   <Box display="flex" justifyContent="space-between" mt="20px">
-                  <Button
+                    <Button
                       onClick={handleClose}
                       variant="contained"
                       color="secondary"
@@ -197,7 +199,10 @@ const AddEmployeeForm = ({ setEmployees }: AddEntityFormProps) => {
                       type="submit"
                       color="secondary"
                       variant="contained"
-                      sx={{ color: "white", background: colors.greenAccent[700] }}
+                      sx={{
+                        color: "white",
+                        background: colors.greenAccent[700],
+                      }}
                     >
                       Submit
                     </Button>

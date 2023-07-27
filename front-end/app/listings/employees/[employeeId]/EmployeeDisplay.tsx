@@ -3,13 +3,12 @@ import {
   Box,
   Button,
   IconButton,
-  Link,
   MenuItem,
   Modal,
   Select,
   TextField,
   Typography,
-  useTheme
+  useTheme,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -65,14 +64,14 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
     }
     const data = await response.json();
     setCrews(data);
-  }
+  };
 
   interface InitialValues {
     name: string | undefined;
     email: string | undefined;
     phoneNumber: string | undefined;
     createdDate: string | undefined;
-    crewId: number | undefined
+    crewId: number | undefined;
   }
 
   const initialValues: InitialValues = {
@@ -80,7 +79,7 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
     email: employee?.email,
     phoneNumber: employee?.phoneNumber,
     createdDate: employee?.createdDate,
-    crewId: employee?.crew?.id
+    crewId: employee?.crew?.id,
   };
 
   const getEmployee = async () => {
@@ -118,7 +117,7 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
       name: requestBody.name,
       email: requestBody.email,
       phoneNumber: requestBody.phoneNumber,
-      crewId: requestBody.crewId
+      crewId: requestBody.crewId,
     };
 
     const response = await fetch(
@@ -146,10 +145,14 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
 
   return (
     <>
-      <Box display="flex" flexDirection="row" marginBottom="2rem" justifyContent="space-between" alignItems="center">
-        <IconButton
-          onClick={() => router.push("/listings/employees")}
-        >
+      <Box
+        display="flex"
+        flexDirection="row"
+        marginBottom="2rem"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <IconButton onClick={() => router.push("/listings/employees")}>
           <ArrowBack fontSize="large" />
         </IconButton>
         <Typography variant="h2" component="h1" fontWeight="500">
@@ -159,7 +162,15 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
           <ArrowBack fontSize="large" />
         </Box>
       </Box>
-      <Box display="flex" flexDirection="column" justifyContent="center" margin="auto" width="100%" gap="10px" maxWidth="600px">
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        margin="auto"
+        width="100%"
+        gap="10px"
+        maxWidth="600px"
+      >
         <Typography variant="h2" component="h2" alignSelf="center">
           {employee?.name}
         </Typography>
@@ -169,7 +180,8 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
             variant="contained"
             color="error"
             sx={{ color: "white", background: colors.redAccent[700] }}
-            startIcon={<DeleteIcon />}>
+            startIcon={<DeleteIcon />}
+          >
             Delete
           </Button>
           <Button
@@ -252,7 +264,12 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
                         helperText={touched.phoneNumber && errors.phoneNumber}
                         sx={{ gridColumn: "span 4" }}
                       />
-                      <Select name="crewId" defaultValue={"Select Crew"} onChange={handleChange} sx={{ gridColumn: "span 4" }}>
+                      <Select
+                        name="crewId"
+                        defaultValue={"Select Crew"}
+                        onChange={handleChange}
+                        sx={{ gridColumn: "span 4" }}
+                      >
                         {/* Add the default option */}
                         <MenuItem value="Select Crew">Select Crew</MenuItem>
 
@@ -265,7 +282,11 @@ const EmployeeDisplay = ({ employeeId }: EmployeeDisplayProps) => {
                       </Select>
                     </Box>
                     <Box display="flex" justifyContent="end" mt="20px">
-                      <Button type="submit" color="secondary" variant="contained">
+                      <Button
+                        type="submit"
+                        color="secondary"
+                        variant="contained"
+                      >
                         Edit
                       </Button>
                     </Box>
