@@ -44,7 +44,7 @@ const DropZone: React.FC<DropZoneProps> = ({ handleFileSelect }) => {
         multiple
         onChange={handleFileInputChange}
       />
-      <label htmlFor="fileSelect">Select Files</label>
+      <label htmlFor="fileSelect"></label>
       {isDragActive && <h3>Drop your files here</h3>}
     </div>
   );
