@@ -4,6 +4,7 @@ import { InputBase, alpha, styled } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import EmployeeListingTable from "./EmployeeListingTable";
 import AddEmployeeForm from "./AddEmployeeForm";
+import Header from "@/components/Header";
 
 type EmployeeApiResponse = {
   employeeList: Employee[];
@@ -102,7 +103,7 @@ export default function Employees() {
 
   return (
     <section className="EntityListing">
-      <h1>Employees</h1>
+      <Header title="EMPLOYEES" subtitle="" />
       <Search>
         <SearchIconWrapper>
           <SearchIcon />

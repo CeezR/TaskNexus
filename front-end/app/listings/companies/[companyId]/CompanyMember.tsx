@@ -79,8 +79,6 @@ const CompanyMember = ({
         if (!response.ok) {
           throw new Error("Failed to assign jobs to company.");
         }
-        onUpdateCompany();
-        alert("Jobs successfully assigned to the company.");
         setSelectedJobs([]);
       } catch (error) {
         console.error(error);
@@ -96,13 +94,13 @@ const CompanyMember = ({
           <Box display="flex" flexDirection="column" gap="1rem">
             <FormControl>
               <InputLabel id="demo-simple-select-label">
-                Select Company Member
+                Add Jobs
               </InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={currentSelection ? currentSelection.id?.toString() : ""}
-                label="Select Company Member"
+                label="Add Jobs"
                 onChange={(e) => {
                   const selectedId = parseInt(e.target.value);
                   const selectedJob = availableJobs.find(

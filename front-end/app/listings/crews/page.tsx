@@ -4,6 +4,7 @@ import AddEntityForm from "./AddCrewForm";
 import { ChangeEvent, useEffect, useState } from "react";
 import { InputBase, alpha, styled } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import Header from "@/components/Header";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -78,7 +79,7 @@ export default function Crews() {
 
   return (
     <section className="EntityListing">
-      <h1>Crews</h1>
+      <Header title="CREWS" subtitle="" />
       <Search>
         <SearchIconWrapper>
           <SearchIcon />

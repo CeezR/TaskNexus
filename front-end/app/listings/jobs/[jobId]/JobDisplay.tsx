@@ -51,7 +51,6 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
   const [companies, setCompanies] = useState<Company[]>();
 
   const handleFormSubmit = async (values: InitialValues) => {
-    alert(JSON.stringify(values, undefined, 2));
     handleClose();
     const res = await editJob(values);
     setJob(res);
@@ -126,7 +125,6 @@ const JobDisplay = ({ jobId }: JobDisplayProps) => {
         throw new Error("Network response was not ok");
       }
       const data: Job = await response.json();
-      console.log(data);
       setJob(data);
       return data;
     } catch (error) {
