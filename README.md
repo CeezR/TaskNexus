@@ -31,9 +31,14 @@ Follow these steps to get the application up and running in your local environme
 | 4. Run the project               | `npm run dev`             | `mvn start`               |
 
 ### 🔌 Usage 
-LINK TO YOUTUBE
+[![DemoVideo](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/Bye2hkIDZQs)
 
-### 🪩 Feature List
+
+
+### 🔧 Key Features:
+- Centralized project hub for seamless coordination.
+- Efficient task management for improved productivity.
+- Document storage and version control for easy access.
 ![Home Page](/front-end/public/DisplayImageHome.png)
 
 ### 🚧 Known Issues and Limitations:
