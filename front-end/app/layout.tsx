@@ -16,19 +16,19 @@ export default function RootLayout({
   const [theme, colorMode] = useMode();
   return (
     <html lang="en">
-
       <body className={inter.className}>
         <ColorModeContext.Provider value={colorMode}>
-          <div className='app'>
+          <div className='app' style={{ display: 'flex', height: '100vh' }}>
           <ThemeProvider theme={theme}>
-            <CssBaseline />
             <Sidebar />
-            {children}
-          </ThemeProvider>
+            <div style={{ flex: 1, overflowY: 'auto' }}>
+                <CssBaseline />
+                {children}
+            </div>
+            </ThemeProvider>
           </div>
         </ColorModeContext.Provider>
       </body>
-
     </html>
   )
 }
