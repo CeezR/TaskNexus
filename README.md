@@ -1,6 +1,10 @@
 # TaskNexus
 Job management system to enhance efficiency and organization
 
+🚨 Important Notice: This project was previously hosted on Azure, but unfortunately, it is no longer actively hosted. If you'd like to explore the completed project, we invite you to check out the video demo provided below.
+
+[![DemoVideo](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/Bye2hkIDZQs)
+
 ### Table of Contents
 - [📱 Tech Stack](#-tech-stack)
 - [💸 Pitch](#-pitch)
